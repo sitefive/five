@@ -1,0 +1,230 @@
+{
+  "menu": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "cases": "Cases",
+    "blog": "Blog",
+    "contact": "Contact",
+    "clientArea": "Client Area",
+    "toggle": "Toggle menu"
+  },
+  "hero": {
+    "title": "Specialized Consulting in HR Systems",
+    "subtitle": "Transforming your HR with Custom IT Solutions",
+    "cta": "Request a Consultation"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Custom solutions to drive your business forward",
+    "consulting": {
+      "title": "Specialized Consulting",
+      "description": "Strategic consulting for HR systems and process optimization",
+      "benefits": {
+        "title": "Benefits",
+        "items": [
+          "Detailed process analysis",
+          "Custom solutions",
+          "Assisted implementation",
+          "Continuous support"
+        ]
+      }
+    },
+    "support": {
+      "title": "AMS Support",
+      "description": "Continuous support and maintenance of HR systems",
+      "benefits": {
+        "title": "Benefits",
+        "items": [
+          "24/7 Support",
+          "Quick resolution",
+          "Proactive monitoring",
+          "Specialized team"
+        ]
+      }
+    },
+    "revitalization": {
+      "title": "System Revitalization",
+      "description": "Modernization and updating of legacy systems",
+      "benefits": {
+        "title": "Benefits",
+        "items": [
+          "Updated technology",
+          "Better performance",
+          "Cost reduction",
+          "Enhanced security"
+        ]
+      }
+    },
+    "optimization": {
+      "title": "Process Optimization",
+      "description": "Continuous improvement of processes and workflows",
+      "benefits": {
+        "title": "Benefits",
+        "items": [
+          "Greater efficiency",
+          "Optimized processes",
+          "Error reduction",
+          "Better productivity"
+        ]
+      }
+    },
+    "methodology": {
+      "title": "Our Methodology",
+      "phases": {
+        "diagnosis": {
+          "title": "Diagnosis",
+          "steps": [
+            "Initial analysis",
+            "Problem identification",
+            "Process evaluation",
+            "Goal setting"
+          ]
+        },
+        "planning": {
+          "title": "Planning",
+          "steps": [
+            "Strategy definition",
+            "Plan development",
+            "Resource allocation",
+            "Detailed schedule"
+          ]
+        },
+        "implementation": {
+          "title": "Implementation",
+          "steps": [
+            "Project execution",
+            "Continuous monitoring",
+            "Necessary adjustments",
+            "Results evaluation"
+          ]
+        }
+      }
+    },
+    "cta": "Talk to an expert"
+  },
+  "about": {
+    "title": "About Us",
+    "description": "We are experts in transforming challenges into opportunities, driving sustainable business growth.",
+    "focus": {
+      "title": "Client Focus",
+      "description": "We understand each client's specific needs to deliver customized solutions."
+    },
+    "automation": {
+      "title": "Intelligent Automation",
+      "description": "We use advanced technologies to automate and optimize processes."
+    },
+    "consulting": {
+      "title": "Strategic Consulting",
+      "description": "We provide expert guidance to achieve exceptional results."
+    }
+  },
+  "cases": {
+    "title": "Success Cases",
+    "description": "Learn about some of our success stories",
+    "viewCase": "View full case"
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Get in touch with us",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send message",
+      "success": "Message sent successfully!",
+      "error": "Error sending message. Please try again."
+    }
+  },
+  "footer": {
+    "about": "About",
+    "aboutText": "We are experts in transforming challenges into opportunities through innovative solutions.",
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "newsletter": "Newsletter",
+    "newsletterText": "Subscribe to receive news and updates",
+    "rights": "© 2025 FIVE Consulting. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfUse": "Terms of Use"
+  },
+  "newsletter": {
+    "placeholder": "Your email",
+    "subscribe": "Subscribe",
+    "success": "Subscription successful!",
+    "error": "Subscription error",
+    "emailRequired": "Email is required",
+    "unsubscribe": "You can unsubscribe at any time"
+  },
+  "cookies": {
+    "title": "Cookies",
+    "message": "We use cookies to improve your experience. By continuing to browse, you agree to our",
+    "privacyLink": "Privacy Policy",
+    "accept": "Accept",
+    "customize": "Customize"
+  },
+  "whatsapp": {
+    "tooltip": "Chat with us on WhatsApp",
+    "message": "Hi! I'd like to know more about your services."
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Insights, analysis and trends from the business world",
+    "search": "Search",
+    "categories": "Categories",
+    "recentPosts": "Recent Posts",
+    "featured": "Featured",
+    "readingTime": "{{time}} min read",
+    "allCategories": "All categories",
+    "loadMore": "Load more",
+    "noResults": "No results found",
+    "tryAdjustSearch": "Try adjusting your search or filters",
+    "showingResults": "Showing {{count}} results",
+    "showingResultsInCategory": "Showing {{count}} results in {{category}}",
+    "showingResultsWithSearch": "Showing {{count}} results for \"{{query}}\"",
+    "showingResultsWithCategoryAndSearch": "Showing {{count}} results in {{category}} for \"{{query}}\"",
+    "share": "Share",
+    "shareOnFacebook": "Share on Facebook",
+    "shareOnTwitter": "Share on Twitter",
+    "shareOnLinkedIn": "Share on LinkedIn",
+    "copyLink": "Copy link",
+    "author": "Author",
+    "postNotFound": "Post not found",
+    "errorLoading": "Error loading content"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "description": "Learn how we collect, use and protect your personal data.",
+    "intro": "FIVE Consulting values your privacy. This Privacy Policy explains how we collect, use and protect your information.",
+    "collection": {
+      "title": "1. Information We Collect",
+      "description": "We may collect personal information such as name, email, phone number and professional data voluntarily provided by you when contacting us or subscribing to our newsletter."
+    },
+    "usage": {
+      "title": "2. How We Use Your Data",
+      "description": "We use your information to answer inquiries, send relevant content, provide contracted services, improve user experience and comply with legal obligations."
+    },
+    "sharing": {
+      "title": "3. Data Sharing",
+      "description": "We do not share your information with third parties, except when necessary for service execution or required by law."
+    },
+    "security": {
+      "title": "4. Information Security",
+      "description": "We adopt technical and organizational measures to protect your data against unauthorized access, destruction, loss or alteration."
+    },
+    "cookies": {
+      "title": "5. Cookies",
+      "description": "We use cookies to improve your website experience, analyze traffic and personalize content. You can manage cookie preferences in our consent banner."
+    },
+    "rights": {
+      "title": "6. Your Rights",
+      "description": "According to data protection laws, you have the right to access, correct or delete your personal data. To do so, contact us at contact@fiveconsulting.com.br."
+    },
+    "changes": {
+      "title": "7. Changes to This Policy",
+      "description": "This policy may be updated periodically. The most recent version will always be available on this page."
+    },
+    "lastUpdate": "Last updated: {{date}}"
+  }
+}

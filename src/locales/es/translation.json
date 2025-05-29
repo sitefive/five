@@ -1,0 +1,258 @@
+{
+  "menu": {
+    "home": "Inicio",
+    "about": "Sobre",
+    "services": "Servicios",
+    "cases": "Casos",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "clientArea": "Área de Cliente",
+    "toggle": "Alternar menú"
+  },
+  "hero": {
+    "title": "Consultoría Especializada en Sistemas de RRHH",
+    "subtitle": "Transformando su RRHH con Soluciones de TI Personalizadas",
+    "cta": "Solicite una Consultoría"
+  },
+  "services": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Soluciones personalizadas para impulsar su negocio",
+    "consulting": {
+      "title": "Consultoría Especializada",
+      "description": "Consultoría estratégica para optimización de procesos y sistemas de RRHH",
+      "benefits": {
+        "title": "Beneficios",
+        "items": [
+          "Análisis detallado de procesos",
+          "Soluciones personalizadas",
+          "Implementación asistida",
+          "Soporte continuo"
+        ]
+      }
+    },
+    "support": {
+      "title": "Soporte AMS",
+      "description": "Soporte continuo y mantenimiento de sistemas de RRHH",
+      "benefits": {
+        "title": "Beneficios",
+        "items": [
+          "Atención 24/7",
+          "Resolución rápida",
+          "Monitoreo proactivo",
+          "Equipo especializado"
+        ]
+      }
+    },
+    "revitalization": {
+      "title": "Revitalización de Sistemas",
+      "description": "Modernización y actualización de sistemas heredados",
+      "benefits": {
+        "title": "Beneficios",
+        "items": [
+          "Tecnología actualizada",
+          "Mejor rendimiento",
+          "Reducción de costos",
+          "Mayor seguridad"
+        ]
+      }
+    },
+    "optimization": {
+      "title": "Optimización de Procesos",
+      "description": "Mejora continua de procesos y flujos de trabajo",
+      "benefits": {
+        "title": "Beneficios",
+        "items": [
+          "Mayor eficiencia",
+          "Procesos optimizados",
+          "Reducción de errores",
+          "Mejor productividad"
+        ]
+      }
+    },
+    "methodology": {
+      "title": "Nuestra Metodología",
+      "phases": {
+        "diagnosis": {
+          "title": "Diagnóstico",
+          "steps": [
+            "Análisis inicial",
+            "Identificación de problemas",
+            "Evaluación de procesos",
+            "Definición de objetivos"
+          ]
+        },
+        "planning": {
+          "title": "Planificación",
+          "steps": [
+            "Definición de estrategia",
+            "Elaboración del plan",
+            "Asignación de recursos",
+            "Cronograma detallado"
+          ]
+        },
+        "implementation": {
+          "title": "Implementación",
+          "steps": [
+            "Ejecución del proyecto",
+            "Monitoreo continuo",
+            "Ajustes necesarios",
+            "Evaluación de resultados"
+          ]
+        }
+      }
+    },
+    "cta": "Hable con un experto"
+  },
+  "about": {
+    "title": "Sobre Nosotros",
+    "description": "Somos expertos en transformar desafíos en oportunidades, impulsando el crecimiento sostenible de empresas.",
+    "focus": {
+      "title": "Enfoque en el Cliente",
+      "description": "Entendemos las necesidades específicas de cada cliente para entregar soluciones personalizadas."
+    },
+    "automation": {
+      "title": "Automatización Inteligente",
+      "description": "Utilizamos tecnologías avanzadas para automatizar y optimizar procesos."
+    },
+    "consulting": {
+      "title": "Consultoría Estratégica",
+      "description": "Ofrecemos orientación especializada para alcanzar resultados excepcionales."
+    }
+  },
+  "cases": {
+    "title": "Casos de Éxito",
+    "description": "Conozca algunas de nuestras historias de éxito",
+    "viewCase": "Ver caso completo"
+  },
+  "contact": {
+    "title": "Contacto",
+    "description": "Póngase en contacto con nosotros",
+    "form": {
+      "name": "Nombre",
+      "email": "Correo",
+      "phone": "Teléfono",
+      "subject": "Asunto",
+      "message": "Mensaje",
+      "submit": "Enviar mensaje",
+      "success": "¡Mensaje enviado con éxito!",
+      "error": "Error al enviar mensaje. Intente nuevamente."
+    }
+  },
+  "footer": {
+    "about": "Sobre",
+    "aboutText": "Somos expertos en transformar desafíos en oportunidades a través de soluciones innovadoras.",
+    "quickLinks": "Enlaces Rápidos",
+    "contact": "Contacto",
+    "newsletter": "Newsletter",
+    "newsletterText": "Suscríbase para recibir novedades y actualizaciones",
+    "rights": "© 2025 FIVE Consulting. Todos los derechos reservados.",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfUse": "Términos de Uso"
+  },
+  "newsletter": {
+    "placeholder": "Su correo",
+    "subscribe": "Suscribirse",
+    "success": "¡Suscripción realizada con éxito!",
+    "error": "Error al realizar suscripción",
+    "emailRequired": "El correo es obligatorio",
+    "unsubscribe": "Puede cancelar su suscripción en cualquier momento"
+  },
+  "cookies": {
+    "title": "Cookies",
+    "message": "Utilizamos cookies para mejorar su experiencia. Al continuar navegando, acepta nuestra",
+    "privacyLink": "Política de Privacidad",
+    "accept": "Aceptar",
+    "customize": "Personalizar"
+  },
+  "whatsapp": {
+    "tooltip": "Hable con nosotros por WhatsApp",
+    "message": "¡Hola! Me gustaría saber más sobre sus servicios."
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Insights, análisis y tendencias del mundo empresarial",
+    "search": "Buscar",
+    "categories": "Categorías",
+    "recentPosts": "Posts Recientes",
+    "featured": "Destacado",
+    "readingTime": "{{time}} min de lectura",
+    "allCategories": "Todas las categorías",
+    "loadMore": "Cargar más",
+    "noResults": "No se encontraron resultados",
+    "tryAdjustSearch": "Intente ajustar su búsqueda o filtros",
+    "showingResults": "Mostrando {{count}} resultados",
+    "showingResultsInCategory": "Mostrando {{count}} resultados en {{category}}",
+    "showingResultsWithSearch": "Mostrando {{count}} resultados para \"{{query}}\"",
+    "showingResultsWithCategoryAndSearch": "Mostrando {{count}} resultados en {{category}} para \"{{query}}\"",
+    "share": "Compartir",
+    "shareOnFacebook": "Compartir en Facebook",
+    "shareOnTwitter": "Compartir en Twitter",
+    "shareOnLinkedIn": "Compartir en LinkedIn",
+    "copyLink": "Copiar enlace",
+    "author": "Autor",
+    "postNotFound": "Post no encontrado",
+    "errorLoading": "Error al cargar contenido"
+  },
+  "privacy": {
+    "title": "Política de Privacidad",
+    "description": "Conozca cómo recopilamos, utilizamos y protegemos sus datos personales.",
+    "intro": "FIVE Consulting valora su privacidad. Esta Política de Privacidad explica cómo recopilamos, utilizamos y protegemos su información.",
+    "collection": {
+      "title": "1. Información que recopilamos",
+      "description": "Podemos recopilar información personal como nombre, correo electrónico, teléfono y datos profesionales proporcionados voluntariamente por usted al contactarnos o suscribirse a nuestro boletín."
+    },
+    "usage": {
+      "title": "2. Cómo utilizamos sus datos",
+      "description": "Utilizamos su información para responder consultas, enviar contenido relevante, prestar servicios contratados, mejorar la experiencia del usuario y cumplir con obligaciones legales."
+    },
+    "sharing": {
+      "title": "3. Compartición de datos",
+      "description": "No compartimos su información con terceros, excepto cuando sea necesario para la ejecución de servicios o requerido por ley."
+    },
+    "security": {
+      "title": "4. Seguridad de la información",
+      "description": "Adoptamos medidas técnicas y organizativas para proteger sus datos contra acceso no autorizado, destrucción, pérdida o alteración."
+    },
+    "cookies": {
+      "title": "5. Cookies",
+      "description": "Utilizamos cookies para mejorar su experiencia en el sitio, analizar el tráfico y personalizar contenido. Puede gestionar las preferencias de cookies en nuestro banner de consentimiento."
+    },
+    "rights": {
+      "title": "6. Sus derechos",
+      "description": "De acuerdo con las leyes de protección de datos, tiene derecho a acceder, corregir o eliminar sus datos personales. Para hacerlo, contáctenos en contacto@fiveconsulting.com.br."
+    },
+    "changes": {
+      "title": "7. Cambios en esta política",
+      "description": "Esta política puede actualizarse periódicamente. La versión más reciente estará siempre disponible en esta página."
+    },
+    "lastUpdate": "Última actualización: {{date}}"
+  },
+  "terms": {
+    "title": "Términos de Uso",
+    "description": "Por favor, lea atentamente estos términos antes de usar nuestros servicios.",
+    "intro": "Al acceder y utilizar este sitio web, usted acepta cumplir y estar sujeto a estos términos y condiciones de uso.",
+    "sections": {
+      "acceptance": {
+        "title": "1. Aceptación de los términos",
+        "description": "Al utilizar nuestros servicios, usted acepta estos términos en su totalidad. Si no está de acuerdo con alguna parte de los términos, no debe usar nuestros servicios."
+      },
+      "services": {
+        "title": "2. Servicios",
+        "description": "Nos comprometemos a proporcionar nuestros servicios con el máximo cuidado y profesionalismo, siguiendo las mejores prácticas de la industria."
+      },
+      "intellectual": {
+        "title": "3. Propiedad intelectual",
+        "description": "Todo el contenido de este sitio está protegido por derechos de autor y otras leyes de propiedad intelectual."
+      },
+      "liability": {
+        "title": "4. Limitación de responsabilidad",
+        "description": "No seremos responsables por daños indirectos, incidentales o consecuentes que surjan del uso de nuestros servicios."
+      },
+      "modifications": {
+        "title": "5. Modificaciones",
+        "description": "Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación."
+      }
+    },
+    "lastUpdate": "Última actualización: {{date}}"
+  }
+}

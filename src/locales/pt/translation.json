@@ -1,0 +1,231 @@
+{
+  "menu": {
+    "home": "Home",
+    "about": "Sobre",
+    "services": "Serviços",
+    "cases": "Cases",
+    "blog": "Blog",
+    "contact": "Contato",
+    "clientArea": "Área do Cliente",
+    "toggle": "Alternar menu"
+  },
+  "hero": {
+    "title": "Consultoria especializada em Sistemas de Recursos Humanos",
+    "subtitle": "Transformando o seu RH com Soluções de TI Personalizadas",
+    "cta": "Solicite uma Consultoria"
+  },
+  "services": {
+    "title": "Nossos Serviços",
+    "subtitle": "Soluções personalizadas para impulsionar seu negócio",
+    "consulting": {
+      "title": "Consultoria Especializada",
+      "description": "Consultoria estratégica para otimização de processos e sistemas de RH",
+      "benefits": {
+        "title": "Benefícios",
+        "items": [
+          "Análise detalhada de processos",
+          "Soluções personalizadas",
+          "Implementação assistida",
+          "Suporte contínuo"
+        ]
+      }
+    },
+    "support": {
+      "title": "Suporte AMS",
+      "description": "Suporte contínuo e manutenção de sistemas de RH",
+      "benefits": {
+        "title": "Benefícios",
+        "items": [
+          "Atendimento 24/7",
+          "Resolução rápida",
+          "Monitoramento proativo",
+          "Equipe especializada"
+        ]
+      }
+    },
+    "revitalization": {
+      "title": "Revitalização de Sistemas",
+      "description": "Modernização e atualização de sistemas legados",
+      "benefits": {
+        "title": "Benefícios",
+        "items": [
+          "Tecnologia atualizada",
+          "Melhor performance",
+          "Redução de custos",
+          "Maior segurança"
+        ]
+      }
+    },
+    "optimization": {
+      "title": "Otimização de Processos",
+      "description": "Melhoria contínua de processos e fluxos de trabalho",
+      "benefits": {
+        "title": "Benefícios",
+        "items": [
+          "Maior eficiência",
+          "Processos otimizados",
+          "Redução de erros",
+          "Melhor produtividade"
+        ]
+      }
+    },
+    "methodology": {
+      "title": "Nossa Metodologia",
+      "phases": {
+        "diagnosis": {
+          "title": "Diagnóstico",
+          "steps": [
+            "Análise inicial",
+            "Identificação de problemas",
+            "Avaliação de processos",
+            "Definição de objetivos"
+          ]
+        },
+        "planning": {
+          "title": "Planejamento",
+          "steps": [
+            "Definição de estratégia",
+            "Elaboração do plano",
+            "Alocação de recursos",
+            "Cronograma detalhado"
+          ]
+        },
+        "implementation": {
+          "title": "Implementação",
+          "steps": [
+            "Execução do projeto",
+            "Monitoramento contínuo",
+            "Ajustes necessários",
+            "Avaliação de resultados"
+          ]
+        }
+      }
+    },
+    "cta": "Fale com um especialista"
+  },
+  "about": {
+    "title": "Sobre Nós",
+    "description": "Somos especialistas em transformar desafios em oportunidades, impulsionando o crescimento sustentável de empresas.",
+    "focus": {
+      "title": "Foco no Cliente",
+      "description": "Entendemos as necessidades específicas de cada cliente para entregar soluções personalizadas."
+    },
+    "automation": {
+      "title": "Automação Inteligente",
+      "description": "Utilizamos tecnologias avançadas para automatizar e otimizar processos."
+    },
+    "consulting": {
+      "title": "Consultoria Estratégica",
+      "description": "Oferecemos orientação especializada para alcançar resultados excepcionais."
+    }
+  },
+  "cases": {
+    "title": "Cases de Sucesso",
+    "description": "Conheça algumas das nossas histórias de sucesso",
+    "viewCase": "Ver case completo"
+  },
+  "contact": {
+    "title": "Contato",
+    "description": "Entre em contato conosco",
+    "form": {
+      "title": "Fale Conosco",
+      "name": "Nome",
+      "email": "E-mail",
+      "phone": "Telefone",
+      "subject": "Assunto",
+      "message": "Mensagem",
+      "submit": "Enviar mensagem",
+      "success": "Mensagem enviada com sucesso!",
+      "error": "Erro ao enviar mensagem. Tente novamente."
+    }
+  },
+  "footer": {
+    "about": "Sobre",
+    "aboutText": "Somos especialistas em transformar desafios em oportunidades através de soluções inovadoras.",
+    "quickLinks": "Links Rápidos",
+    "contact": "Contato",
+    "newsletter": "Newsletter",
+    "newsletterText": "Inscreva-se para receber novidades e atualizações",
+    "rights": "© 2025 FIVE Consulting. Todos os direitos reservados.",
+    "privacyPolicy": "Política de Privacidade",
+    "termsOfUse": "Termos de Uso"
+  },
+  "newsletter": {
+    "placeholder": "Seu e-mail",
+    "subscribe": "Inscrever",
+    "success": "Inscrição realizada com sucesso!",
+    "error": "Erro ao realizar inscrição",
+    "emailRequired": "E-mail é obrigatório",
+    "unsubscribe": "Você pode cancelar sua inscrição a qualquer momento"
+  },
+  "cookies": {
+    "title": "Cookies",
+    "message": "Utilizamos cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa",
+    "privacyLink": "Política de Privacidade",
+    "accept": "Aceitar",
+    "customize": "Personalizar"
+  },
+  "whatsapp": {
+    "tooltip": "Fale conosco no WhatsApp",
+    "message": "Olá! Gostaria de saber mais sobre seus serviços."
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Insights, análises e tendências do mundo dos negócios",
+    "search": "Pesquisar",
+    "categories": "Categorias",
+    "recentPosts": "Posts Recentes",
+    "featured": "Destaque",
+    "readingTime": "{{time}} min de leitura",
+    "allCategories": "Todas as categorias",
+    "loadMore": "Carregar mais",
+    "noResults": "Nenhum resultado encontrado",
+    "tryAdjustSearch": "Tente ajustar sua busca ou filtros",
+    "showingResults": "Mostrando {{count}} resultados",
+    "showingResultsInCategory": "Mostrando {{count}} resultados em {{category}}",
+    "showingResultsWithSearch": "Mostrando {{count}} resultados para \"{{query}}\"",
+    "showingResultsWithCategoryAndSearch": "Mostrando {{count}} resultados em {{category}} para \"{{query}}\"",
+    "share": "Compartilhar",
+    "shareOnFacebook": "Compartilhar no Facebook",
+    "shareOnTwitter": "Compartilhar no Twitter",
+    "shareOnLinkedIn": "Compartilhar no LinkedIn",
+    "copyLink": "Copiar link",
+    "author": "Autor",
+    "postNotFound": "Post não encontrado",
+    "errorLoading": "Erro ao carregar conteúdo"
+  },
+  "privacy": {
+    "title": "Política de Privacidade",
+    "description": "Saiba como coletamos, usamos e protegemos seus dados pessoais.",
+    "intro": "A FIVE Consulting valoriza a privacidade dos seus dados. Esta Política de Privacidade explica como coletamos, usamos e protegemos suas informações.",
+    "collection": {
+      "title": "1. Informações que coletamos",
+      "description": "Podemos coletar informações pessoais como nome, e-mail, telefone e dados profissionais fornecidos voluntariamente por você ao entrar em contato conosco ou se inscrever em nossa newsletter."
+    },
+    "usage": {
+      "title": "2. Como utilizamos seus dados",
+      "description": "Utilizamos suas informações para responder dúvidas, enviar conteúdos relevantes, prestar serviços contratados, melhorar a experiência do usuário e cumprir obrigações legais."
+    },
+    "sharing": {
+      "title": "3. Compartilhamento de dados",
+      "description": "Não compartilhamos suas informações com terceiros, exceto quando necessário para execução dos serviços ou exigido por lei."
+    },
+    "security": {
+      "title": "4. Segurança da informação",
+      "description": "Adotamos medidas técnicas e organizacionais para proteger seus dados contra acesso não autorizado, destruição, perda ou alteração."
+    },
+    "cookies": {
+      "title": "5. Cookies",
+      "description": "Utilizamos cookies para melhorar sua experiência no site, analisar o tráfego e personalizar conteúdo. Você pode gerenciar as preferências de cookies em nosso banner de consentimento."
+    },
+    "rights": {
+      "title": "6. Seus direitos",
+      "description": "De acordo com a LGPD, você tem direito a acessar, corrigir ou excluir seus dados pessoais. Para isso, entre em contato conosco através do e-mail contato@fiveconsulting.com.br."
+    },
+    "changes": {
+      "title": "7. Alterações nesta política",
+      "description": "Esta política pode ser atualizada periodicamente. A versão mais recente estará sempre disponível nesta página."
+    },
+    "lastUpdate": "Última atualização: {{date}}"
+  }
+}
