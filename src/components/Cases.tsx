@@ -1,7 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import logoEmpresa1 from '../assets/logo-empresa1.png';
-import logoEmpresa2 from '../assets/logo-empresa2.png';
 
 const Cases = () => {
   const { t } = useTranslation();
