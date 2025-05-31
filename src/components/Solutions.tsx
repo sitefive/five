@@ -20,7 +20,7 @@ const Solutions = () => {
       link: `/${lang}/servicos/consultoria-especialista`
     },
     {
-      icon: <HeadphonesIcon className="w-12 h-12 text-blue-600" strokeWidth={1.5} />,
+      icon: <HeadphonesIcon className="w-12 h-12 text-blue-600\" strokeWidth={1.5} />,
       title: t('services.support.title'),
       description: t('services.support.description'),
       link: `/${lang}/servicos/suporte-ams`
@@ -32,7 +32,7 @@ const Solutions = () => {
       link: `/${lang}/servicos/revitalizacao`
     },
     {
-      icon: <Settings className="w-12 h-12 text-blue-600" strokeWidth={1.5} />,
+      icon: <Settings className="w-12 h-12 text-blue-600\" strokeWidth={1.5} />,
       title: t('services.optimization.title'),
       description: t('services.optimization.description'),
       link: `/${lang}/servicos/otimizacao-processos`
