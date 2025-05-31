@@ -1,14 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import logoEmpresa1 from '../assets/logo-empresa1.png';
-import logoEmpresa2 from '../assets/logo-empresa2.png';
-
 const Cases = () => {
   const { t } = useTranslation();
 
   return (
-    <section id="cases" className="py-20 bg-white">
+    <section id="cases-sucesso" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
