@@ -28,7 +28,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to={`/${lang}/servicos`} className="hover:text-white transition-colors duration-300">
+                <Link to={`/${lang}/#Solutions`} className="hover:text-white transition-colors duration-300">
                   {t('menu.services')}
                 </Link>
               </li>
