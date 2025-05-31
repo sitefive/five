@@ -9,7 +9,7 @@ const Services = () => {
 
   const services = [
     {
-      icon: <Users2 className="w-12 h-12 text-blue-600" />,
+      icon: <Users2 className="w-12 h-12 text-blue-200" />,
       title: t('services.consulting.title'),
       description: t('services.consulting.description'),
       slug: 'consultoria-especialista'
