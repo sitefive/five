@@ -23,17 +23,17 @@ const Footer = () => {
             <h3 className="text-xl font-semibold text-white mb-4">{t('footer.quickLinks')}</h3>
             <ul className="space-y-2">
               <li>
-                <Link to={`/${lang}/#sobre-nos`} className="hover:text-white transition-colors duration-300">
+                <Link to={`/${lang}/#experts`} className="hover:text-white transition-colors duration-300">
                   {t('menu.about')}
                 </Link>
               </li>
               <li>
-                <Link to={`/${lang}/#nossos-servicos`} className="hover:text-white transition-colors duration-300">
+                <Link to={`/${lang}/servicos`} className="hover:text-white transition-colors duration-300">
                   {t('menu.services')}
                 </Link>
               </li>
               <li>
-                <Link to={`/${lang}/#cases-sucesso`} className="hover:text-white transition-colors duration-300">
+                <Link to={`/${lang}/#cases`} className="hover:text-white transition-colors duration-300">
                   {t('menu.cases')}
                 </Link>
               </li>
