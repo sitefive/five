@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Instagram, Linkedin, Mail, Phone } from 'lucide-react';
 import Newsletter from './Newsletter';
 
 const Footer = () => {
   const { t } = useTranslation();
+  const { lang } = useParams();
 
   return (
     <footer className="bg-gray-900 text-gray-300">
@@ -22,27 +23,27 @@ const Footer = () => {
             <h3 className="text-xl font-semibold text-white mb-4">{t('footer.quickLinks')}</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/Sobre" className="hover:text-white transition-colors duration-300">
+                <Link to={`/${lang}/#experts`} className="hover:text-white transition-colors duration-300">
                   {t('menu.about')}
                 </Link>
               </li>
               <li>
-                <Link to="/servicos" className="hover:text-white transition-colors duration-300">
+                <Link to={`/${lang}/servicos`} className="hover:text-white transition-colors duration-300">
                   {t('menu.services')}
                 </Link>
               </li>
               <li>
-                <Link to="/cases" className="hover:text-white transition-colors duration-300">
+                <Link to={`/${lang}/#cases`} className="hover:text-white transition-colors duration-300">
                   {t('menu.cases')}
                 </Link>
               </li>
               <li>
-                <Link to="/blog" className="hover:text-white transition-colors duration-300">
+                <Link to={`/${lang}/blog`} className="hover:text-white transition-colors duration-300">
                   {t('menu.blog')}
                 </Link>
               </li>
               <li>
-                <Link to="/contato" className="hover:text-white transition-colors duration-300">
+                <Link to={`/${lang}/contato`} className="hover:text-white transition-colors duration-300">
                   {t('menu.contact')}
                 </Link>
               </li>
@@ -94,10 +95,10 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p>{t('footer.rights')}</p>
             <div className="flex space-x-4 mt-4 md:mt-0">
-              <Link to="/privacy-policy" className="hover:text-white transition-colors duration-300">
+              <Link to={`/${lang}/privacy-policy`} className="hover:text-white transition-colors duration-300">
                 {t('footer.privacyPolicy')}
               </Link>
-              <Link to="/terms-of-use" className="hover:text-white transition-colors duration-300">
+              <Link to={`/${lang}/terms-of-use`} className="hover:text-white transition-colors duration-300">
                 {t('footer.termsOfUse')}
               </Link>
             </div>
