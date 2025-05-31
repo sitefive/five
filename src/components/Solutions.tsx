@@ -61,7 +61,7 @@ const Solutions = () => {
               <div className="mb-6 flex justify-center transform group-hover:scale-110 transition-transform duration-300">
                 {service.icon}
               </div>
-              <h3 className="text-2xl font-semibold mb-4 text-center group-hover:text-gray-900 transition-colors duration-300">
+              <h3 className="text-2xl font-semibold mb-4 text-center group-hover:text-gray-700 transition-colors duration-300">
                 {service.title}
               </h3>
               <p className="text-gray-600 text-center">{service.description}</p>
