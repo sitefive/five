@@ -33,7 +33,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/cases" className="hover:text-white transition-colors duration-300">
-                  {t('menu.cases')}
+                  {t('menu.cases'), href: `/${currentLang}/#cases`, isAnchor: true },
                 </Link>
               </li>
               <li>
