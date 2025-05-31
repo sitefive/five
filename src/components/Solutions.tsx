@@ -14,13 +14,13 @@ const Solutions = () => {
 
   const services = [
     {
-      icon: <Users2 className="w-12 h-12 text-blue-200" strokeWidth={1.5} />,
+      icon: <Users2 className="w-12 h-12 text-blue-600" strokeWidth={1.5} />,
       title: t('services.consulting.title'),
       description: t('services.consulting.description'),
       link: `/${lang}/servicos/consultoria-especialista`
     },
     {
-      icon: <HeadphonesIcon className="w-12 h-12 text-blue-600\" strokeWidth={1.5} />,
+      icon: <HeadphonesIcon className="w-12 h-12 text-blue-200\" strokeWidth={1.5} />,
       title: t('services.support.title'),
       description: t('services.support.description'),
       link: `/${lang}/servicos/suporte-ams`
