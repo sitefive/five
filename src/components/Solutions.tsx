@@ -20,13 +20,13 @@ const Solutions = () => {
       link: `/${lang}/servicos/consultoria-especialista`
     },
     {
-      icon: <HeadphonesIcon className="w-12 h-12 text-blue-200\" strokeWidth={1.5} />,
+      icon: <HeadphonesIcon className="w-12 h-12 text-blue-600\" strokeWidth={1.5} />,
       title: t('services.support.title'),
       description: t('services.support.description'),
       link: `/${lang}/servicos/suporte-ams`
     },
     {
-      icon: <RefreshCw className="w-12 h-12 text-blue-600" strokeWidth={1.5} />,
+      icon: <RefreshCw className="w-12 h-12 text-blue-200" strokeWidth={1.5} />,
       title: t('services.revitalization.title'),
       description: t('services.revitalization.description'),
       link: `/${lang}/servicos/revitalizacao`
