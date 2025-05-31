@@ -9,16 +9,22 @@ const WhatsAppButton = () => {
   return (
     <div className="fixed bottom-8 right-8 z-50">
       <div className="relative">
+        {/* Tooltip */}
         {showTooltip && (
           <div className="absolute bottom-full right-0 mb-2 bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-sm whitespace-nowrap">
             {t('whatsapp.tooltip')}
           </div>
         )}
+
+        {/* Animação de pulse */}
+        <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 animate-ping"></span>
+
+        {/* Botão */}
         <a
           href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(t('whatsapp.message'))}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="whatsapp-button flex items-center justify-center p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300"
+          className="whatsapp-button relative flex items-center justify-center p-4 rounded-full shadow-lg bg-green-500 text-white hover:scale-110 transition-transform duration-300"
           onMouseEnter={() => setShowTooltip(true)}
           onMouseLeave={() => setShowTooltip(false)}
         >
