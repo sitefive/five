@@ -69,18 +69,21 @@ function App() {
             </Route>
 
             {/* Public Routes */}
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-use" element={<TermsOfUse />} />
             <Route path="/" element={<RedirectToBrowserLang />} />
 
             <Route path=":lang" element={<MultilangLayout />}>
               <Route index element={<Home />} />
+
+              {/* About */}
               <Route path={routeSlugs.about.pt} element={<About />} />
               <Route path={routeSlugs.about.en} element={<About />} />
               <Route path={routeSlugs.about.es} element={<About />} />
+
+              {/* Services */}
               <Route path={routeSlugs.services.pt} element={<Services />} />
               <Route path={routeSlugs.services.en} element={<Services />} />
               <Route path={routeSlugs.services.es} element={<Services />} />
+
               <Route
                 path={`${routeSlugs.services.pt}/consultoria-especialista`}
                 element={<ConsultoriaEspecialista />}
@@ -97,6 +100,7 @@ function App() {
                 path={`${routeSlugs.services.pt}/otimizacao-processos`}
                 element={<OtimizacaoProcessos />}
               />
+
               <Route
                 path={`${routeSlugs.services.pt}/:slug`}
                 element={<ServiceDetail />}
@@ -109,12 +113,17 @@ function App() {
                 path={`${routeSlugs.services.es}/:slug`}
                 element={<ServiceDetail />}
               />
+
+              {/* Cases */}
               <Route path={routeSlugs.cases.pt} element={<Cases />} />
               <Route path={routeSlugs.cases.en} element={<Cases />} />
               <Route path={routeSlugs.cases.es} element={<Cases />} />
+
+              {/* Blog */}
               <Route path={routeSlugs.blog.pt} element={<Blog />} />
               <Route path={routeSlugs.blog.en} element={<Blog />} />
               <Route path={routeSlugs.blog.es} element={<Blog />} />
+
               <Route
                 path={`${routeSlugs.blog.pt}/:slug`}
                 element={<PostDetail />}
@@ -127,6 +136,7 @@ function App() {
                 path={`${routeSlugs.blog.es}/:slug`}
                 element={<PostDetail />}
               />
+
               <Route
                 path={`${routeSlugs.blog.pt}/categoria/:slug`}
                 element={<CategoryPage />}
@@ -139,9 +149,30 @@ function App() {
                 path={`${routeSlugs.blog.es}/categoria/:slug`}
                 element={<CategoryPage />}
               />
+
+              {/* Contact */}
               <Route path={routeSlugs.contact.pt} element={<Contact />} />
               <Route path={routeSlugs.contact.en} element={<Contact />} />
               <Route path={routeSlugs.contact.es} element={<Contact />} />
+
+              {/* Privacy Policy */}
+              <Route
+                path={routeSlugs.privacy.pt}
+                element={<PrivacyPolicy />}
+              />
+              <Route
+                path={routeSlugs.privacy.en}
+                element={<PrivacyPolicy />}
+              />
+              <Route
+                path={routeSlugs.privacy.es}
+                element={<PrivacyPolicy />}
+              />
+
+              {/* Terms of Use */}
+              <Route path={routeSlugs.terms.pt} element={<TermsOfUse />} />
+              <Route path={routeSlugs.terms.en} element={<TermsOfUse />} />
+              <Route path={routeSlugs.terms.es} element={<TermsOfUse />} />
             </Route>
           </Routes>
         </div>
