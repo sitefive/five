@@ -10,7 +10,7 @@ const TermsOfUse = () => {
       <ParallaxHeader
         title={t('terms.title')}
         description={t('terms.description')}
-        image="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&q=80"
+        image="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&q=80"
       />
 
       <div className="container mx-auto px-4 py-16 max-w-4xl text-gray-800">
