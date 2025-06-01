@@ -39,6 +39,16 @@ const TermsOfUse = () => {
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.disclaimer.title')}</h2>
           <p className="leading-relaxed">{t('terms.disclaimer.description')}</p>
+          <ul className="list-disc list-inside space-y-2">
+            {t('terms.usageLicense.items', { returnObjects: true }).map(
+              (item: string, index: number) => (
+                <li key={index} className="leading-relaxed">
+                  {item}
+                </li>
+              )
+            )}
+          </ul>
+          <p className="leading-relaxed mt-4">{t('terms.usageLicense.termination')}</p>
         </section>
 
         {/* Limitações */}
