@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import ParallaxHeader from '../components/ParallaxHeader';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const TermsOfUse = () => {
   const { t } = useTranslation();
@@ -56,5 +57,13 @@ const TermsOfUse = () => {
     </div>
   );
 };
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['terms', 'common'])),
+    },
+  };
+}
 
 export default TermsOfUse;
