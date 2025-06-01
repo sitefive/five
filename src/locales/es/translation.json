@@ -1,25 +1,25 @@
 {
   "menu": {
     "home": "Inicio",
-    "about": "Sobre",
+    "about": "Sobre Nosotros",
     "services": "Servicios",
     "cases": "Casos",
     "blog": "Blog",
     "contact": "Contacto",
-    "clientArea": "Área de Cliente",
+    "clientArea": "Área del Cliente",
     "toggle": "Alternar menú"
   },
   "hero": {
-    "title": "Consultoría Especializada en Sistemas de RRHH",
-    "subtitle": "Transformando su RRHH con Soluciones de TI Personalizadas",
-    "cta": "Solicite una Consultoría"
+    "title": "Consultoría especializada en Sistemas de Recursos Humanos",
+    "subtitle": "Transformamos tu RRHH con soluciones TI personalizadas",
+    "cta": "Solicita una Consultoría"
   },
   "services": {
     "title": "Nuestros Servicios",
-    "subtitle": "Soluciones personalizadas para impulsar su negocio",
+    "subtitle": "Soluciones personalizadas para impulsar tu negocio",
     "consulting": {
       "title": "Consultoría Especializada",
-      "description": "Consultoría estratégica para optimización de procesos y sistemas de RRHH",
+      "description": "Consultoría estratégica para optimizar procesos y sistemas de RRHH",
       "benefits": {
         "title": "Beneficios",
         "items": [
@@ -65,7 +65,7 @@
           "Mayor eficiencia",
           "Procesos optimizados",
           "Reducción de errores",
-          "Mejor productividad"
+          "Mejora de la productividad"
         ]
       }
     },
@@ -101,14 +101,14 @@
         }
       }
     },
-    "cta": "Hable con un experto"
+    "cta": "Habla con un especialista"
   },
   "about": {
     "title": "Sobre Nosotros",
-    "description": "Somos expertos en transformar desafíos en oportunidades, impulsando el crecimiento sostenible de empresas.",
+    "description": "Somos especialistas en transformar desafíos en oportunidades, impulsando el crecimiento sostenible de las empresas.",
     "focus": {
       "title": "Enfoque en el Cliente",
-      "description": "Entendemos las necesidades específicas de cada cliente para entregar soluciones personalizadas."
+      "description": "Comprendemos las necesidades específicas de cada cliente para ofrecer soluciones personalizadas."
     },
     "automation": {
       "title": "Automatización Inteligente",
@@ -116,61 +116,62 @@
     },
     "consulting": {
       "title": "Consultoría Estratégica",
-      "description": "Ofrecemos orientación especializada para alcanzar resultados excepcionales."
+      "description": "Ofrecemos orientación especializada para lograr resultados excepcionales."
     }
   },
   "cases": {
     "title": "Casos de Éxito",
-    "description": "Conozca algunas de nuestras historias de éxito",
+    "description": "Conoce algunas de nuestras historias de éxito",
     "viewCase": "Ver caso completo"
   },
   "contact": {
     "title": "Contacto",
-    "description": "Póngase en contacto con nosotros",
+    "description": "Ponte en contacto con nosotros",
     "form": {
+      "title": "Contáctanos",
       "name": "Nombre",
-      "email": "Correo",
+      "email": "Correo electrónico",
       "phone": "Teléfono",
       "subject": "Asunto",
       "message": "Mensaje",
       "submit": "Enviar mensaje",
       "success": "¡Mensaje enviado con éxito!",
-      "error": "Error al enviar mensaje. Intente nuevamente."
+      "error": "Error al enviar el mensaje. Inténtalo de nuevo."
     }
   },
   "footer": {
-    "about": "Sobre",
-    "aboutText": "Somos expertos en transformar desafíos en oportunidades a través de soluciones innovadoras.",
+    "about": "Sobre Nosotros",
+    "aboutText": "Somos especialistas en transformar desafíos en oportunidades a través de soluciones innovadoras.",
     "quickLinks": "Enlaces Rápidos",
     "contact": "Contacto",
     "newsletter": "Newsletter",
-    "newsletterText": "Suscríbase para recibir novedades y actualizaciones",
+    "newsletterText": "Suscríbete para recibir noticias y actualizaciones",
     "rights": "© 2025 FIVE Consulting. Todos los derechos reservados.",
     "privacyPolicy": "Política de Privacidad",
     "termsOfUse": "Términos de Uso"
   },
   "newsletter": {
-    "placeholder": "Su correo",
+    "placeholder": "Tu correo electrónico",
     "subscribe": "Suscribirse",
     "success": "¡Suscripción realizada con éxito!",
-    "error": "Error al realizar suscripción",
+    "error": "Error al realizar la suscripción",
     "emailRequired": "El correo es obligatorio",
-    "unsubscribe": "Puede cancelar su suscripción en cualquier momento"
+    "unsubscribe": "Puedes cancelar tu suscripción en cualquier momento"
   },
   "cookies": {
     "title": "Cookies",
-    "message": "Utilizamos cookies para mejorar su experiencia. Al continuar navegando, acepta nuestra",
+    "message": "Utilizamos cookies para mejorar tu experiencia. Al continuar navegando, aceptas nuestra",
     "privacyLink": "Política de Privacidad",
     "accept": "Aceptar",
     "customize": "Personalizar"
   },
   "whatsapp": {
-    "tooltip": "Hable con nosotros por WhatsApp",
+    "tooltip": "Habla con nosotros por WhatsApp",
     "message": "¡Hola! Me gustaría saber más sobre sus servicios."
   },
   "blog": {
     "title": "Blog",
-    "subtitle": "Insights, análisis y tendencias del mundo empresarial",
+    "subtitle": "Ideas, análisis y tendencias del mundo empresarial",
     "search": "Buscar",
     "categories": "Categorías",
     "recentPosts": "Posts Recientes",
@@ -179,7 +180,7 @@
     "allCategories": "Todas las categorías",
     "loadMore": "Cargar más",
     "noResults": "No se encontraron resultados",
-    "tryAdjustSearch": "Intente ajustar su búsqueda o filtros",
+    "tryAdjustSearch": "Intenta ajustar tu búsqueda o filtros",
     "showingResults": "Mostrando {{count}} resultados",
     "showingResultsInCategory": "Mostrando {{count}} resultados en {{category}}",
     "showingResultsWithSearch": "Mostrando {{count}} resultados para \"{{query}}\"",
@@ -195,31 +196,31 @@
   },
   "privacy": {
     "title": "Política de Privacidad",
-    "description": "Conozca cómo recopilamos, utilizamos y protegemos sus datos personales.",
-    "intro": "FIVE Consulting valora su privacidad. Esta Política de Privacidad explica cómo recopilamos, utilizamos y protegemos su información.",
+    "description": "Conoce cómo recopilamos, usamos y protegemos tus datos personales.",
+    "intro": "FIVE Consulting valora la privacidad de tus datos. Esta Política de Privacidad explica cómo recopilamos, usamos y protegemos tu información.",
     "collection": {
       "title": "1. Información que recopilamos",
-      "description": "Podemos recopilar información personal como nombre, correo electrónico, teléfono y datos profesionales proporcionados voluntariamente por usted al contactarnos o suscribirse a nuestro boletín."
+      "description": "Podemos recopilar información personal como nombre, correo electrónico, teléfono y datos profesionales proporcionados voluntariamente al contactarnos o suscribirte a nuestro newsletter."
     },
     "usage": {
-      "title": "2. Cómo utilizamos sus datos",
-      "description": "Utilizamos su información para responder consultas, enviar contenido relevante, prestar servicios contratados, mejorar la experiencia del usuario y cumplir con obligaciones legales."
+      "title": "2. Cómo usamos tus datos",
+      "description": "Utilizamos tu información para responder consultas, enviar contenido relevante, brindar servicios contratados, mejorar la experiencia del usuario y cumplir obligaciones legales."
     },
     "sharing": {
       "title": "3. Compartición de datos",
-      "description": "No compartimos su información con terceros, excepto cuando sea necesario para la ejecución de servicios o requerido por ley."
+      "description": "No compartimos tu información con terceros, excepto cuando sea necesario para la prestación de servicios o requerido por la ley."
     },
     "security": {
       "title": "4. Seguridad de la información",
-      "description": "Adoptamos medidas técnicas y organizativas para proteger sus datos contra acceso no autorizado, destrucción, pérdida o alteración."
+      "description": "Adoptamos medidas técnicas y organizativas para proteger tus datos contra accesos no autorizados, destrucción, pérdida o alteración."
     },
     "cookies": {
       "title": "5. Cookies",
-      "description": "Utilizamos cookies para mejorar su experiencia en el sitio, analizar el tráfico y personalizar contenido. Puede gestionar las preferencias de cookies en nuestro banner de consentimiento."
+      "description": "Utilizamos cookies para mejorar tu experiencia en el sitio, analizar el tráfico y personalizar el contenido. Puedes gestionar las preferencias de cookies en nuestro banner de consentimiento."
     },
     "rights": {
-      "title": "6. Sus derechos",
-      "description": "De acuerdo con las leyes de protección de datos, tiene derecho a acceder, corregir o eliminar sus datos personales. Para hacerlo, contáctenos en contacto@fiveconsulting.com.br."
+      "title": "6. Tus derechos",
+      "description": "De acuerdo con la legislación aplicable, tienes derecho a acceder, corregir o eliminar tus datos personales. Para ello, contáctanos a través del correo contacto@fiveconsulting.com.br."
     },
     "changes": {
       "title": "7. Cambios en esta política",
@@ -229,31 +230,31 @@
   },
   "terms": {
     "title": "Términos de Uso",
-    "description": "Por favor, lea atentamente estos términos antes de usar nuestros servicios.",
-    "intro": "Estos Términos de Uso rigen el uso del sitio web y los servicios ofrecidos. Al acceder o utilizar cualquier funcionalidad, usted acepta plenamente estos términos.",
+    "description": "Lee atentamente los términos y condiciones que rigen el uso de este sitio y nuestros servicios.",
+    "intro": "Estos Términos de Uso regulan el uso del sitio y los servicios ofrecidos. Al acceder o utilizar cualquier funcionalidad, aceptas plenamente estos términos.",
     "usageLicense": {
-      "title": "1. Licencia de Uso",
-      "description": "Le otorgamos una licencia limitada, no exclusiva y no transferible para acceder y utilizar nuestros servicios.",
+      "title": "1. Licencia de uso",
+      "description": "Te otorgamos una licencia limitada, no exclusiva e intransferible para acceder y utilizar nuestros servicios.",
       "items": [
         "Uso personal y no comercial",
         "Prohibida la redistribución del contenido",
         "Prohibida la modificación del contenido",
-        "Prohibido el uso para fines ilegales"
+        "Prohibido el uso con fines ilícitos"
       ]
     },
     "disclaimer": {
-      "title": "2. Exención de Responsabilidad",
+      "title": "2. Exención de responsabilidad",
       "description": "Nuestros servicios se proporcionan 'tal cual', sin garantías de ningún tipo.",
       "items": [
         "No garantizamos disponibilidad continua",
-        "No nos responsabilizamos por daños indirectos",
-        "No garantizamos precisión total",
-        "Nos reservamos el derecho de modificar servicios"
+        "No somos responsables por daños indirectos",
+        "No garantizamos la total precisión del contenido",
+        "Nos reservamos el derecho de modificar los servicios"
       ]
     },
     "limitations": {
-      "title": "3. Limitaciones de Uso",
-      "description": "Al utilizar nuestros servicios, usted acepta no:",
+      "title": "3. Limitaciones de uso",
+      "description": "Al utilizar nuestros servicios, aceptas no:",
       "items": [
         "Violar leyes o regulaciones",
         "Infringir derechos de propiedad intelectual",
@@ -262,32 +263,32 @@
       ]
     },
     "accuracy": {
-      "title": "4. Precisión de la Información",
+      "title": "4. Precisión de la información",
       "description": "Nos esforzamos por mantener la información precisa y actualizada.",
       "items": [
         "Contenido sujeto a cambios",
-        "Verificación regular de información",
-        "Corrección de errores cuando se identifican",
+        "Revisión periódica de la información",
+        "Corrección de errores cuando se identifiquen",
         "Actualizaciones periódicas del contenido"
       ]
     },
     "links": {
-      "title": "5. Enlaces Externos",
+      "title": "5. Enlaces externos",
       "description": "Nuestro sitio puede contener enlaces a sitios de terceros.",
       "items": [
         "No controlamos sitios externos",
-        "No nos responsabilizamos por el contenido",
-        "Acceso por cuenta y riesgo del usuario",
-        "Recomendamos revisar términos de terceros"
+        "No somos responsables por su contenido",
+        "El acceso es bajo tu propia responsabilidad",
+        "Recomendamos revisar los términos de terceros"
       ]
     },
     "governingLaw": {
-      "title": "6. Ley Aplicable",
+      "title": "6. Ley aplicable",
       "description": "Estos términos se rigen por las leyes de Brasil.",
       "items": [
-        "Jurisdicción de tribunales brasileños",
+        "Jurisdicción de los tribunales brasileños",
         "Resolución de conflictos en Brasil",
-        "Aplicación de la ley brasileña",
+        "Aplicación de la legislación brasileña",
         "Foro exclusivo definido"
       ]
     },
