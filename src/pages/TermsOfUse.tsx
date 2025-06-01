@@ -5,6 +5,19 @@ import ParallaxHeader from '../components/ParallaxHeader';
 const TermsOfUse = () => {
   const { t } = useTranslation();
 
+  const renderList = (key: string) => {
+    const items = t(key, { returnObjects: true });
+    return Array.isArray(items) ? (
+      <ul className="list-disc list-inside space-y-2">
+        {items.map((item: string, index: number) => (
+          <li key={index} className="leading-relaxed">
+            {item}
+          </li>
+        ))}
+      </ul>
+    ) : null;
+  };
+
   return (
     <div className="pt-0">
       <ParallaxHeader
@@ -23,15 +36,7 @@ const TermsOfUse = () => {
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.usageLicense.title')}</h2>
           <p className="leading-relaxed mb-4">{t('terms.usageLicense.description')}</p>
-          <ul className="list-disc list-inside space-y-2">
-            {t('terms.usageLicense.items', { returnObjects: true }).map(
-              (item: string, index: number) => (
-                <li key={index} className="leading-relaxed">
-                  {item}
-                </li>
-              )
-            )}
-          </ul>
+          {renderList('terms.usageLicense.items')}
           <p className="leading-relaxed mt-4">{t('terms.usageLicense.termination')}</p>
         </section>
 
@@ -39,15 +44,7 @@ const TermsOfUse = () => {
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.disclaimer.title')}</h2>
           <p className="leading-relaxed mb-4">{t('terms.disclaimer.description')}</p>
-          <ul className="list-disc list-inside space-y-2">
-            {t('terms.disclaimer.items', { returnObjects: true }).map(
-              (item: string, index: number) => (
-                <li key={index} className="leading-relaxed">
-                  {item}
-                </li>
-              )
-            )}
-          </ul>
+          {renderList('terms.disclaimer.items')}
           <p className="leading-relaxed mt-4">{t('terms.disclaimer.termination')}</p>
         </section>
 
@@ -55,15 +52,7 @@ const TermsOfUse = () => {
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.limitations.title')}</h2>
           <p className="leading-relaxed mb-4">{t('terms.limitations.description')}</p>
-          <ul className="list-disc list-inside space-y-2">
-            {t('terms.limitations.items', { returnObjects: true }).map(
-              (item: string, index: number) => (
-                <li key={index} className="leading-relaxed">
-                  {item}
-                </li>
-              )
-            )}
-          </ul>
+          {renderList('terms.limitations.items')}
           <p className="leading-relaxed mt-4">{t('terms.limitations.termination')}</p>
         </section>
 
@@ -71,15 +60,7 @@ const TermsOfUse = () => {
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.accuracy.title')}</h2>
           <p className="leading-relaxed mb-4">{t('terms.accuracy.description')}</p>
-          <ul className="list-disc list-inside space-y-2">
-            {t('terms.accuracy.items', { returnObjects: true }).map(
-              (item: string, index: number) => (
-                <li key={index} className="leading-relaxed">
-                  {item}
-                </li>
-              )
-            )}
-          </ul>
+          {renderList('terms.accuracy.items')}
           <p className="leading-relaxed mt-4">{t('terms.accuracy.termination')}</p>
         </section>
 
@@ -87,15 +68,7 @@ const TermsOfUse = () => {
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.links.title')}</h2>
           <p className="leading-relaxed mb-4">{t('terms.links.description')}</p>
-          <ul className="list-disc list-inside space-y-2">
-            {t('terms.links.items', { returnObjects: true }).map(
-              (item: string, index: number) => (
-                <li key={index} className="leading-relaxed">
-                  {item}
-                </li>
-              )
-            )}
-          </ul>
+          {renderList('terms.links.items')}
           <p className="leading-relaxed mt-4">{t('terms.links.termination')}</p>
         </section>
 
@@ -103,15 +76,7 @@ const TermsOfUse = () => {
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.changes.title')}</h2>
           <p className="leading-relaxed mb-4">{t('terms.changes.description')}</p>
-          <ul className="list-disc list-inside space-y-2">
-            {t('terms.changes.items', { returnObjects: true }).map(
-              (item: string, index: number) => (
-                <li key={index} className="leading-relaxed">
-                  {item}
-                </li>
-              )
-            )}
-          </ul>
+          {renderList('terms.changes.items')}
           <p className="leading-relaxed mt-4">{t('terms.changes.termination')}</p>
         </section>
 
@@ -119,15 +84,7 @@ const TermsOfUse = () => {
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.governingLaw.title')}</h2>
           <p className="leading-relaxed mb-4">{t('terms.governingLaw.description')}</p>
-          <ul className="list-disc list-inside space-y-2">
-            {t('terms.governingLaw.items', { returnObjects: true }).map(
-              (item: string, index: number) => (
-                <li key={index} className="leading-relaxed">
-                  {item}
-                </li>
-              )
-            )}
-          </ul>
+          {renderList('terms.governingLaw.items')}
           <p className="leading-relaxed mt-4">{t('terms.governingLaw.termination')}</p>
         </section>
 
