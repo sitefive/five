@@ -19,52 +19,59 @@ const TermsOfUse = () => {
           <p className="mb-6 leading-relaxed">{t('terms.intro')}</p>
         </section>
 
-        {/* Seções principais */}
+        {/* Licença de Uso */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-3">{t('terms.acceptance.title')}</h2>
-          <p className="leading-relaxed">{t('terms.acceptance.description')}</p>
+          <h2 className="text-xl font-semibold mb-3">{t('terms.usageLicense.title')}</h2>
+          <p className="leading-relaxed mb-4">{t('terms.usageLicense.description')}</p>
+          <ul className="list-disc list-inside space-y-2">
+            {t('terms.usageLicense.items', { returnObjects: true }).map(
+              (item: string, index: number) => (
+                <li key={index} className="leading-relaxed">
+                  {item}
+                </li>
+              )
+            )}
+          </ul>
+          <p className="leading-relaxed mt-4">{t('terms.usageLicense.termination')}</p>
         </section>
 
+        {/* Isenção de Responsabilidade */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-3">{t('terms.eligibility.title')}</h2>
-          <p className="leading-relaxed">{t('terms.eligibility.description')}</p>
+          <h2 className="text-xl font-semibold mb-3">{t('terms.disclaimer.title')}</h2>
+          <p className="leading-relaxed">{t('terms.disclaimer.description')}</p>
         </section>
 
+        {/* Limitações */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-3">{t('terms.account.title')}</h2>
-          <p className="leading-relaxed">{t('terms.account.description')}</p>
+          <h2 className="text-xl font-semibold mb-3">{t('terms.limitations.title')}</h2>
+          <p className="leading-relaxed">{t('terms.limitations.description')}</p>
         </section>
 
+        {/* Precisão dos Materiais */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-3">{t('terms.usage.title')}</h2>
-          <p className="leading-relaxed">{t('terms.usage.description')}</p>
+          <h2 className="text-xl font-semibold mb-3">{t('terms.accuracy.title')}</h2>
+          <p className="leading-relaxed">{t('terms.accuracy.description')}</p>
         </section>
 
+        {/* Links */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-3">{t('terms.intellectual.title')}</h2>
-          <p className="leading-relaxed">{t('terms.intellectual.description')}</p>
+          <h2 className="text-xl font-semibold mb-3">{t('terms.links.title')}</h2>
+          <p className="leading-relaxed">{t('terms.links.description')}</p>
         </section>
 
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-3">{t('terms.privacy.title')}</h2>
-          <p className="leading-relaxed">{t('terms.privacy.description')}</p>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-3">{t('terms.liability.title')}</h2>
-          <p className="leading-relaxed">{t('terms.liability.description')}</p>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-3">{t('terms.termination.title')}</h2>
-          <p className="leading-relaxed">{t('terms.termination.description')}</p>
-        </section>
-
+        {/* Modificações */}
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.changes.title')}</h2>
           <p className="leading-relaxed">{t('terms.changes.description')}</p>
         </section>
 
+        {/* Legislação Aplicável */}
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold mb-3">{t('terms.governingLaw.title')}</h2>
+          <p className="leading-relaxed">{t('terms.governingLaw.description')}</p>
+        </section>
+
+        {/* Contato */}
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.contact.title')}</h2>
           <p className="leading-relaxed">{t('terms.contact.description')}</p>
