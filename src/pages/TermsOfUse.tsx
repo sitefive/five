@@ -38,9 +38,9 @@ const TermsOfUse = () => {
         {/* Isenção de Responsabilidade */}
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.disclaimer.title')}</h2>
-          <p className="leading-relaxed">{t('terms.disclaimer.description')}</p>
+          <p className="leading-relaxed mb-4">{t('terms.disclaimer.description')}</p>
           <ul className="list-disc list-inside space-y-2">
-            {t('terms.usageLicense.items', { returnObjects: true }).map(
+            {t('terms.disclaimer.items', { returnObjects: true }).map(
               (item: string, index: number) => (
                 <li key={index} className="leading-relaxed">
                   {item}
@@ -48,37 +48,87 @@ const TermsOfUse = () => {
               )
             )}
           </ul>
-          <p className="leading-relaxed mt-4">{t('terms.usageLicense.termination')}</p>
+          <p className="leading-relaxed mt-4">{t('terms.disclaimer.termination')}</p>
         </section>
 
         {/* Limitações */}
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.limitations.title')}</h2>
-          <p className="leading-relaxed">{t('terms.limitations.description')}</p>
+          <p className="leading-relaxed mb-4">{t('terms.limitations.description')}</p>
+          <ul className="list-disc list-inside space-y-2">
+            {t('terms.limitations.items', { returnObjects: true }).map(
+              (item: string, index: number) => (
+                <li key={index} className="leading-relaxed">
+                  {item}
+                </li>
+              )
+            )}
+          </ul>
+          <p className="leading-relaxed mt-4">{t('terms.limitations.termination')}</p>
         </section>
 
         {/* Precisão dos Materiais */}
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.accuracy.title')}</h2>
-          <p className="leading-relaxed">{t('terms.accuracy.description')}</p>
+          <p className="leading-relaxed mb-4">{t('terms.accuracy.description')}</p>
+          <ul className="list-disc list-inside space-y-2">
+            {t('terms.accuracy.items', { returnObjects: true }).map(
+              (item: string, index: number) => (
+                <li key={index} className="leading-relaxed">
+                  {item}
+                </li>
+              )
+            )}
+          </ul>
+          <p className="leading-relaxed mt-4">{t('terms.accuracy.termination')}</p>
         </section>
 
         {/* Links */}
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.links.title')}</h2>
-          <p className="leading-relaxed">{t('terms.links.description')}</p>
+          <p className="leading-relaxed mb-4">{t('terms.links.description')}</p>
+          <ul className="list-disc list-inside space-y-2">
+            {t('terms.links.items', { returnObjects: true }).map(
+              (item: string, index: number) => (
+                <li key={index} className="leading-relaxed">
+                  {item}
+                </li>
+              )
+            )}
+          </ul>
+          <p className="leading-relaxed mt-4">{t('terms.links.termination')}</p>
         </section>
 
         {/* Modificações */}
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.changes.title')}</h2>
-          <p className="leading-relaxed">{t('terms.changes.description')}</p>
+          <p className="leading-relaxed mb-4">{t('terms.changes.description')}</p>
+          <ul className="list-disc list-inside space-y-2">
+            {t('terms.changes.items', { returnObjects: true }).map(
+              (item: string, index: number) => (
+                <li key={index} className="leading-relaxed">
+                  {item}
+                </li>
+              )
+            )}
+          </ul>
+          <p className="leading-relaxed mt-4">{t('terms.changes.termination')}</p>
         </section>
 
         {/* Legislação Aplicável */}
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">{t('terms.governingLaw.title')}</h2>
-          <p className="leading-relaxed">{t('terms.governingLaw.description')}</p>
+          <p className="leading-relaxed mb-4">{t('terms.governingLaw.description')}</p>
+          <ul className="list-disc list-inside space-y-2">
+            {t('terms.governingLaw.items', { returnObjects: true }).map(
+              (item: string, index: number) => (
+                <li key={index} className="leading-relaxed">
+                  {item}
+                </li>
+              )
+            )}
+          </ul>
+          <p className="leading-relaxed mt-4">{t('terms.governingLaw.termination')}</p>
         </section>
 
         <p className="text-gray-600 text-sm mt-10">
