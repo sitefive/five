@@ -71,12 +71,6 @@ const TermsOfUse = () => {
           <p className="leading-relaxed">{t('terms.governingLaw.description')}</p>
         </section>
 
-        {/* Contato */}
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-3">{t('terms.contact.title')}</h2>
-          <p className="leading-relaxed">{t('terms.contact.description')}</p>
-        </section>
-
         <p className="text-gray-600 text-sm mt-10">
           {t('terms.lastUpdate', { date: 'Maio de 2025' })}
         </p>
