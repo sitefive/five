@@ -227,7 +227,7 @@
       "description": "Esta política pode ser atualizada periodicamente. A versão mais recente estará sempre disponível nesta página."
     },
     "lastUpdate": "Última atualização: {{date}}"
-  },
+{
   "terms": {
     "title": "Termos de Uso",
     "description": "Leia atentamente os termos e condições que regem o uso deste site e dos nossos serviços.",
@@ -240,7 +240,8 @@
         "Proibida a redistribuição do conteúdo",
         "Proibida a modificação do conteúdo",
         "Proibido o uso para fins ilegais"
-      ]
+      ],
+      "termination": "Reservamo-nos o direito de suspender ou encerrar seu acesso se você violar quaisquer termos aqui estabelecidos."
     },
     "disclaimer": {
       "title": "2. Isenção de Responsabilidade",
@@ -250,7 +251,8 @@
         "Não nos responsabilizamos por danos indiretos",
         "Não garantimos precisão total do conteúdo",
         "Reservamo-nos o direito de modificar os serviços"
-      ]
+      ],
+      "termination": "Não seremos responsáveis por quaisquer perdas ou danos decorrentes do uso ou da incapacidade de usar nossos serviços."
     },
     "limitations": {
       "title": "3. Limitações de Uso",
@@ -260,7 +262,8 @@
         "Infringir direitos de propriedade intelectual",
         "Distribuir malware ou códigos maliciosos",
         "Tentar acessar áreas restritas"
-      ]
+      ],
+      "termination": "A violação destas limitações pode resultar na suspensão imediata dos serviços e na adoção de medidas legais cabíveis."
     },
     "accuracy": {
       "title": "4. Precisão das Informações",
@@ -270,7 +273,8 @@
         "Verificação regular das informações",
         "Correção de erros quando identificados",
         "Atualizações periódicas do conteúdo"
-      ]
+      ],
+      "termination": "Não garantimos que todas as informações estejam sempre completas, precisas ou atualizadas, e nos isentamos de responsabilidades por eventuais imprecisões."
     },
     "links": {
       "title": "5. Links Externos",
@@ -280,18 +284,25 @@
         "Não nos responsabilizamos pelo conteúdo",
         "Acesso por conta e risco do usuário",
         "Recomendamos revisar termos de terceiros"
-      ]
+      ],
+      "termination": "Não nos responsabilizamos por qualquer dano ou perda causada por conteúdos, produtos ou serviços disponíveis em sites de terceiros."
+    },
+    "changes": {
+      "title": "6. Alterações nos Termos",
+      "description": "Podemos atualizar estes Termos de Uso periodicamente. As alterações entram em vigor imediatamente após sua publicação nesta página. Recomendamos que você revise estes termos regularmente para se manter informado sobre qualquer atualização.",
+      "termination": "O uso contínuo dos serviços após qualquer alteração constitui sua aceitação dos termos atualizados."
     },
     "governingLaw": {
-      "title": "6. Lei Aplicável",
+      "title": "7. Lei Aplicável",
       "description": "Estes termos são regidos pelas leis do Brasil.",
       "items": [
         "Jurisdição dos tribunais brasileiros",
         "Resolução de conflitos no Brasil",
         "Aplicação da legislação brasileira",
         "Foro exclusivo definido"
-      ]
+      ],
+      "termination": "Quaisquer disputas decorrentes destes termos serão resolvidas exclusivamente no foro da comarca de São Paulo, Brasil."
     },
-    "lastUpdate": "Última atualização: {{date}}"
+    "lastUpdate": "Última atualização: Maio de 2025"
   }
 }
