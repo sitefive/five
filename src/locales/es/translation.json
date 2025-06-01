@@ -230,28 +230,66 @@
   "terms": {
     "title": "Términos de Uso",
     "description": "Por favor, lea atentamente estos términos antes de usar nuestros servicios.",
-    "intro": "Al acceder y utilizar este sitio web, usted acepta cumplir y estar sujeto a estos términos y condiciones de uso.",
-    "sections": {
-      "acceptance": {
-        "title": "1. Aceptación de los términos",
-        "description": "Al utilizar nuestros servicios, usted acepta estos términos en su totalidad. Si no está de acuerdo con alguna parte de los términos, no debe usar nuestros servicios."
-      },
-      "services": {
-        "title": "2. Servicios",
-        "description": "Nos comprometemos a proporcionar nuestros servicios con el máximo cuidado y profesionalismo, siguiendo las mejores prácticas de la industria."
-      },
-      "intellectual": {
-        "title": "3. Propiedad intelectual",
-        "description": "Todo el contenido de este sitio está protegido por derechos de autor y otras leyes de propiedad intelectual."
-      },
-      "liability": {
-        "title": "4. Limitación de responsabilidad",
-        "description": "No seremos responsables por daños indirectos, incidentales o consecuentes que surjan del uso de nuestros servicios."
-      },
-      "modifications": {
-        "title": "5. Modificaciones",
-        "description": "Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación."
-      }
+    "intro": "Estos Términos de Uso rigen el uso del sitio web y los servicios ofrecidos. Al acceder o utilizar cualquier funcionalidad, usted acepta plenamente estos términos.",
+    "usageLicense": {
+      "title": "1. Licencia de Uso",
+      "description": "Le otorgamos una licencia limitada, no exclusiva y no transferible para acceder y utilizar nuestros servicios.",
+      "items": [
+        "Uso personal y no comercial",
+        "Prohibida la redistribución del contenido",
+        "Prohibida la modificación del contenido",
+        "Prohibido el uso para fines ilegales"
+      ]
+    },
+    "disclaimer": {
+      "title": "2. Exención de Responsabilidad",
+      "description": "Nuestros servicios se proporcionan 'tal cual', sin garantías de ningún tipo.",
+      "items": [
+        "No garantizamos disponibilidad continua",
+        "No nos responsabilizamos por daños indirectos",
+        "No garantizamos precisión total",
+        "Nos reservamos el derecho de modificar servicios"
+      ]
+    },
+    "limitations": {
+      "title": "3. Limitaciones de Uso",
+      "description": "Al utilizar nuestros servicios, usted acepta no:",
+      "items": [
+        "Violar leyes o regulaciones",
+        "Infringir derechos de propiedad intelectual",
+        "Distribuir malware o códigos maliciosos",
+        "Intentar acceder a áreas restringidas"
+      ]
+    },
+    "accuracy": {
+      "title": "4. Precisión de la Información",
+      "description": "Nos esforzamos por mantener la información precisa y actualizada.",
+      "items": [
+        "Contenido sujeto a cambios",
+        "Verificación regular de información",
+        "Corrección de errores cuando se identifican",
+        "Actualizaciones periódicas del contenido"
+      ]
+    },
+    "links": {
+      "title": "5. Enlaces Externos",
+      "description": "Nuestro sitio puede contener enlaces a sitios de terceros.",
+      "items": [
+        "No controlamos sitios externos",
+        "No nos responsabilizamos por el contenido",
+        "Acceso por cuenta y riesgo del usuario",
+        "Recomendamos revisar términos de terceros"
+      ]
+    },
+    "governingLaw": {
+      "title": "6. Ley Aplicable",
+      "description": "Estos términos se rigen por las leyes de Brasil.",
+      "items": [
+        "Jurisdicción de tribunales brasileños",
+        "Resolución de conflictos en Brasil",
+        "Aplicación de la ley brasileña",
+        "Foro exclusivo definido"
+      ]
     },
     "lastUpdate": "Última actualización: {{date}}"
   }

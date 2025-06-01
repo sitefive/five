@@ -226,52 +226,72 @@
       "title": "7. Alterações nesta política",
       "description": "Esta política pode ser atualizada periodicamente. A versão mais recente estará sempre disponível nesta página."
     },
-    "lastUpdate": "Última atualização: {{date}}",
-    "terms": {
-      "title": "Termos de Uso",
-      "description": "Leia atentamente os termos e condições que regem o uso deste site e dos nossos serviços.",
-      "intro": "Estes Termos de Uso regulam a utilização do site e dos serviços oferecidos. Ao acessar ou utilizar qualquer funcionalidade, você concorda integralmente com estes termos. Caso não concorde, não utilize o site.",
-      "acceptance": {
-        "title": "Aceitação dos Termos",
-        "description": "Ao acessar e utilizar este site, você confirma que leu, entendeu e concorda integralmente com estes Termos de Uso e nossa Política de Privacidade."
-      },
-      "eligibility": {
-        "title": "Elegibilidade",
-        "description": "Você declara ter pelo menos 18 anos ou possuir autorização legal dos responsáveis para utilizar este site. Se estiver utilizando em nome de uma empresa, declara ter autoridade para vincular essa entidade a estes termos."
-      },
-      "account": {
-        "title": "Cadastro e Conta",
-        "description": "Para acessar determinados recursos, você pode ser solicitado a criar uma conta. É sua responsabilidade fornecer informações precisas, manter a confidencialidade de sua senha e notificar imediatamente qualquer uso não autorizado da sua conta."
-      },
-      "usage": {
-        "title": "Uso Aceitável",
-        "description": "Você concorda em não utilizar este site para atividades ilícitas, que infrinjam direitos de terceiros, que violem leis aplicáveis ou que causem danos, interrupções ou degradação dos serviços."
-      },
-      "intellectual": {
-        "title": "Propriedade Intelectual",
-        "description": "Todos os conteúdos, marcas, logotipos, textos, imagens, vídeos e outros materiais são de propriedade exclusiva da nossa empresa ou licenciados, sendo protegidos por leis de direitos autorais e propriedade intelectual. É proibido reproduzir, distribuir ou modificar qualquer conteúdo sem autorização expressa."
-      },
-      "privacy": {
-        "title": "Privacidade e Proteção de Dados",
-        "description": "O tratamento dos seus dados pessoais é regido pela nossa Política de Privacidade, que faz parte integrante destes Termos de Uso. Recomendamos a leitura atenta desse documento."
-      },
-      "liability": {
-        "title": "Limitação de Responsabilidade",
-        "description": "Não garantimos que o site estará livre de erros ou interrupções. Não nos responsabilizamos por danos diretos, indiretos, incidentais, consequenciais ou punitivos decorrentes do uso ou da incapacidade de uso do site, incluindo perda de dados, lucros, negócios ou informações."
-      },
-      "termination": {
-        "title": "Rescisão",
-        "description": "Reservamo-nos o direito de suspender ou encerrar seu acesso ao site a qualquer momento, sem aviso prévio, em caso de violação destes termos ou de qualquer legislação aplicável."
-      },
-      "changes": {
-        "title": "Alterações nos Termos",
-        "description": "Estes Termos de Uso podem ser atualizados periodicamente. As alterações entram em vigor imediatamente após sua publicação. É responsabilidade do usuário revisar regularmente os termos."
-      },
-      "contact": {
-        "title": "Contato",
-        "description": "Se você tiver dúvidas, sugestões ou solicitações relacionadas a estes Termos de Uso, entre em contato através do e-mail: contato@seudominio.com."
-      },
-      "lastUpdate": "Última atualização: {{date}}"
-    }
+    "lastUpdate": "Última atualização: {{date}}"
+  },
+  "terms": {
+    "title": "Termos de Uso",
+    "description": "Leia atentamente os termos e condições que regem o uso deste site e dos nossos serviços.",
+    "intro": "Estes Termos de Uso regulam a utilização do site e dos serviços oferecidos. Ao acessar ou utilizar qualquer funcionalidade, você concorda integralmente com estes termos.",
+    "usageLicense": {
+      "title": "1. Licença de Uso",
+      "description": "Concedemos a você uma licença limitada, não exclusiva e não transferível para acessar e utilizar nossos serviços.",
+      "items": [
+        "Uso pessoal e não comercial",
+        "Proibida a redistribuição do conteúdo",
+        "Proibida a modificação do conteúdo",
+        "Proibido o uso para fins ilegais"
+      ]
+    },
+    "disclaimer": {
+      "title": "2. Isenção de Responsabilidade",
+      "description": "Nossos serviços são fornecidos 'como estão', sem garantias de qualquer tipo.",
+      "items": [
+        "Não garantimos disponibilidade contínua",
+        "Não nos responsabilizamos por danos indiretos",
+        "Não garantimos precisão total do conteúdo",
+        "Reservamo-nos o direito de modificar os serviços"
+      ]
+    },
+    "limitations": {
+      "title": "3. Limitações de Uso",
+      "description": "Ao utilizar nossos serviços, você concorda em não:",
+      "items": [
+        "Violar leis ou regulamentos",
+        "Infringir direitos de propriedade intelectual",
+        "Distribuir malware ou códigos maliciosos",
+        "Tentar acessar áreas restritas"
+      ]
+    },
+    "accuracy": {
+      "title": "4. Precisão das Informações",
+      "description": "Nos esforçamos para manter as informações precisas e atualizadas.",
+      "items": [
+        "Conteúdo sujeito a alterações",
+        "Verificação regular das informações",
+        "Correção de erros quando identificados",
+        "Atualizações periódicas do conteúdo"
+      ]
+    },
+    "links": {
+      "title": "5. Links Externos",
+      "description": "Nosso site pode conter links para sites de terceiros.",
+      "items": [
+        "Não controlamos sites externos",
+        "Não nos responsabilizamos pelo conteúdo",
+        "Acesso por conta e risco do usuário",
+        "Recomendamos revisar termos de terceiros"
+      ]
+    },
+    "governingLaw": {
+      "title": "6. Lei Aplicável",
+      "description": "Estes termos são regidos pelas leis do Brasil.",
+      "items": [
+        "Jurisdição dos tribunais brasileiros",
+        "Resolução de conflitos no Brasil",
+        "Aplicação da legislação brasileira",
+        "Foro exclusivo definido"
+      ]
+    },
+    "lastUpdate": "Última atualização: {{date}}"
   }
 }

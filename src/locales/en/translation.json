@@ -226,5 +226,71 @@
       "description": "This policy may be updated periodically. The most recent version will always be available on this page."
     },
     "lastUpdate": "Last updated: {{date}}"
+  },
+  "terms": {
+    "title": "Terms of Use",
+    "description": "Please read these terms and conditions carefully before using our services.",
+    "intro": "These Terms of Use govern the use of the website and services offered. By accessing or using any functionality, you fully agree to these terms.",
+    "usageLicense": {
+      "title": "1. Usage License",
+      "description": "We grant you a limited, non-exclusive, non-transferable license to access and use our services.",
+      "items": [
+        "Personal and non-commercial use",
+        "Content redistribution prohibited",
+        "Content modification prohibited",
+        "Illegal use prohibited"
+      ]
+    },
+    "disclaimer": {
+      "title": "2. Disclaimer",
+      "description": "Our services are provided 'as is', without warranties of any kind.",
+      "items": [
+        "No guarantee of continuous availability",
+        "Not liable for indirect damages",
+        "No guarantee of complete accuracy",
+        "Right to modify services reserved"
+      ]
+    },
+    "limitations": {
+      "title": "3. Usage Limitations",
+      "description": "When using our services, you agree not to:",
+      "items": [
+        "Violate laws or regulations",
+        "Infringe intellectual property rights",
+        "Distribute malware or malicious code",
+        "Attempt to access restricted areas"
+      ]
+    },
+    "accuracy": {
+      "title": "4. Information Accuracy",
+      "description": "We strive to keep information accurate and up-to-date.",
+      "items": [
+        "Content subject to change",
+        "Regular information verification",
+        "Error correction when identified",
+        "Periodic content updates"
+      ]
+    },
+    "links": {
+      "title": "5. External Links",
+      "description": "Our website may contain links to third-party sites.",
+      "items": [
+        "No control over external sites",
+        "Not responsible for content",
+        "Access at user's own risk",
+        "Review third-party terms recommended"
+      ]
+    },
+    "governingLaw": {
+      "title": "6. Governing Law",
+      "description": "These terms are governed by the laws of Brazil.",
+      "items": [
+        "Brazilian courts jurisdiction",
+        "Conflict resolution in Brazil",
+        "Brazilian law application",
+        "Exclusive venue defined"
+      ]
+    },
+    "lastUpdate": "Last updated: {{date}}"
   }
 }
