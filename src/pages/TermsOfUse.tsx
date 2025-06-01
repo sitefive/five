@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import ParallaxHeader from '../components/ParallaxHeader';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import ParallaxHeader from '../components/ParallaxHeader';
 
 const TermsOfUse = () => {
   const { t } = useTranslation();
@@ -58,12 +58,11 @@ const TermsOfUse = () => {
   );
 };
 
-export async function getStaticProps({ locale }: { locale: string }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['terms', 'common'])),
-    },
-  };
-}
+// Importante para carregar as traduções no build (Next.js)
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['terms'])),
+  },
+});
 
 export default TermsOfUse;
