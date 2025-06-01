@@ -10,34 +10,34 @@
     "toggle": "Toggle menu"
   },
   "hero": {
-    "title": "Specialized Consulting in HR Systems",
-    "subtitle": "Transforming your HR with Custom IT Solutions",
+    "title": "Consulting Specialized in Human Resources Systems",
+    "subtitle": "Transforming your HR with Customized IT Solutions",
     "cta": "Request a Consultation"
   },
   "services": {
     "title": "Our Services",
-    "subtitle": "Custom solutions to drive your business forward",
+    "subtitle": "Customized solutions to boost your business",
     "consulting": {
       "title": "Specialized Consulting",
-      "description": "Strategic consulting for HR systems and process optimization",
+      "description": "Strategic consulting to optimize HR processes and systems",
       "benefits": {
         "title": "Benefits",
         "items": [
           "Detailed process analysis",
-          "Custom solutions",
+          "Tailored solutions",
           "Assisted implementation",
-          "Continuous support"
+          "Ongoing support"
         ]
       }
     },
     "support": {
       "title": "AMS Support",
-      "description": "Continuous support and maintenance of HR systems",
+      "description": "Ongoing support and maintenance of HR systems",
       "benefits": {
         "title": "Benefits",
         "items": [
-          "24/7 Support",
-          "Quick resolution",
+          "24/7 service",
+          "Fast resolution",
           "Proactive monitoring",
           "Specialized team"
         ]
@@ -65,7 +65,7 @@
           "Greater efficiency",
           "Optimized processes",
           "Error reduction",
-          "Better productivity"
+          "Improved productivity"
         ]
       }
     },
@@ -78,7 +78,7 @@
             "Initial analysis",
             "Problem identification",
             "Process evaluation",
-            "Goal setting"
+            "Goal definition"
           ]
         },
         "planning": {
@@ -101,33 +101,34 @@
         }
       }
     },
-    "cta": "Talk to an expert"
+    "cta": "Talk to a Specialist"
   },
   "about": {
     "title": "About Us",
-    "description": "We are experts in transforming challenges into opportunities, driving sustainable business growth.",
+    "description": "We are experts in turning challenges into opportunities, driving sustainable business growth.",
     "focus": {
-      "title": "Client Focus",
-      "description": "We understand each client's specific needs to deliver customized solutions."
+      "title": "Customer Focus",
+      "description": "We understand the specific needs of each client to deliver customized solutions."
     },
     "automation": {
-      "title": "Intelligent Automation",
+      "title": "Smart Automation",
       "description": "We use advanced technologies to automate and optimize processes."
     },
     "consulting": {
       "title": "Strategic Consulting",
-      "description": "We provide expert guidance to achieve exceptional results."
+      "description": "We offer expert guidance to achieve outstanding results."
     }
   },
   "cases": {
-    "title": "Success Cases",
-    "description": "Learn about some of our success stories",
+    "title": "Success Stories",
+    "description": "Discover some of our success stories",
     "viewCase": "View full case"
   },
   "contact": {
     "title": "Contact",
     "description": "Get in touch with us",
     "form": {
+      "title": "Contact Us",
       "name": "Name",
       "email": "Email",
       "phone": "Phone",
@@ -153,24 +154,24 @@
     "placeholder": "Your email",
     "subscribe": "Subscribe",
     "success": "Subscription successful!",
-    "error": "Subscription error",
+    "error": "Subscription failed",
     "emailRequired": "Email is required",
     "unsubscribe": "You can unsubscribe at any time"
   },
   "cookies": {
     "title": "Cookies",
-    "message": "We use cookies to improve your experience. By continuing to browse, you agree to our",
+    "message": "We use cookies to improve your experience. By continuing, you agree to our",
     "privacyLink": "Privacy Policy",
     "accept": "Accept",
     "customize": "Customize"
   },
   "whatsapp": {
     "tooltip": "Chat with us on WhatsApp",
-    "message": "Hi! I'd like to know more about your services."
+    "message": "Hello! I would like to know more about your services."
   },
   "blog": {
     "title": "Blog",
-    "subtitle": "Insights, analysis and trends from the business world",
+    "subtitle": "Insights, analysis, and business trends",
     "search": "Search",
     "categories": "Categories",
     "recentPosts": "Recent Posts",
@@ -195,31 +196,31 @@
   },
   "privacy": {
     "title": "Privacy Policy",
-    "description": "Learn how we collect, use and protect your personal data.",
-    "intro": "FIVE Consulting values your privacy. This Privacy Policy explains how we collect, use and protect your information.",
+    "description": "Learn how we collect, use, and protect your personal data.",
+    "intro": "FIVE Consulting values your privacy. This Privacy Policy explains how we collect, use, and protect your information.",
     "collection": {
       "title": "1. Information We Collect",
-      "description": "We may collect personal information such as name, email, phone number and professional data voluntarily provided by you when contacting us or subscribing to our newsletter."
+      "description": "We may collect personal information such as name, email, phone number, and professional data provided voluntarily when you contact us or subscribe to our newsletter."
     },
     "usage": {
       "title": "2. How We Use Your Data",
-      "description": "We use your information to answer inquiries, send relevant content, provide contracted services, improve user experience and comply with legal obligations."
+      "description": "We use your information to respond to inquiries, send relevant content, provide contracted services, improve user experience, and comply with legal obligations."
     },
     "sharing": {
       "title": "3. Data Sharing",
-      "description": "We do not share your information with third parties, except when necessary for service execution or required by law."
+      "description": "We do not share your information with third parties except when necessary to provide services or as required by law."
     },
     "security": {
       "title": "4. Information Security",
-      "description": "We adopt technical and organizational measures to protect your data against unauthorized access, destruction, loss or alteration."
+      "description": "We adopt technical and organizational measures to protect your data against unauthorized access, destruction, loss, or alteration."
     },
     "cookies": {
       "title": "5. Cookies",
-      "description": "We use cookies to improve your website experience, analyze traffic and personalize content. You can manage cookie preferences in our consent banner."
+      "description": "We use cookies to enhance your experience on the website, analyze traffic, and personalize content. You can manage your cookie preferences in our consent banner."
     },
     "rights": {
       "title": "6. Your Rights",
-      "description": "According to data protection laws, you have the right to access, correct or delete your personal data. To do so, contact us at contact@fiveconsulting.com.br."
+      "description": "According to the LGPD, you have the right to access, correct, or delete your personal data. Contact us at contato@fiveconsulting.com.br."
     },
     "changes": {
       "title": "7. Changes to This Policy",
@@ -229,31 +230,31 @@
   },
   "terms": {
     "title": "Terms of Use",
-    "description": "Please read these terms and conditions carefully before using our services.",
-    "intro": "These Terms of Use govern the use of the website and services offered. By accessing or using any functionality, you fully agree to these terms.",
+    "description": "Please read carefully the terms and conditions that govern the use of this website and our services.",
+    "intro": "These Terms of Use govern the use of the website and the services offered. By accessing or using any functionality, you fully agree to these terms.",
     "usageLicense": {
       "title": "1. Usage License",
       "description": "We grant you a limited, non-exclusive, non-transferable license to access and use our services.",
       "items": [
         "Personal and non-commercial use",
-        "Content redistribution prohibited",
-        "Content modification prohibited",
-        "Illegal use prohibited"
+        "Redistribution of content is prohibited",
+        "Modification of content is prohibited",
+        "Use for illegal purposes is prohibited"
       ]
     },
     "disclaimer": {
       "title": "2. Disclaimer",
-      "description": "Our services are provided 'as is', without warranties of any kind.",
+      "description": "Our services are provided 'as is' with no warranties of any kind.",
       "items": [
         "No guarantee of continuous availability",
         "Not liable for indirect damages",
         "No guarantee of complete accuracy",
-        "Right to modify services reserved"
+        "We reserve the right to modify services"
       ]
     },
     "limitations": {
       "title": "3. Usage Limitations",
-      "description": "When using our services, you agree not to:",
+      "description": "By using our services, you agree not to:",
       "items": [
         "Violate laws or regulations",
         "Infringe intellectual property rights",
@@ -263,32 +264,32 @@
     },
     "accuracy": {
       "title": "4. Information Accuracy",
-      "description": "We strive to keep information accurate and up-to-date.",
+      "description": "We strive to keep information accurate and up to date.",
       "items": [
         "Content subject to change",
         "Regular information verification",
-        "Error correction when identified",
+        "Correction of identified errors",
         "Periodic content updates"
       ]
     },
     "links": {
       "title": "5. External Links",
-      "description": "Our website may contain links to third-party sites.",
+      "description": "Our site may contain links to third-party websites.",
       "items": [
-        "No control over external sites",
-        "Not responsible for content",
+        "We do not control external sites",
+        "We are not responsible for third-party content",
         "Access at user's own risk",
-        "Review third-party terms recommended"
+        "We recommend reviewing third-party terms"
       ]
     },
     "governingLaw": {
       "title": "6. Governing Law",
       "description": "These terms are governed by the laws of Brazil.",
       "items": [
-        "Brazilian courts jurisdiction",
-        "Conflict resolution in Brazil",
-        "Brazilian law application",
-        "Exclusive venue defined"
+        "Jurisdiction of Brazilian courts",
+        "Dispute resolution in Brazil",
+        "Application of Brazilian law",
+        "Exclusive chosen venue"
       ]
     },
     "lastUpdate": "Last updated: {{date}}"
