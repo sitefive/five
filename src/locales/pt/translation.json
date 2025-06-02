@@ -128,7 +128,6 @@
     "title": "Contato",
     "description": "Entre em contato conosco",
     "form": {
-      "title": "Fale Conosco",
       "name": "Nome",
       "email": "E-mail",
       "phone": "Telefone",
@@ -227,11 +226,11 @@
       "description": "Esta política pode ser atualizada periodicamente. A versão mais recente estará sempre disponível nesta página."
     },
     "lastUpdate": "Última atualização: {{date}}"
-{,
+  },
   "terms": {
     "title": "Termos de Uso",
-    "description": "Leia atentamente os termos e condições que regem o uso deste site e dos nossos serviços.",
-    "intro": "Estes Termos de Uso regulam a utilização do site e dos serviços oferecidos. Ao acessar ou utilizar qualquer funcionalidade, você concorda integralmente com estes termos.",
+    "description": "Por favor, leia atentamente estes termos antes de usar nossos serviços.",
+    "intro": "Estes Termos de Uso regem o uso do site e dos serviços oferecidos. Ao acessar ou utilizar qualquer funcionalidade, você concorda integralmente com estes termos.",
     "usageLicense": {
       "title": "1. Licença de Uso",
       "description": "Concedemos a você uma licença limitada, não exclusiva e não transferível para acessar e utilizar nossos serviços.",
