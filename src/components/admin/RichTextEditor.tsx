@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
-import { Bold, Italic, List, ListOrdered, Link as LinkIcon, Image as ImageIcon } from 'lucide-react';
+import {
+  Bold,
+  Italic,
+  List,
+  ListOrdered,
+  Link as LinkIcon,
+  Image as ImageIcon,
+} from 'lucide-react';
 
 interface RichTextEditorProps {
   content: string;
@@ -15,9 +22,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChange }) =>
     extensions: [
       StarterKit,
       Image,
-      Link.configure({
-        openOnClick: false,
-      }),
+      Link.configure({ openOnClick: false }),
     ],
     content,
     onUpdate: ({ editor }) => {
@@ -25,23 +30,21 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChange }) =>
     },
   });
 
-  if (!editor) {
-    return null;
-  }
-
-  const addImage = () => {
+  const addImage = useCallback(() => {
     const url = window.prompt('Enter image URL');
     if (url) {
-      editor.chain().focus().setImage({ src: url }).run();
+      editor?.chain().focus().setImage({ src: url }).run();
     }
-  };
+  }, [editor]);
 
-  const setLink = () => {
+  const setLink = useCallback(() => {
     const url = window.prompt('Enter URL');
     if (url) {
-      editor.chain().focus().setLink({ href: url }).run();
+      editor?.chain().focus().setLink({ href: url }).run();
     }
-  };
+  }, [editor]);
+
+  if (!editor) return null;
 
   return (
     <div className="border rounded-lg overflow-hidden">
@@ -93,7 +96,10 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChange }) =>
           <ImageIcon className="w-5 h-5" />
         </button>
       </div>
-      <EditorContent editor={editor} className="p-4 min-h-[200px] prose max-w-none" />
+      <EditorContent
+        editor={editor}
+        className="p-4 min-h-[200px] prose max-w-none"
+      />
     </div>
   );
 };

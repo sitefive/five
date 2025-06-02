@@ -10,13 +10,13 @@
     "toggle": "Toggle menu"
   },
   "hero": {
-    "title": "Consulting Specialized in Human Resources Systems",
-    "subtitle": "Transforming your HR with Customized IT Solutions",
+    "title": "Consultancy Specialized in HR Systems",
+    "subtitle": "Transforming your HR with Tailored IT Solutions",
     "cta": "Request a Consultation"
   },
   "services": {
     "title": "Our Services",
-    "subtitle": "Customized solutions to boost your business",
+    "subtitle": "Tailored solutions to accelerate your business",
     "consulting": {
       "title": "Specialized Consulting",
       "description": "Strategic consulting to optimize HR processes and systems",
@@ -25,19 +25,19 @@
         "items": [
           "Detailed process analysis",
           "Tailored solutions",
-          "Assisted implementation",
-          "Ongoing support"
+          "Guided implementation",
+          "Continuous support"
         ]
       }
     },
     "support": {
       "title": "AMS Support",
-      "description": "Ongoing support and maintenance of HR systems",
+      "description": "Ongoing support and maintenance for HR systems",
       "benefits": {
         "title": "Benefits",
         "items": [
-          "24/7 service",
-          "Fast resolution",
+          "24/7 support",
+          "Quick issue resolution",
           "Proactive monitoring",
           "Specialized team"
         ]
@@ -45,12 +45,12 @@
     },
     "revitalization": {
       "title": "System Revitalization",
-      "description": "Modernization and updating of legacy systems",
+      "description": "Modernization and upgrading of legacy systems",
       "benefits": {
         "title": "Benefits",
         "items": [
-          "Updated technology",
-          "Better performance",
+          "Updated technologies",
+          "Improved performance",
           "Cost reduction",
           "Enhanced security"
         ]
@@ -58,14 +58,14 @@
     },
     "optimization": {
       "title": "Process Optimization",
-      "description": "Continuous improvement of processes and workflows",
+      "description": "Continuous improvement of workflows and processes",
       "benefits": {
         "title": "Benefits",
         "items": [
-          "Greater efficiency",
-          "Optimized processes",
+          "Increased efficiency",
+          "Streamlined processes",
           "Error reduction",
-          "Improved productivity"
+          "Higher productivity"
         ]
       }
     },
@@ -76,27 +76,27 @@
           "title": "Diagnosis",
           "steps": [
             "Initial analysis",
-            "Problem identification",
-            "Process evaluation",
-            "Goal definition"
+            "Identifying problems",
+            "Process assessment",
+            "Goal setting"
           ]
         },
         "planning": {
           "title": "Planning",
           "steps": [
-            "Strategy definition",
-            "Plan development",
+            "Strategy development",
+            "Action plan creation",
             "Resource allocation",
-            "Detailed schedule"
+            "Detailed timeline"
           ]
         },
         "implementation": {
           "title": "Implementation",
           "steps": [
             "Project execution",
-            "Continuous monitoring",
+            "Ongoing monitoring",
             "Necessary adjustments",
-            "Results evaluation"
+            "Result evaluation"
           ]
         }
       }
@@ -105,23 +105,23 @@
   },
   "about": {
     "title": "About Us",
-    "description": "We are experts in turning challenges into opportunities, driving sustainable business growth.",
+    "description": "We are specialists in turning challenges into opportunities, driving sustainable business growth.",
     "focus": {
-      "title": "Customer Focus",
-      "description": "We understand the specific needs of each client to deliver customized solutions."
+      "title": "Client Focus",
+      "description": "We understand each client’s needs to deliver tailored solutions."
     },
     "automation": {
       "title": "Smart Automation",
-      "description": "We use advanced technologies to automate and optimize processes."
+      "description": "We apply advanced technologies to automate and optimize processes."
     },
     "consulting": {
       "title": "Strategic Consulting",
-      "description": "We offer expert guidance to achieve outstanding results."
+      "description": "We provide expert guidance to achieve outstanding results."
     }
   },
   "cases": {
     "title": "Success Stories",
-    "description": "Discover some of our success stories",
+    "description": "Check out some of our successful cases",
     "viewCase": "View full case"
   },
   "contact": {
@@ -134,7 +134,7 @@
       "phone": "Phone",
       "subject": "Subject",
       "message": "Message",
-      "submit": "Send message",
+      "submit": "Send Message",
       "success": "Message sent successfully!",
       "error": "Error sending message. Please try again."
     }
@@ -160,7 +160,7 @@
   },
   "cookies": {
     "title": "Cookies",
-    "message": "We use cookies to improve your experience. By continuing, you agree to our",
+    "message": "We use cookies to enhance your experience. By continuing, you agree to our",
     "privacyLink": "Privacy Policy",
     "accept": "Accept",
     "customize": "Customize"
@@ -196,55 +196,55 @@
   },
   "privacy": {
     "title": "Privacy Policy",
-    "description": "Learn how we collect, use, and protect your personal data.",
-    "intro": "FIVE Consulting values your privacy. This Privacy Policy explains how we collect, use, and protect your information.",
+    "description": "Learn how we collect, use, and protect your personal information.",
+    "intro": "FIVE Consulting values your privacy. This Privacy Policy explains how we collect, use, and protect your data.",
     "collection": {
       "title": "1. Information We Collect",
-      "description": "We may collect personal information such as name, email, phone number, and professional data provided voluntarily when you contact us or subscribe to our newsletter."
+      "description": "We may collect personal information such as name, email, phone number, and professional details provided voluntarily when you contact us or subscribe to our newsletter."
     },
     "usage": {
       "title": "2. How We Use Your Data",
-      "description": "We use your information to respond to inquiries, send relevant content, provide contracted services, improve user experience, and comply with legal obligations."
+      "description": "We use your data to respond to inquiries, send relevant content, provide contracted services, improve user experience, and comply with legal obligations."
     },
     "sharing": {
       "title": "3. Data Sharing",
-      "description": "We do not share your information with third parties except when necessary to provide services or as required by law."
+      "description": "We do not share your information with third parties unless necessary to deliver services or required by law."
     },
     "security": {
       "title": "4. Information Security",
-      "description": "We adopt technical and organizational measures to protect your data against unauthorized access, destruction, loss, or alteration."
+      "description": "We implement technical and organizational measures to protect your data from unauthorized access, destruction, loss, or alteration."
     },
     "cookies": {
       "title": "5. Cookies",
-      "description": "We use cookies to enhance your experience on the website, analyze traffic, and personalize content. You can manage your cookie preferences in our consent banner."
+      "description": "We use cookies to improve your website experience, analyze traffic, and personalize content. You can manage cookie preferences in our consent banner."
     },
     "rights": {
       "title": "6. Your Rights",
-      "description": "According to the LGPD, you have the right to access, correct, or delete your personal data. Contact us at contato@fiveconsulting.com.br."
+      "description": "Under the LGPD, you have the right to access, correct, or delete your personal data. Contact us at contato@fiveconsulting.com.br."
     },
     "changes": {
       "title": "7. Changes to This Policy",
-      "description": "This policy may be updated periodically. The most recent version will always be available on this page."
+      "description": "This policy may be updated periodically. The latest version will always be available on this page."
     },
     "lastUpdate": "Last updated: {{date}}"
   },
   "terms": {
     "title": "Terms of Use",
-    "description": "Please read carefully the terms and conditions that govern the use of this website and our services.",
-    "intro": "These Terms of Use govern the use of the website and the services offered. By accessing or using any functionality, you fully agree to these terms.",
+    "description": "Please carefully read the terms and conditions that govern the use of this website and our services.",
+    "intro": "These Terms of Use govern the use of the website and our services. By accessing or using any functionality, you fully agree to these terms.",
     "usageLicense": {
       "title": "1. Usage License",
       "description": "We grant you a limited, non-exclusive, non-transferable license to access and use our services.",
       "items": [
-        "Personal and non-commercial use",
-        "Redistribution of content is prohibited",
-        "Modification of content is prohibited",
+        "For personal and non-commercial use",
+        "Redistributing content is prohibited",
+        "Modifying content is prohibited",
         "Use for illegal purposes is prohibited"
       ]
     },
     "disclaimer": {
       "title": "2. Disclaimer",
-      "description": "Our services are provided 'as is' with no warranties of any kind.",
+      "description": "Our services are provided 'as is' without warranties of any kind.",
       "items": [
         "No guarantee of continuous availability",
         "Not liable for indirect damages",
@@ -264,7 +264,7 @@
     },
     "accuracy": {
       "title": "4. Information Accuracy",
-      "description": "We strive to keep information accurate and up to date.",
+      "description": "We strive to keep the information accurate and up to date.",
       "items": [
         "Content subject to change",
         "Regular information verification",
@@ -276,9 +276,9 @@
       "title": "5. External Links",
       "description": "Our site may contain links to third-party websites.",
       "items": [
-        "We do not control external sites",
+        "We do not control external websites",
         "We are not responsible for third-party content",
-        "Access at user's own risk",
+        "Access is at the user's own risk",
         "We recommend reviewing third-party terms"
       ]
     },

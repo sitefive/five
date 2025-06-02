@@ -6,7 +6,7 @@ import slugify from 'slugify';
 interface CategoryModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (data: any) => void;
+  onSave: () => void;
   category?: any;
 }
 
@@ -17,6 +17,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
   category
 }) => {
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name_pt: '',
     name_en: '',
@@ -66,9 +67,31 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(formData);
+    setLoading(true);
+
+    try {
+      if (category) {
+        const { error } = await supabase
+          .from('categories')
+          .update(formData)
+          .eq('id', category.id);
+
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.from('categories').insert(formData);
+        if (error) throw error;
+      }
+
+      onSave();
+      onClose();
+    } catch (error) {
+      console.error('Error saving category:', error);
+      alert('An error occurred while saving the category.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -79,7 +102,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">
-              {category ? 'Edit Category' : 'New Category'}
+              {category ? t('Edit Category') : t('New Category')}
             </h2>
             <button
               onClick={onClose}
@@ -97,7 +120,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium mb-1">
                       Name
                     </label>
                     <input
@@ -109,7 +132,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium mb-1">
                       Slug
                     </label>
                     <input
@@ -124,7 +147,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium mb-1">
                       Description
                     </label>
                     <textarea
@@ -151,9 +174,10 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
               </button>
               <button
                 type="submit"
+                disabled={loading}
                 className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
               >
-                Save
+                {loading ? 'Saving...' : 'Save'}
               </button>
             </div>
           </form>

@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
-
-interface UserModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSave: (data: any) => void;
-  user?: any;
-}
+import { User, UserFormData, UserModalProps } from './types';
 
 const UserModal: React.FC<UserModalProps> = ({
   isOpen,
   onClose,
   onSave,
-  user
+  user,
 }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<UserFormData>({
     name: '',
     email: '',
     password: '',
     role: 'editor',
-    active: true
+    active: true,
   });
 
   useEffect(() => {
@@ -29,7 +23,7 @@ const UserModal: React.FC<UserModalProps> = ({
         email: user.auth_user?.email || '',
         password: '',
         role: user.role || 'editor',
-        active: user.active
+        active: user.active ?? true,
       });
     } else {
       setFormData({
@@ -37,10 +31,20 @@ const UserModal: React.FC<UserModalProps> = ({
         email: '',
         password: '',
         role: 'editor',
-        active: true
+        active: true,
       });
     }
   }, [user]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,8 +76,9 @@ const UserModal: React.FC<UserModalProps> = ({
               </label>
               <input
                 type="text"
+                name="name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-lg"
                 required
               />
@@ -85,8 +90,9 @@ const UserModal: React.FC<UserModalProps> = ({
               </label>
               <input
                 type="email"
+                name="email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-lg"
                 required
                 disabled={!!user}
@@ -100,8 +106,9 @@ const UserModal: React.FC<UserModalProps> = ({
                 </label>
                 <input
                   type="password"
+                  name="password"
                   value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  onChange={handleChange}
                   className="w-full px-3 py-2 border rounded-lg"
                   required
                   minLength={8}
@@ -114,8 +121,9 @@ const UserModal: React.FC<UserModalProps> = ({
                 Role
               </label>
               <select
+                name="role"
                 value={formData.role}
-                onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-lg"
               >
                 <option value="editor">Editor</option>
@@ -127,8 +135,9 @@ const UserModal: React.FC<UserModalProps> = ({
               <input
                 type="checkbox"
                 id="active"
+                name="active"
                 checked={formData.active}
-                onChange={(e) => setFormData({ ...formData, active: e.target.checked })}
+                onChange={handleChange}
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
               <label htmlFor="active" className="ml-2 block text-sm text-gray-900">
