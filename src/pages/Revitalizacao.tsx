@@ -6,20 +6,68 @@ import ParallaxHeader from '../components/ParallaxHeader';
 const Revitalizacao = () => {
   const { t } = useTranslation();
 
+  const benefits = [
+    'Correção de falhas de implementação',
+    'Aumento da eficiência do sistema atual',
+    'Aproveitamento de funcionalidades esquecidas',
+    'Redução de uso de controles paralelos (planilhas)',
+    'Reengajamento dos usuários com o sistema',
+    'Economia ao evitar nova implantação'
+  ];
+
+  const methodology = [
+    {
+      title: 'Diagnóstico',
+      steps: [
+        'Análise do cenário atual do sistema',
+        'Levantamento de falhas e limitações',
+        'Avaliação da aderência aos processos de negócio',
+        'Entrevistas com usuários-chave'
+      ]
+    },
+    {
+      title: 'Planejamento',
+      steps: [
+        'Definição do escopo de revitalização',
+        'Proposta de ajustes e melhorias',
+        'Cronograma de reestruturação',
+        'Alinhamento com áreas impactadas'
+      ]
+    },
+    {
+      title: 'Implementação',
+      steps: [
+        'Ajustes e reconfigurações no sistema',
+        'Atualização de cadastros e fluxos',
+        'Validação de entregas com o cliente',
+        'Testes e homologações'
+      ]
+    },
+    {
+      title: 'Capacitação e Sustentação',
+      steps: [
+        'Treinamento das equipes',
+        'Criação de guias e manuais',
+        'Apoio pós-revitalização',
+        'Acompanhamento da adoção'
+      ]
+    }
+  ];
+
   return (
     <div className="pt-00">
       <ParallaxHeader
-        title={t('services.revitalization.title')}
-        description={t('services.revitalization.description')}
+        title="Revitalização"
+        description="Recuperação e aprimoramento de implementações existentes, elevando a performance do sistema com uso inteligente dos recursos já contratados."
         image="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80"
       />
 
       <div className="container mx-auto px-4 py-16">
         {/* Benefits Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8">{t('services.revitalization.benefits.title')}</h2>
+          <h2 className="text-3xl font-bold mb-8">Benefícios</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {t('services.revitalization.benefits.items', { returnObjects: true }).map((benefit, index) => (
+            {benefits.map((benefit, index) => (
               <div key={index} className="flex items-start space-x-4 bg-white p-6 rounded-lg shadow-sm">
                 <div className="flex-shrink-0">
                   <Check className="w-6 h-6 text-blue-600" />
@@ -32,15 +80,15 @@ const Revitalizacao = () => {
 
         {/* Methodology Section */}
         <section>
-          <h2 className="text-3xl font-bold mb-8">{t('services.methodology.title')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {['diagnosis', 'planning', 'implementation'].map((phase) => (
-              <div key={phase} className="bg-white p-8 rounded-xl shadow-lg">
+          <h2 className="text-3xl font-bold mb-8">Nossa Metodologia</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {methodology.map((phase, index) => (
+              <div key={index} className="bg-white p-8 rounded-xl shadow-lg">
                 <h3 className="text-2xl font-semibold mb-6">
-                  {t(`services.methodology.phases.${phase}.title`)}
+                  {phase.title}
                 </h3>
                 <ul className="space-y-4">
-                  {t(`services.methodology.phases.${phase}.steps`, { returnObjects: true }).map((step, stepIndex) => (
+                  {phase.steps.map((step, stepIndex) => (
                     <li key={stepIndex} className="flex items-start space-x-3">
                       <Check className="w-5 h-5 text-blue-600 mt-1" />
                       <span className="text-gray-700">{step}</span>
