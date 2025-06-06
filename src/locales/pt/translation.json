@@ -28,6 +28,62 @@
           "Implantação orientada",
           "Acompanhamento contínuo"
         ]
+      },
+      "page": {
+        "title": "Consultoria Especialista",
+        "description": "Soluções personalizadas em sistemas de RH, com foco estratégico, alinhadas às necessidades do negócio e à maturidade da sua operação.",
+        "benefits": {
+          "title": "Benefícios",
+          "items": [
+            "Diagnóstico aprofundado do cenário atual",
+            "Soluções sob medida para sua realidade",
+            "Maior eficiência na gestão de pessoas",
+            "Redução de retrabalho e falhas operacionais",
+            "Equipe mais capacitada e engajada",
+            "Apoio estratégico à tomada de decisão"
+          ]
+        },
+        "methodology": {
+          "title": "Nossa Metodologia",
+          "phases": {
+            "diagnosis": {
+              "title": "Diagnóstico",
+              "steps": [
+                "Entendimento do negócio e desafios",
+                "Análise dos processos atuais",
+                "Identificação de pontos críticos",
+                "Avaliação da maturidade do sistema"
+              ]
+            },
+            "planning": {
+              "title": "Planejamento",
+              "steps": [
+                "Definição dos objetivos e metas",
+                "Elaboração do plano de ação",
+                "Alinhamento com as lideranças",
+                "Cronograma de entregas e recursos"
+              ]
+            },
+            "implementation": {
+              "title": "Implementação",
+              "steps": [
+                "Parametrizações no sistema",
+                "Apoio técnico e funcional",
+                "Validação junto aos usuários",
+                "Gestão da mudança"
+              ]
+            },
+            "monitoring": {
+              "title": "Acompanhamento",
+              "steps": [
+                "Avaliação dos resultados",
+                "Suporte pós-implantação",
+                "Recomendações de melhoria contínua",
+                "Relatórios executivos"
+              ]
+            }
+          }
+        }
       }
     },
     "support": {

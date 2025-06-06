@@ -28,6 +28,62 @@
           "Implementación asistida",
           "Soporte continuo"
         ]
+      },
+      "page": {
+        "title": "Consultoría Especializada",
+        "description": "Soluciones personalizadas en sistemas de RRHH, con enfoque estratégico, alineadas a las necesidades del negocio y la madurez de tu operación.",
+        "benefits": {
+          "title": "Beneficios",
+          "items": [
+            "Diagnóstico profundo del escenario actual",
+            "Soluciones a medida para tu realidad",
+            "Mayor eficiencia en la gestión de personas",
+            "Reducción de retrabajo y fallas operacionales",
+            "Equipo más capacitado y comprometido",
+            "Apoyo estratégico para la toma de decisiones"
+          ]
+        },
+        "methodology": {
+          "title": "Nuestra Metodología",
+          "phases": {
+            "diagnosis": {
+              "title": "Diagnóstico",
+              "steps": [
+                "Entendimiento del negocio y desafíos",
+                "Análisis de los procesos actuales",
+                "Identificación de puntos críticos",
+                "Evaluación de la madurez del sistema"
+              ]
+            },
+            "planning": {
+              "title": "Planificación",
+              "steps": [
+                "Definición de objetivos y metas",
+                "Elaboración del plan de acción",
+                "Alineación con los líderes",
+                "Cronograma de entregas y recursos"
+              ]
+            },
+            "implementation": {
+              "title": "Implementación",
+              "steps": [
+                "Parametrizaciones en el sistema",
+                "Apoyo técnico y funcional",
+                "Validación con los usuarios",
+                "Gestión del cambio"
+              ]
+            },
+            "monitoring": {
+              "title": "Seguimiento",
+              "steps": [
+                "Evaluación de los resultados",
+                "Soporte post-implementación",
+                "Recomendaciones de mejora continua",
+                "Reportes ejecutivos"
+              ]
+            }
+          }
+        }
       }
     },
     "support": {

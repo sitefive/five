@@ -28,6 +28,62 @@
           "Guided implementation",
           "Continuous support"
         ]
+      },
+      "page": {
+        "title": "Specialized Consulting",
+        "description": "Customized HR systems solutions with strategic focus, aligned to business needs and your operation's maturity.",
+        "benefits": {
+          "title": "Benefits",
+          "items": [
+            "In-depth diagnosis of current scenario",
+            "Tailored solutions for your reality",
+            "Greater efficiency in people management",
+            "Reduction of rework and operational failures",
+            "More skilled and engaged team",
+            "Strategic support for decision making"
+          ]
+        },
+        "methodology": {
+          "title": "Our Methodology",
+          "phases": {
+            "diagnosis": {
+              "title": "Diagnosis",
+              "steps": [
+                "Understanding business and challenges",
+                "Analysis of current processes",
+                "Identification of critical points",
+                "System maturity assessment"
+              ]
+            },
+            "planning": {
+              "title": "Planning",
+              "steps": [
+                "Definition of objectives and goals",
+                "Action plan development",
+                "Alignment with leadership",
+                "Delivery schedule and resources"
+              ]
+            },
+            "implementation": {
+              "title": "Implementation",
+              "steps": [
+                "System configurations",
+                "Technical and functional support",
+                "Validation with users",
+                "Change management"
+              ]
+            },
+            "monitoring": {
+              "title": "Monitoring",
+              "steps": [
+                "Results evaluation",
+                "Post-implementation support",
+                "Continuous improvement recommendations",
+                "Executive reports"
+              ]
+            }
+          }
+        }
       }
     },
     "support": {
