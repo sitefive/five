@@ -122,7 +122,79 @@
   "cases": {
     "title": "Cases de Sucesso",
     "description": "Veja como ajudamos empresas a transformarem seus processos",
-    "viewCase": "Ver case completo"
+    "viewCase": "Ver case completo",
+    "trajectory": {
+      "title": "Nossa Trajetória",
+      "description1": "Antes mesmo da fundação da Five Consulting, nossa equipe já havia participado de projetos em",
+      "description2": "mais de 100 empresas",
+      "description3": "de diversos portes e segmentos.",
+      "description4": "Essa jornada consolidou nossa experiência em implementação de sistemas de RH, suporte técnico, otimização de processos, treinamentos e consultoria estratégica.",
+      "description5": "Com essa bagagem, conseguimos entender rapidamente os desafios do seu negócio e entregar soluções sob medida com agilidade, profundidade técnica e foco em resultado.",
+      "stats": {
+        "companies": "Empresas atendidas",
+        "experience": "Anos de experiência em projetos de RH"
+      }
+    },
+    "sectors": {
+      "title": "Setores em que atuamos",
+      "description": "A experiência da nossa equipe se estende por projetos em empresas de variados setores da economia, incluindo:",
+      "list": {
+        "industry": "Indústria",
+        "retail": "Varejo",
+        "health": "Saúde",
+        "education": "Educação",
+        "pharmaceutical": "Farmacêutico",
+        "logistics": "Logística",
+        "finance": "Finanças",
+        "technology": "Tecnologia",
+        "hr": "Recursos Humanos internos de grandes grupos",
+        "construction": "Construção Civil",
+        "fraud": "Prevenção a Fraudes",
+        "hospitality": "Hotelaria"
+      }
+    },
+    "recent": {
+      "title": "Cases Recentes",
+      "clearsale": {
+        "company": "ClearSale",
+        "segment": "Prevenção a Fraudes",
+        "service": "Suporte AMS mensal",
+        "challenge": "Reduzir o backlog de chamados e melhorar o tempo de resposta nas demandas internas.",
+        "actions": [
+          "Atendimento contínuo via modelo AMS",
+          "Gestão estratégica dos chamados",
+          "Apoio técnico na estabilização do ambiente"
+        ],
+        "results": [
+          "Redução expressiva do backlog",
+          "Mais fluidez e eficiência no atendimento às áreas de negócio"
+        ]
+      },
+      "mitre": {
+        "company": "Mitre",
+        "segment": "Construção Civil",
+        "service": "Consultoria pontual",
+        "challenge": "Melhorar o processo de admissão e integração de novos colaboradores com foco em eficiência e digitalização.",
+        "actions": [
+          "Diagnóstico do fluxo de admissão",
+          "Otimização do processo com foco em experiência do colaborador",
+          "Criação de relatórios personalizados com foco em assinatura digital"
+        ],
+        "results": [
+          "Processo mais ágil e digital",
+          "Aumento no controle e conformidade com as etapas de admissão"
+        ]
+      },
+      "labels": {
+        "actions": "Atuação:",
+        "results": "Resultados:"
+      }
+    },
+    "cta": {
+      "title": "Quer ser nosso próximo case de sucesso?",
+      "description": "Entre em contato conosco e descubra como podemos transformar seus processos de RH.",
+      "button": "Fale conosco"
+    }
   },
   "contact": {
     "title": "Contato",

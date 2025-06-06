@@ -108,7 +108,7 @@
     "description": "We are specialists in turning challenges into opportunities, driving sustainable business growth.",
     "focus": {
       "title": "Client Focus",
-      "description": "We understand each client’s needs to deliver tailored solutions."
+      "description": "We understand each client's needs to deliver tailored solutions."
     },
     "automation": {
       "title": "Smart Automation",
@@ -122,7 +122,79 @@
   "cases": {
     "title": "Success Stories",
     "description": "Check out some of our successful cases",
-    "viewCase": "View full case"
+    "viewCase": "View full case",
+    "trajectory": {
+      "title": "Our Journey",
+      "description1": "Even before the founding of Five Consulting, our team had already participated in projects in",
+      "description2": "more than 100 companies",
+      "description3": "of various sizes and segments.",
+      "description4": "This journey consolidated our experience in HR systems implementation, technical support, process optimization, training and strategic consulting.",
+      "description5": "With this background, we can quickly understand your business challenges and deliver tailored solutions with agility, technical depth and focus on results.",
+      "stats": {
+        "companies": "Companies served",
+        "experience": "Years of experience in HR projects"
+      }
+    },
+    "sectors": {
+      "title": "Sectors we operate in",
+      "description": "Our team's experience extends across projects in companies from various sectors of the economy, including:",
+      "list": {
+        "industry": "Industry",
+        "retail": "Retail",
+        "health": "Healthcare",
+        "education": "Education",
+        "pharmaceutical": "Pharmaceutical",
+        "logistics": "Logistics",
+        "finance": "Finance",
+        "technology": "Technology",
+        "hr": "Internal HR of large groups",
+        "construction": "Construction",
+        "fraud": "Fraud Prevention",
+        "hospitality": "Hospitality"
+      }
+    },
+    "recent": {
+      "title": "Recent Cases",
+      "clearsale": {
+        "company": "ClearSale",
+        "segment": "Fraud Prevention",
+        "service": "Monthly AMS Support",
+        "challenge": "Reduce ticket backlog and improve response time for internal demands.",
+        "actions": [
+          "Continuous service via AMS model",
+          "Strategic ticket management",
+          "Technical support for environment stabilization"
+        ],
+        "results": [
+          "Significant backlog reduction",
+          "More fluidity and efficiency in serving business areas"
+        ]
+      },
+      "mitre": {
+        "company": "Mitre",
+        "segment": "Construction",
+        "service": "Specific consulting",
+        "challenge": "Improve the admission and onboarding process for new employees with focus on efficiency and digitalization.",
+        "actions": [
+          "Admission flow diagnosis",
+          "Process optimization focused on employee experience",
+          "Creation of customized reports with focus on digital signature"
+        ],
+        "results": [
+          "More agile and digital process",
+          "Increased control and compliance with admission steps"
+        ]
+      },
+      "labels": {
+        "actions": "Actions:",
+        "results": "Results:"
+      }
+    },
+    "cta": {
+      "title": "Want to be our next success story?",
+      "description": "Contact us and discover how we can transform your HR processes.",
+      "button": "Contact us"
+    }
   },
   "contact": {
     "title": "Contact",
