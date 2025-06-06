@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Building, Users, TrendingUp, CheckCircle, Factory, ShoppingBag, Heart, GraduationCap, Pill, Truck, Building2, Laptop, UserCheck, HardHat, Shield } from 'lucide-react';
+import { ArrowRight, Building, Users, TrendingUp, CheckCircle, Factory, ShoppingBag, Heart, GraduationCap, Pill, Truck, Building2, Laptop, UserCheck, HardHat, Shield, Hotel } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Cases = () => {
@@ -16,7 +16,8 @@ const Cases = () => {
     { icon: Laptop, name: 'Tecnologia' },
     { icon: UserCheck, name: 'Recursos Humanos internos de grandes grupos' },
     { icon: HardHat, name: 'Construção Civil' },
-    { icon: Shield, name: 'Prevenção a Fraudes' }
+    { icon: Shield, name: 'Prevenção a Fraudes' },
+    { icon: Hotel, name: 'Hotelaria' }
   ];
 
   const recentCases = [
@@ -59,10 +60,7 @@ const Cases = () => {
       <div className="container mx-auto px-4">
         {/* Nossa Trajetória */}
         <div className="text-center mb-20">
-          <div className="flex items-center justify-center mb-8">
-            <CheckCircle className="w-8 h-8 text-blue-600 mr-4" strokeWidth={1.5} />
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Nossa Trajetória</h2>
-          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">Nossa Trajetória</h2>
           
           <div className="bg-white rounded-xl shadow-lg p-8 mb-12 max-w-4xl mx-auto">
             <p className="text-lg text-gray-700 leading-relaxed mb-6">
@@ -93,10 +91,7 @@ const Cases = () => {
 
         {/* Setores de Atuação */}
         <div className="mb-20">
-          <div className="flex items-center justify-center mb-8">
-            <CheckCircle className="w-8 h-8 text-blue-600 mr-4" strokeWidth={1.5} />
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Setores em que atuamos</h2>
-          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">Setores em que atuamos</h2>
           
           <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
             A experiência da nossa equipe se estende por projetos em empresas de variados setores da economia, incluindo:
@@ -119,10 +114,7 @@ const Cases = () => {
 
         {/* Cases Recentes */}
         <div>
-          <div className="flex items-center justify-center mb-8">
-            <CheckCircle className="w-8 h-8 text-blue-600 mr-4" strokeWidth={1.5} />
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Cases Recentes</h2>
-          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">Cases Recentes</h2>
 
           <div className="space-y-8 max-w-6xl mx-auto">
             {recentCases.map((case_, index) => (
