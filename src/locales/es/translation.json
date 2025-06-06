@@ -97,6 +97,62 @@
           "Monitoreo proactivo",
           "Equipo altamente especializado"
         ]
+      },
+      "page": {
+        "title": "Soporte AMS",
+        "description": "Atención técnica y funcional continua, garantizando el funcionamiento ideal de tu sistema de RRHH con agilidad, flexibilidad y seguridad.",
+        "benefits": {
+          "title": "Beneficios",
+          "items": [
+            "Soporte especializado bajo demanda",
+            "Resolución rápida de incidentes",
+            "Atención por hora o paquete mensual",
+            "Reducción del tiempo de inactividad",
+            "Equipo enfocado en atender tu modelo de negocio",
+            "Liberación del equipo interno para actividades estratégicas"
+          ]
+        },
+        "methodology": {
+          "title": "Nuestra Metodología",
+          "phases": {
+            "diagnosis": {
+              "title": "Diagnóstico",
+              "steps": [
+                "Levantamiento de las principales demandas",
+                "Análisis de ocurrencias recurrentes",
+                "Entendimiento del alcance funcional",
+                "Identificación de puntos de atención"
+              ]
+            },
+            "planning": {
+              "title": "Planificación",
+              "steps": [
+                "Definición del modelo de atención",
+                "Creación de flujos de soporte",
+                "Establecimiento de SLA y prioridades",
+                "Planificación de atenciones proactivas"
+              ]
+            },
+            "implementation": {
+              "title": "Implementación",
+              "steps": [
+                "Ejecución de atenciones correctivas",
+                "Soporte a parametrizaciones e integraciones",
+                "Registro y documentación de las soluciones",
+                "Comunicación continua con el cliente"
+              ]
+            },
+            "improvement": {
+              "title": "Mejora Continua",
+              "steps": [
+                "Análisis de indicadores de soporte",
+                "Acciones preventivas y evolutivas",
+                "Propuestas de mejora sistémica",
+                "Revisiones periódicas de rendimiento"
+              ]
+            }
+          }
+        }
       }
     },
     "revitalization": {
@@ -223,7 +279,7 @@
         ],
         "results": [
           "Reducción significativa del backlog",
-          "Más fluidez y eficiencia en la atención a las áreas de negocio"
+          "Más fluidez y eficiencia en la atención a las áreas de negócio"
         ]
       },
       "mitre": {

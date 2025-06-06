@@ -97,6 +97,62 @@
           "Proactive monitoring",
           "Specialized team"
         ]
+      },
+      "page": {
+        "title": "AMS Support",
+        "description": "Continuous technical and functional support, ensuring optimal performance of your HR system with agility, flexibility and security.",
+        "benefits": {
+          "title": "Benefits",
+          "items": [
+            "Specialized on-demand support",
+            "Quick incident resolution",
+            "Hourly or monthly package service",
+            "Reduced downtime",
+            "Team focused on your business model",
+            "Free internal team for strategic activities"
+          ]
+        },
+        "methodology": {
+          "title": "Our Methodology",
+          "phases": {
+            "diagnosis": {
+              "title": "Diagnosis",
+              "steps": [
+                "Survey of main demands",
+                "Analysis of recurring incidents",
+                "Understanding of functional scope",
+                "Identification of attention points"
+              ]
+            },
+            "planning": {
+              "title": "Planning",
+              "steps": [
+                "Definition of service model",
+                "Creation of support flows",
+                "Establishment of SLA and priorities",
+                "Planning of proactive services"
+              ]
+            },
+            "implementation": {
+              "title": "Implementation",
+              "steps": [
+                "Execution of corrective services",
+                "Support for configurations and integrations",
+                "Registration and documentation of solutions",
+                "Continuous communication with client"
+              ]
+            },
+            "improvement": {
+              "title": "Continuous Improvement",
+              "steps": [
+                "Analysis of support indicators",
+                "Preventive and evolutionary actions",
+                "Systemic improvement proposals",
+                "Periodic performance reviews"
+              ]
+            }
+          }
+        }
       }
     },
     "revitalization": {

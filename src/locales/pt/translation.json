@@ -97,6 +97,62 @@
           "Prevenção de falhas",
           "Resolução eficiente de incidentes"
         ]
+      },
+      "page": {
+        "title": "Suporte AMS",
+        "description": "Atendimento técnico e funcional contínuo, garantindo o funcionamento ideal do seu sistema de RH com agilidade, flexibilidade e segurança.",
+        "benefits": {
+          "title": "Benefícios",
+          "items": [
+            "Suporte especializado sob demanda",
+            "Resolução rápida de incidentes",
+            "Atendimento por hora ou pacote mensal",
+            "Redução de tempo de inatividade",
+            "Equipe focada em atender seu modelo de negócio",
+            "Liberação do time interno para atividades estratégicas"
+          ]
+        },
+        "methodology": {
+          "title": "Nossa Metodologia",
+          "phases": {
+            "diagnosis": {
+              "title": "Diagnóstico",
+              "steps": [
+                "Levantamento das principais demandas",
+                "Análise de ocorrências recorrentes",
+                "Entendimento do escopo funcional",
+                "Identificação de pontos de atenção"
+              ]
+            },
+            "planning": {
+              "title": "Planejamento",
+              "steps": [
+                "Definição do modelo de atendimento",
+                "Criação de fluxos de suporte",
+                "Estabelecimento de SLA e prioridades",
+                "Planejamento de atendimentos proativos"
+              ]
+            },
+            "implementation": {
+              "title": "Implementação",
+              "steps": [
+                "Execução de atendimentos corretivos",
+                "Suporte a parametrizações e integrações",
+                "Registro e documentação das soluções",
+                "Comunicação contínua com o cliente"
+              ]
+            },
+            "improvement": {
+              "title": "Melhoria Contínua",
+              "steps": [
+                "Análise de indicadores de suporte",
+                "Ações preventivas e evolutivas",
+                "Propostas de melhoria sistêmica",
+                "Revisões periódicas de performance"
+              ]
+            }
+          }
+        }
       }
     },
     "revitalization": {
