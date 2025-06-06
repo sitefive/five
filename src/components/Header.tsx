@@ -13,6 +13,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesMenuOpen, setIsServicesMenuOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const Header = () => {
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setIsMobileServicesOpen(false);
   }, [location]);
 
   const services = [
@@ -72,6 +74,10 @@ const Header = () => {
       const sectionId = item.href.split('#')[1];
       scrollToSection(sectionId);
     }
+  };
+
+  const toggleMobileServices = () => {
+    setIsMobileServicesOpen(!isMobileServicesOpen);
   };
 
   return (
@@ -167,7 +173,7 @@ const Header = () => {
 
         <div
           className={`md:hidden transition-all duration-300 ease-in-out ${
-            isMobileMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+            isMobileMenuOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
           } overflow-hidden bg-blue-600 shadow-lg rounded-b-lg`}
           role="navigation"
         >
@@ -176,23 +182,31 @@ const Header = () => {
               <div key={item.key}>
                 {item.hasSubmenu ? (
                   <div className="space-y-1">
-                    <Link
-                      to={item.href}
-                      className="flex items-center justify-center min-h-[44px] px-6 text-white hover:bg-blue-500 transition-colors duration-300 text-lg"
-                      onClick={() => handleMenuClick(item)}
+                    <button
+                      onClick={toggleMobileServices}
+                      className="flex items-center justify-between w-full min-h-[44px] px-6 text-white hover:bg-blue-500 transition-colors duration-300 text-lg"
                     >
-                      {item.label}
-                    </Link>
-                    {item.submenu.map((subItem) => (
-                      <Link
-                        key={subItem.key}
-                        to={subItem.href}
-                        className="flex items-center justify-center min-h-[44px] px-6 text-white hover:bg-blue-500 transition-colors duration-300"
-                        onClick={() => handleMenuClick(subItem)}
-                      >
-                        {subItem.label}
-                      </Link>
-                    ))}
+                      <span>{item.label}</span>
+                      <ChevronDown 
+                        className={`w-4 h-4 transition-transform duration-300 ${
+                          isMobileServicesOpen ? 'rotate-180' : ''
+                        }`} 
+                      />
+                    </button>
+                    <div className={`overflow-hidden transition-all duration-300 ${
+                      isMobileServicesOpen ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'
+                    }`}>
+                      {item.submenu.map((subItem) => (
+                        <Link
+                          key={subItem.key}
+                          to={subItem.href}
+                          className="flex items-center justify-center min-h-[44px] px-8 text-white hover:bg-blue-500 transition-colors duration-300 bg-blue-700"
+                          onClick={() => handleMenuClick(subItem)}
+                        >
+                          {subItem.label}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 ) : (
                   <Link
@@ -207,14 +221,23 @@ const Header = () => {
               </div>
             ))}
 
-            <a
-              href="https://fiveconsulting.tomticket.com/helpdesk"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block mt-4 mx-6 text-center bg-white text-blue-600 hover:bg-blue-100 px-6 py-3 rounded-lg font-semibold transition-all duration-300"
-            >
-              {t('menu.clientArea')}
-            </a>
+            {/* Language Selector Mobile */}
+            <div className="px-6 py-3 border-t border-blue-500 mt-2">
+              <div className="text-white font-medium mb-2">Idioma:</div>
+              <LanguageSelector />
+            </div>
+
+            {/* Client Area Mobile */}
+            <div className="px-6 py-4">
+              <a
+                href="https://fiveconsulting.tomticket.com/helpdesk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center bg-white text-blue-600 hover:bg-blue-100 px-6 py-3 rounded-lg font-semibold transition-all duration-300"
+              >
+                {t('menu.clientArea')}
+              </a>
+            </div>
           </div>
         </div>
       </div>
