@@ -6,20 +6,68 @@ import ParallaxHeader from '../components/ParallaxHeader';
 const SuporteAMS = () => {
   const { t } = useTranslation();
 
+  const benefits = [
+    'Suporte especializado sob demanda',
+    'Resolução rápida de incidentes',
+    'Atendimento por hora ou pacote mensal',
+    'Redução de tempo de inatividade',
+    'Equipe focada em atender seu modelo de negócio',
+    'Liberação do time interno para atividades estratégicas'
+  ];
+
+  const methodology = [
+    {
+      title: 'Diagnóstico',
+      steps: [
+        'Levantamento das principais demandas',
+        'Análise de ocorrências recorrentes',
+        'Entendimento do escopo funcional',
+        'Identificação de pontos de atenção'
+      ]
+    },
+    {
+      title: 'Planejamento',
+      steps: [
+        'Definição do modelo de atendimento',
+        'Criação de fluxos de suporte',
+        'Estabelecimento de SLA e prioridades',
+        'Planejamento de atendimentos proativos'
+      ]
+    },
+    {
+      title: 'Implementação',
+      steps: [
+        'Execução de atendimentos corretivos',
+        'Suporte a parametrizações e integrações',
+        'Registro e documentação das soluções',
+        'Comunicação contínua com o cliente'
+      ]
+    },
+    {
+      title: 'Melhoria Contínua',
+      steps: [
+        'Análise de indicadores de suporte',
+        'Ações preventivas e evolutivas',
+        'Propostas de melhoria sistêmica',
+        'Revisões periódicas de performance'
+      ]
+    }
+  ];
+
   return (
     <div className="pt-00">
       <ParallaxHeader
-        title={t('services.support.title')}
-        description={t('services.support.description')}
+        title="Suporte AMS"
+        description="Atendimento técnico e funcional contínuo, garantindo o funcionamento ideal do seu sistema de RH com agilidade, flexibilidade e segurança."
         image="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80"
       />
 
       <div className="container mx-auto px-4 py-16">
         {/* Benefits Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8">{t('services.support.benefits.title')}</h2>
+          <h2 className="text-3xl font-bold mb-8">Benefícios</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {t('services.support.benefits.items', { returnObjects: true }).map((benefit, index) => (
+            {benefits.map((benefit, index) => (
               <div key={index} className="flex items-start space-x-4 bg-white p-6 rounded-lg shadow-sm">
                 <div className="flex-shrink-0">
                   <Check className="w-6 h-6 text-blue-600" />
@@ -32,15 +80,15 @@ const SuporteAMS = () => {
 
         {/* Methodology Section */}
         <section>
-          <h2 className="text-3xl font-bold mb-8">{t('services.methodology.title')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {['diagnosis', 'planning', 'implementation'].map((phase) => (
-              <div key={phase} className="bg-white p-8 rounded-xl shadow-lg">
+          <h2 className="text-3xl font-bold mb-8">Nossa Metodologia</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {methodology.map((phase, index) => (
+              <div key={index} className="bg-white p-8 rounded-xl shadow-lg">
                 <h3 className="text-2xl font-semibold mb-6">
-                  {t(`services.methodology.phases.${phase}.title`)}
+                  {phase.title}
                 </h3>
                 <ul className="space-y-4">
-                  {t(`services.methodology.phases.${phase}.steps`, { returnObjects: true }).map((step, stepIndex) => (
+                  {phase.steps.map((step, stepIndex) => (
                     <li key={stepIndex} className="flex items-start space-x-3">
                       <Check className="w-5 h-5 text-blue-600 mt-1" />
                       <span className="text-gray-700">{step}</span>
