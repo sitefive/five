@@ -166,6 +166,62 @@
           "Cost reduction",
           "Enhanced security"
         ]
+      },
+      "page": {
+        "title": "System Revitalization",
+        "description": "Recovery and enhancement of existing implementations, elevating system performance with intelligent use of already contracted resources.",
+        "benefits": {
+          "title": "Benefits",
+          "items": [
+            "Correction of implementation failures",
+            "Increased efficiency of current system",
+            "Utilization of forgotten functionalities",
+            "Reduction of parallel controls usage (spreadsheets)",
+            "User re-engagement with the system",
+            "Savings by avoiding new implementation"
+          ]
+        },
+        "methodology": {
+          "title": "Our Methodology",
+          "phases": {
+            "diagnosis": {
+              "title": "Diagnosis",
+              "steps": [
+                "Analysis of current system scenario",
+                "Survey of failures and limitations",
+                "Assessment of adherence to business processes",
+                "Interviews with key users"
+              ]
+            },
+            "planning": {
+              "title": "Planning",
+              "steps": [
+                "Definition of revitalization scope",
+                "Proposal of adjustments and improvements",
+                "Restructuring schedule",
+                "Alignment with impacted areas"
+              ]
+            },
+            "implementation": {
+              "title": "Implementation",
+              "steps": [
+                "System adjustments and reconfigurations",
+                "Update of records and flows",
+                "Delivery validation with client",
+                "Testing and approvals"
+              ]
+            },
+            "training": {
+              "title": "Training and Support",
+              "steps": [
+                "Team training",
+                "Creation of guides and manuals",
+                "Post-revitalization support",
+                "Adoption monitoring"
+              ]
+            }
+          }
+        }
       }
     },
     "optimization": {

@@ -166,6 +166,62 @@
           "Reducción de costos operativos",
           "Mayor seguridad y confiabilidad"
         ]
+      },
+      "page": {
+        "title": "Revitalización de Sistemas",
+        "description": "Recuperación y mejora de implementaciones existentes, elevando el rendimiento del sistema con uso inteligente de los recursos ya contratados.",
+        "benefits": {
+          "title": "Beneficios",
+          "items": [
+            "Corrección de fallas de implementación",
+            "Aumento de la eficiencia del sistema actual",
+            "Aprovechamiento de funcionalidades olvidadas",
+            "Reducción del uso de controles paralelos (hojas de cálculo)",
+            "Recompromiso de los usuarios con el sistema",
+            "Ahorro al evitar nueva implementación"
+          ]
+        },
+        "methodology": {
+          "title": "Nuestra Metodología",
+          "phases": {
+            "diagnosis": {
+              "title": "Diagnóstico",
+              "steps": [
+                "Análisis del escenario actual del sistema",
+                "Levantamiento de fallas y limitaciones",
+                "Evaluación de la adherencia a los procesos de negocio",
+                "Entrevistas con usuarios clave"
+              ]
+            },
+            "planning": {
+              "title": "Planificación",
+              "steps": [
+                "Definición del alcance de revitalización",
+                "Propuesta de ajustes y mejoras",
+                "Cronograma de reestructuración",
+                "Alineación con áreas impactadas"
+              ]
+            },
+            "implementation": {
+              "title": "Implementación",
+              "steps": [
+                "Ajustes y reconfiguraciones en el sistema",
+                "Actualización de registros y flujos",
+                "Validación de entregas con el cliente",
+                "Pruebas y homologaciones"
+              ]
+            },
+            "training": {
+              "title": "Capacitación y Sustentación",
+              "steps": [
+                "Entrenamiento de los equipos",
+                "Creación de guías y manuales",
+                "Apoyo post-revitalización",
+                "Seguimiento de la adopción"
+              ]
+            }
+          }
+        }
       }
     },
     "optimization": {

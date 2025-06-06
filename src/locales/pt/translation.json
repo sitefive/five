@@ -166,6 +166,62 @@
           "Otimização de custos operacionais",
           "Mais segurança e confiabilidade"
         ]
+      },
+      "page": {
+        "title": "Revitalização de Sistemas",
+        "description": "Recuperação e aprimoramento de implementações existentes, elevando a performance do sistema com uso inteligente dos recursos já contratados.",
+        "benefits": {
+          "title": "Benefícios",
+          "items": [
+            "Correção de falhas de implementação",
+            "Aumento da eficiência do sistema atual",
+            "Aproveitamento de funcionalidades esquecidas",
+            "Redução de uso de controles paralelos (planilhas)",
+            "Reengajamento dos usuários com o sistema",
+            "Economia ao evitar nova implantação"
+          ]
+        },
+        "methodology": {
+          "title": "Nossa Metodologia",
+          "phases": {
+            "diagnosis": {
+              "title": "Diagnóstico",
+              "steps": [
+                "Análise do cenário atual do sistema",
+                "Levantamento de falhas e limitações",
+                "Avaliação da aderência aos processos de negócio",
+                "Entrevistas com usuários-chave"
+              ]
+            },
+            "planning": {
+              "title": "Planejamento",
+              "steps": [
+                "Definição do escopo de revitalização",
+                "Proposta de ajustes e melhorias",
+                "Cronograma de reestruturação",
+                "Alinhamento com áreas impactadas"
+              ]
+            },
+            "implementation": {
+              "title": "Implementação",
+              "steps": [
+                "Ajustes e reconfigurações no sistema",
+                "Atualização de cadastros e fluxos",
+                "Validação de entregas com o cliente",
+                "Testes e homologações"
+              ]
+            },
+            "training": {
+              "title": "Capacitação e Sustentação",
+              "steps": [
+                "Treinamento das equipes",
+                "Criação de guias e manuais",
+                "Apoio pós-revitalização",
+                "Acompanhamento da adoção"
+              ]
+            }
+          }
+        }
       }
     },
     "optimization": {
