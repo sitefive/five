@@ -184,11 +184,11 @@ const Header = () => {
                   <div className="space-y-1">
                     <button
                       onClick={toggleMobileServices}
-                      className="flex items-center justify-between w-full min-h-[44px] px-6 text-white hover:bg-blue-500 transition-colors duration-300 text-lg"
+                      className="flex items-center justify-center w-full min-h-[44px] px-6 text-white hover:bg-blue-500 transition-colors duration-300 text-lg"
                     >
                       <span>{item.label}</span>
                       <ChevronDown 
-                        className={`w-4 h-4 transition-transform duration-300 ${
+                        className={`w-4 h-4 ml-2 transition-transform duration-300 ${
                           isMobileServicesOpen ? 'rotate-180' : ''
                         }`} 
                       />
@@ -222,8 +222,7 @@ const Header = () => {
             ))}
 
             {/* Language Selector Mobile */}
-            <div className="px-6 py-3 border-t border-blue-500 mt-2">
-              <div className="text-white font-medium mb-2">Idioma:</div>
+            <div className="flex items-center justify-center px-6 py-3 border-t border-blue-500 mt-2">
               <LanguageSelector />
             </div>
 
