@@ -12,7 +12,7 @@ const Cases = () => {
     { icon: '🚚', name: 'Logística' },
     { icon: '🏦', name: 'Finanças' },
     { icon: '💻', name: 'Tecnologia' },
-    { icon: '👥', name: 'Recursos Humanos' },
+    { icon: '👥', name: 'Recursos Humanos internos de grandes grupos' },
     { icon: '🏗️', name: 'Construção Civil' },
     { icon: '🛡️', name: 'Prevenção a Fraudes' }
   ];
@@ -21,7 +21,7 @@ const Cases = () => {
     {
       company: 'ClearSale',
       segment: 'Prevenção a Fraudes',
-      service: 'Suporte AMS Contínuo',
+      service: 'Suporte AMS mensal',
       challenge: 'Reduzir o backlog de chamados e melhorar o tempo de resposta nas demandas internas.',
       actions: [
         'Atendimento contínuo via modelo AMS',
@@ -37,7 +37,7 @@ const Cases = () => {
     {
       company: 'Mitre',
       segment: 'Construção Civil',
-      service: 'Consultoria Especialista em Admissão e Onboarding',
+      service: 'Consultoria pontual',
       challenge: 'Melhorar o processo de admissão e integração de novos colaboradores com foco em eficiência e digitalização.',
       actions: [
         'Diagnóstico do fluxo de admissão',
