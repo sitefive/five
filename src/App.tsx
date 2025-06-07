@@ -48,7 +48,7 @@ function App() {
         <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Routes>
-            {/* Admin Routes - Must come first */}
+            {/* Admin Routes - Must come first and be specific */}
             <Route path="/admin/login" element={<Login />} />
             <Route
               path="/admin/preview/:id"
@@ -59,7 +59,7 @@ function App() {
               }
             />
             <Route
-              path="/admin/*"
+              path="/admin"
               element={
                 <AuthGuard>
                   <AdminLayout />
@@ -80,8 +80,8 @@ function App() {
             {/* Root redirect */}
             <Route path="/" element={<RedirectToBrowserLang />} />
 
-            {/* Public Routes */}
-            <Route path=":lang" element={<MultilangLayout />}>
+            {/* Public Routes with language parameter */}
+            <Route path="/:lang" element={<MultilangLayout />}>
               <Route index element={<Home />} />
 
               {/* About */}
@@ -184,6 +184,9 @@ function App() {
               <Route path={routeSlugs.terms.en} element={<TermsOfUse />} />
               <Route path={routeSlugs.terms.es} element={<TermsOfUse />} />
             </Route>
+
+            {/* Catch-all route for 404 */}
+            <Route path="*" element={<RedirectToBrowserLang />} />
           </Routes>
         </div>
         <Toaster position="top-right" />
