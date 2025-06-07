@@ -1,14 +1,23 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getBrowserLanguage } from '../utils/getBrowserLanguage';
 
 const RedirectToBrowserLang = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
+    // Don't redirect if we're already on a language route or admin route
+    if (location.pathname.startsWith('/admin') || 
+        location.pathname.match(/^\/(pt|en|es)/)) {
+      return;
+    }
+
     const lang = getBrowserLanguage();
-    navigate(`/${lang}`, { replace: true });
-  }, [navigate]);
+    const targetPath = location.pathname === '/' ? `/${lang}` : `/${lang}${location.pathname}`;
+    
+    navigate(targetPath, { replace: true });
+  }, [navigate, location]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">

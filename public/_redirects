@@ -1,1 +1,10 @@
-/*    /index.html   200
+# Admin routes
+/admin/* /index.html 200
+
+# Language-specific routes
+/pt/* /index.html 200
+/en/* /index.html 200
+/es/* /index.html 200
+
+# Fallback for all other routes
+/* /index.html 200
