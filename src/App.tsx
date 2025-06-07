@@ -48,7 +48,7 @@ function App() {
         <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Routes>
-            {/* Admin Routes - Must come first and be specific */}
+            {/* Admin Routes - Must be first and specific */}
             <Route path="/admin/login" element={<Login />} />
             <Route
               path="/admin/preview/:id"
@@ -59,7 +59,7 @@ function App() {
               }
             />
             <Route
-              path="/admin"
+              path="/admin/*"
               element={
                 <AuthGuard>
                   <AdminLayout />

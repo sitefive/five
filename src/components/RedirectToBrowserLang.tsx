@@ -8,9 +8,16 @@ const RedirectToBrowserLang = () => {
 
   useEffect(() => {
     // Don't redirect if we're already on a language route or admin route
-    if (location.pathname.startsWith('/admin') || 
-        location.pathname.match(/^\/(pt|en|es)/)) {
+    if (location.pathname.startsWith('/admin')) {
       return;
+    }
+
+    // Check if we're already on a valid language route
+    const pathParts = location.pathname.split('/');
+    const firstPart = pathParts[1];
+    
+    if (['pt', 'en', 'es'].includes(firstPart)) {
+      return; // Already on a language route
     }
 
     const lang = getBrowserLanguage();
