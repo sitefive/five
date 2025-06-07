@@ -20,7 +20,7 @@ import TagList from './pages/admin/TagList';
 import MediaLibrary from './components/admin/MediaLibrary';
 import Settings from './pages/admin/Settings';
 import UserList from './pages/admin/UserList';
-import PostPreview from './pages/admin/preview/[id]';
+import PostPreview from './pages/admin/preview/PostPreview';
 
 // Public Pages
 import Home from './pages/Home';

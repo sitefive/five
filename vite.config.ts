@@ -3,19 +3,27 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
-  base: './', // 👈 Corrige problema dos assets na Hostinger
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'), // 👈 Ativa o uso de @ para /src
+      '@': path.resolve(__dirname, './src'),
     },
   },
   optimizeDeps: {
-    exclude: ['lucide-react'], // 👈 Apenas se necessário
+    exclude: ['lucide-react'],
   },
   publicDir: 'public',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          ui: ['lucide-react', 'framer-motion']
+        }
+      }
+    }
   },
 });
