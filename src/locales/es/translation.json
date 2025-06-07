@@ -235,6 +235,62 @@
           "Reducción de errores y retrabajos",
           "Incremento de la productividad"
         ]
+      },
+      "page": {
+        "title": "Optimización de Procesos",
+        "description": "Mejora y automatización de flujos de trabajo para mayor eficiencia operacional, reducción de costos y aumento de la productividad.",
+        "benefits": {
+          "title": "Beneficios",
+          "items": [
+            "Aumento de la eficiencia operacional",
+            "Reducción de costos y desperdicios",
+            "Estandarización de procesos",
+            "Mejora de la calidad",
+            "Aumento de la productividad",
+            "Mayor satisfacción del cliente"
+          ]
+        },
+        "methodology": {
+          "title": "Nuestra Metodología",
+          "phases": {
+            "mapping": {
+              "title": "Mapeo",
+              "steps": [
+                "Identificación de procesos críticos",
+                "Documentación de flujos actuales",
+                "Análisis de cuellos de botella",
+                "Levantamiento de indicadores"
+              ]
+            },
+            "optimization": {
+              "title": "Optimización",
+              "steps": [
+                "Rediseño de procesos",
+                "Eliminación de desperdicios",
+                "Automatización de actividades",
+                "Definición de controles"
+              ]
+            },
+            "implementation": {
+              "title": "Implementación",
+              "steps": [
+                "Entrenamiento de los equipos",
+                "Implementación de mejoras",
+                "Monitoreo de resultados",
+                "Mejora continua"
+              ]
+            },
+            "governance": {
+              "title": "Gobernanza",
+              "steps": [
+                "Establecimiento de indicadores clave",
+                "Creación de rutinas de control",
+                "Reuniones de seguimiento",
+                "Plan de evolución de procesos"
+              ]
+            }
+          }
+        }
       }
     },
     "methodology": {

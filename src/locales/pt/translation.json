@@ -235,6 +235,62 @@
           "Diminuição de falhas e retrabalho",
           "Ganhos significativos em produtividade"
         ]
+      },
+      "page": {
+        "title": "Otimização de Processos",
+        "description": "Aprimoramento e automação de fluxos de trabalho para maior eficiência operacional, redução de custos e aumento da produtividade.",
+        "benefits": {
+          "title": "Benefícios",
+          "items": [
+            "Aumento da eficiência operacional",
+            "Redução de custos e desperdícios",
+            "Padronização de processos",
+            "Melhoria da qualidade",
+            "Aumento da produtividade",
+            "Maior satisfação dos clientes"
+          ]
+        },
+        "methodology": {
+          "title": "Nossa Metodologia",
+          "phases": {
+            "mapping": {
+              "title": "Mapeamento",
+              "steps": [
+                "Identificação de processos críticos",
+                "Documentação de fluxos atuais",
+                "Análise de gargalos",
+                "Levantamento de indicadores"
+              ]
+            },
+            "optimization": {
+              "title": "Otimização",
+              "steps": [
+                "Redesenho de processos",
+                "Eliminação de desperdícios",
+                "Automação de atividades",
+                "Definição de controles"
+              ]
+            },
+            "implementation": {
+              "title": "Implementação",
+              "steps": [
+                "Treinamento das equipes",
+                "Implantação de melhorias",
+                "Monitoramento de resultados",
+                "Melhoria contínua"
+              ]
+            },
+            "governance": {
+              "title": "Governança",
+              "steps": [
+                "Estabelecimento de indicadores-chave",
+                "Criação de rotinas de controle",
+                "Reuniões de acompanhamento",
+                "Plano de evolução dos processos"
+              ]
+            }
+          }
+        }
       }
     },
     "methodology": {

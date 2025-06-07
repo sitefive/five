@@ -235,6 +235,62 @@
           "Error reduction",
           "Higher productivity"
         ]
+      },
+      "page": {
+        "title": "Process Optimization",
+        "description": "Enhancement and automation of workflows for greater operational efficiency, cost reduction and increased productivity.",
+        "benefits": {
+          "title": "Benefits",
+          "items": [
+            "Increased operational efficiency",
+            "Cost and waste reduction",
+            "Process standardization",
+            "Quality improvement",
+            "Increased productivity",
+            "Greater customer satisfaction"
+          ]
+        },
+        "methodology": {
+          "title": "Our Methodology",
+          "phases": {
+            "mapping": {
+              "title": "Mapping",
+              "steps": [
+                "Identification of critical processes",
+                "Documentation of current flows",
+                "Bottleneck analysis",
+                "Indicator survey"
+              ]
+            },
+            "optimization": {
+              "title": "Optimization",
+              "steps": [
+                "Process redesign",
+                "Waste elimination",
+                "Activity automation",
+                "Control definition"
+              ]
+            },
+            "implementation": {
+              "title": "Implementation",
+              "steps": [
+                "Team training",
+                "Implementation of improvements",
+                "Results monitoring",
+                "Continuous improvement"
+              ]
+            },
+            "governance": {
+              "title": "Governance",
+              "steps": [
+                "Establishment of key indicators",
+                "Creation of control routines",
+                "Follow-up meetings",
+                "Process evolution plan"
+              ]
+            }
+          }
+        }
       }
     },
     "methodology": {
