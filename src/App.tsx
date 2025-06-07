@@ -48,7 +48,7 @@ function App() {
         <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Routes>
-            {/* Admin Routes */}
+            {/* Admin Routes - Must come first */}
             <Route path="/admin/login" element={<Login />} />
             <Route
               path="/admin/preview/:id"
@@ -59,7 +59,7 @@ function App() {
               }
             />
             <Route
-              path="/admin"
+              path="/admin/*"
               element={
                 <AuthGuard>
                   <AdminLayout />
@@ -77,9 +77,10 @@ function App() {
               <Route path="users" element={<UserList />} />
             </Route>
 
-            {/* Public Routes */}
+            {/* Root redirect */}
             <Route path="/" element={<RedirectToBrowserLang />} />
 
+            {/* Public Routes */}
             <Route path=":lang" element={<MultilangLayout />}>
               <Route index element={<Home />} />
 
