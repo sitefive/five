@@ -20,6 +20,7 @@ import TagList from './pages/admin/TagList';
 import MediaLibrary from './components/admin/MediaLibrary';
 import Settings from './pages/admin/Settings';
 import UserList from './pages/admin/UserList';
+import PostPreview from './pages/admin/preview/[id]';
 
 // Public Pages
 import Home from './pages/Home';
@@ -49,6 +50,14 @@ function App() {
           <Routes>
             {/* Admin Routes */}
             <Route path="/admin/login" element={<Login />} />
+            <Route
+              path="/admin/preview/:id"
+              element={
+                <AuthGuard>
+                  <PostPreview />
+                </AuthGuard>
+              }
+            />
             <Route
               path="/admin"
               element={

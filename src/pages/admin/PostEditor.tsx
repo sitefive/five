@@ -6,6 +6,7 @@ import RichTextEditor from '../../components/admin/RichTextEditor';
 import ImageUpload from '../../components/admin/ImageUpload';
 import slugify from 'slugify';
 import toast from 'react-hot-toast';
+import { Eye } from 'lucide-react';
 
 interface PostData {
   title: string;
@@ -166,6 +167,12 @@ const PostEditor = () => {
     }
   };
 
+  const handlePreview = () => {
+    if (id) {
+      window.open(`/admin/preview/${id}`, '_blank');
+    }
+  };
+
   if (loading) {
     return <div className="p-4">Loading...</div>;
   }
@@ -177,6 +184,16 @@ const PostEditor = () => {
           {id ? 'Edit Post' : 'New Post'}
         </h1>
         <div className="flex gap-4">
+          {id && (
+            <button
+              onClick={handlePreview}
+              className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 flex items-center gap-2"
+              disabled={loading}
+            >
+              <Eye className="w-4 h-4" />
+              Visualizar
+            </button>
+          )}
           <button
             onClick={() => handleSave(false)}
             className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
