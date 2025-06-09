@@ -95,7 +95,7 @@ INSERT INTO settings (key, value_pt, value_en, value_es) VALUES
     ),
     'footer', jsonb_build_object(
       'text', 'We are experts in transforming challenges into opportunities through innovative solutions.',
-      'copyright', '© 2025 FIVE Consulting. All rights reserved.'
+      'copyright', '© 2025 FIVE Consulting - CNPJ: 44.262.900/0001-82. All rights reserved.'
     )
   ),
   jsonb_build_object(
