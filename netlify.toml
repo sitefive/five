@@ -2,11 +2,21 @@
   publish = "dist"
   command = "npm run build"
 
-# Redirecionamentos específicos para rotas do admin
+[build.environment]
+  NODE_VERSION = "20"
+
+# Redirecionamentos críticos para admin - ORDEM IMPORTA!
 [[redirects]]
   from = "/admin"
   to = "/admin/"
   status = 301
+  force = true
+
+[[redirects]]
+  from = "/admin/login"
+  to = "/index.html"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/admin/*"
@@ -14,7 +24,7 @@
   status = 200
   force = true
 
-# Redirecionamentos para rotas com idiomas
+# Redirecionamentos para idiomas
 [[redirects]]
   from = "/pt"
   to = "/pt/"
@@ -48,22 +58,19 @@
   status = 200
   force = true
 
-# Redirecionamento da raiz para o idioma padrão
+# Redirecionamento da raiz
 [[redirects]]
   from = "/"
   to = "/pt"
   status = 302
 
-# Fallback para todas as outras rotas
+# Fallback final
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-[build.environment]
-  NODE_VERSION = "20"
-
-# Headers de segurança e cache
+# Headers otimizados
 [[headers]]
   for = "/*"
   [headers.values]
@@ -72,6 +79,13 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"
+    Expires = "0"
 
 [[headers]]
   for = "/assets/*"

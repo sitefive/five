@@ -1,13 +1,18 @@
-# Admin routes - força redirecionamento para index.html
+# CRITICAL: Admin routes - highest priority
+/admin /admin/ 301!
+/admin/login /index.html 200!
 /admin/* /index.html 200!
 
-# Language-specific routes - força redirecionamento para index.html
+# Language routes
+/pt /pt/ 301!
 /pt/* /index.html 200!
+/en /en/ 301!
 /en/* /index.html 200!
+/es /es/ 301!
 /es/* /index.html 200!
 
-# Redirecionamento da raiz para idioma padrão
+# Root redirect
 / /pt 302!
 
-# Fallback para todas as outras rotas
+# Final fallback
 /* /index.html 200

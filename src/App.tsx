@@ -48,7 +48,7 @@ function App() {
         <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Routes>
-            {/* Admin Routes - Must be first and specific */}
+            {/* CRITICAL: Admin Routes - Must be FIRST and EXACT */}
             <Route path="/admin/login" element={<Login />} />
             <Route
               path="/admin/preview/:id"
@@ -59,7 +59,7 @@ function App() {
               }
             />
             <Route
-              path="/admin/*"
+              path="/admin"
               element={
                 <AuthGuard>
                   <AdminLayout />
@@ -185,7 +185,7 @@ function App() {
               <Route path={routeSlugs.terms.es} element={<TermsOfUse />} />
             </Route>
 
-            {/* Catch-all route for 404 - redirect to home */}
+            {/* Catch-all route - redirect to home */}
             <Route path="*" element={<RedirectToBrowserLang />} />
           </Routes>
         </div>

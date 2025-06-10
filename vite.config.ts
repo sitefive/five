@@ -19,12 +19,26 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    historyApiFallback: true
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/admin/, to: '/index.html' },
+        { from: /^\/pt/, to: '/index.html' },
+        { from: /^\/en/, to: '/index.html' },
+        { from: /^\/es/, to: '/index.html' },
+      ]
+    }
   },
   preview: {
     port: 3000,
     host: true,
-    historyApiFallback: true
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/admin/, to: '/index.html' },
+        { from: /^\/pt/, to: '/index.html' },
+        { from: /^\/en/, to: '/index.html' },
+        { from: /^\/es/, to: '/index.html' },
+      ]
+    }
   },
   publicDir: 'public'
 });
