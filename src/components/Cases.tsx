@@ -14,10 +14,10 @@ const Cases = () => {
     { icon: Truck, name: t('cases.sectors.list.logistics') },
     { icon: Building2, name: t('cases.sectors.list.finance') },
     { icon: Laptop, name: t('cases.sectors.list.technology') },
-    { icon: UserCheck, name: t('cases.sectors.list.hr') },
+    { icon: Car, name: t('cases.sectors.list.automotive') },
     { icon: HardHat, name: t('cases.sectors.list.construction') },
     { icon: Shield, name: t('cases.sectors.list.fraud') },
-    { icon: Hotel, name: t('cases.sectors.list.hospitality') }
+    { icon: ShoppingCart, name: t('cases.sectors.list.supermarket') }
   ];
 
   const recentCases = [
