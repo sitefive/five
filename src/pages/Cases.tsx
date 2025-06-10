@@ -96,7 +96,7 @@ const Cases = () => {
         </section>
 
         {/* Setores de Atuação */}
-        <section className="mb-20">
+        <section className="mb-30">
           <div className="flex items-center mb-8">
             <CheckCircle className="w-8 h-8 text-green-600 mr-4" />
             <h2 className="text-3xl font-bold text-gray-900">Setores em que atuamos</h2>
