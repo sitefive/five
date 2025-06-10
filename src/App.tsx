@@ -185,7 +185,7 @@ function App() {
               <Route path={routeSlugs.terms.es} element={<TermsOfUse />} />
             </Route>
 
-            {/* Catch-all route for 404 */}
+            {/* Catch-all route for 404 - redirect to home */}
             <Route path="*" element={<RedirectToBrowserLang />} />
           </Routes>
         </div>

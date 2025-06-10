@@ -1,10 +1,13 @@
-# Admin routes
-/admin/* /index.html 200
+# Admin routes - força redirecionamento para index.html
+/admin/* /index.html 200!
 
-# Language-specific routes
-/pt/* /index.html 200
-/en/* /index.html 200
-/es/* /index.html 200
+# Language-specific routes - força redirecionamento para index.html
+/pt/* /index.html 200!
+/en/* /index.html 200!
+/es/* /index.html 200!
 
-# Fallback for all other routes
+# Redirecionamento da raiz para idioma padrão
+/ /pt 302!
+
+# Fallback para todas as outras rotas
 /* /index.html 200
