@@ -371,10 +371,10 @@
         "logistics": "Logistics",
         "finance": "Finance",
         "technology": "Technology",
-        "hr": "Internal HR of large groups",
+        "automotive": "Automotive",
         "construction": "Construction",
         "fraud": "Fraud Prevention",
-        "hospitality": "Hospitality"
+        "supermarket": "Supermarket"
       }
     },
     "recent": {
