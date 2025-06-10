@@ -118,12 +118,12 @@ const Cases = () => {
 
         {/* Cases Recentes */}
         <section>
-          <div className="flex items-center mb-20">
+          <div className="flex items-center mb-8">
             <CheckCircle className="w-8 h-8 text-green-600 mr-4" />
             <h2 className="text-3xl font-bold text-gray-900">Cases Recentes</h2>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-20">
             {recentCases.map((case_, index) => (
               <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden">
                 <div className={`${case_.color} text-white p-6`}>
