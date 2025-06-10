@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Building, Users, TrendingUp, CheckCircle, Factory, ShoppingBag, Heart, GraduationCap, Pill, Truck, Building2, Laptop, UserCheck, HardHat, Shield, Hotel } from 'lucide-react';
+import { ArrowRight, Building, Users, TrendingUp, CheckCircle, Factory, ShoppingBag, Heart, GraduationCap, Pill, Truck, Building2, Laptop, Car, HardHat, Shield, ShoppingCart } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Cases = () => {
