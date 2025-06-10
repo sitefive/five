@@ -118,7 +118,7 @@ const Cases = () => {
 
         {/* Cases Recentes */}
         <section>
-          <div className="flex items-center mb-8">
+          <div className="flex items-center mb-20">
             <CheckCircle className="w-8 h-8 text-green-600 mr-4" />
             <h2 className="text-3xl font-bold text-gray-900">Cases Recentes</h2>
           </div>
