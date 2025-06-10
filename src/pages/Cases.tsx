@@ -70,8 +70,8 @@ const Cases = () => {
           
           <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
             <p className="text-lg text-gray-700 leading-relaxed mb-6">
-              Antes mesmo da fundação da Five Consulting, nossa equipe já havia participado de projetos em 
-              <strong className="text-blue-600"> mais de 100 empresas </strong>  de diversos portes e segmentos.
+              Antes mesmo da fundação da Five Consulting, nossa equipe já havia participado de projetos em{' '} 
+              <strong className="text-blue-600"> mais de 100 empresas</strong> de diversos portes e segmentos.
             </p>
             <p className="text-lg text-gray-700 leading-relaxed mb-6">
               Essa jornada consolidou nossa experiência em implementação de sistemas de RH, suporte técnico, 
