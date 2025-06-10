@@ -59,7 +59,7 @@ function App() {
               }
             />
             <Route
-              path="/admin"
+              path="/admin/*"
               element={
                 <AuthGuard>
                   <AdminLayout />
@@ -77,7 +77,7 @@ function App() {
               <Route path="users" element={<UserList />} />
             </Route>
 
-            {/* Root redirect */}
+            {/* Root redirect - ONLY for exact root path */}
             <Route path="/" element={<RedirectToBrowserLang />} />
 
             {/* Public Routes with language parameter */}

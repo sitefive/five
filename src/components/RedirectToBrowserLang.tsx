@@ -20,30 +20,12 @@ const RedirectToBrowserLang = () => {
       return; // Already on a language route
     }
 
-    // Get preferred language
-    const lang = getBrowserLanguage();
-    
-    // Build target path
-    let targetPath = `/${lang}`;
-    
-    // If we have a path beyond the root, append it
-    if (location.pathname !== '/') {
-      targetPath += location.pathname;
+    // Only redirect from root path to avoid loops
+    if (location.pathname === '/') {
+      const lang = getBrowserLanguage();
+      navigate(`/${lang}`, { replace: true });
     }
-    
-    // Add search params if they exist
-    if (location.search) {
-      targetPath += location.search;
-    }
-    
-    // Add hash if it exists
-    if (location.hash) {
-      targetPath += location.hash;
-    }
-    
-    // Navigate to the target path
-    navigate(targetPath, { replace: true });
-  }, [navigate, location]);
+  }, [navigate, location.pathname]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">

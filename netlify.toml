@@ -5,13 +5,7 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# Redirecionamentos críticos para admin - ORDEM IMPORTA!
-[[redirects]]
-  from = "/admin"
-  to = "/admin/"
-  status = 301
-  force = true
-
+# CRITICAL: Admin routes - highest priority
 [[redirects]]
   from = "/admin/login"
   to = "/index.html"
@@ -24,47 +18,29 @@
   status = 200
   force = true
 
-# Redirecionamentos para idiomas
-[[redirects]]
-  from = "/pt"
-  to = "/pt/"
-  status = 301
-
+# Language routes - exact matches only
 [[redirects]]
   from = "/pt/*"
   to = "/index.html"
   status = 200
-  force = true
-
-[[redirects]]
-  from = "/en"
-  to = "/en/"
-  status = 301
 
 [[redirects]]
   from = "/en/*"
   to = "/index.html"
   status = 200
-  force = true
-
-[[redirects]]
-  from = "/es"
-  to = "/es/"
-  status = 301
 
 [[redirects]]
   from = "/es/*"
   to = "/index.html"
   status = 200
-  force = true
 
-# Redirecionamento da raiz
+# Root redirect - ONLY for exact root
 [[redirects]]
   from = "/"
   to = "/pt"
   status = 302
 
-# Fallback final
+# Final fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"

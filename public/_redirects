@@ -1,18 +1,14 @@
 # CRITICAL: Admin routes - highest priority
-/admin /admin/ 301!
 /admin/login /index.html 200!
 /admin/* /index.html 200!
 
 # Language routes
-/pt /pt/ 301!
-/pt/* /index.html 200!
-/en /en/ 301!
-/en/* /index.html 200!
-/es /es/ 301!
-/es/* /index.html 200!
+/pt/* /index.html 200
+/en/* /index.html 200
+/es/* /index.html 200
 
-# Root redirect
-/ /pt 302!
+# Root redirect - ONLY for exact root
+/ /pt 302
 
 # Final fallback
 /* /index.html 200
