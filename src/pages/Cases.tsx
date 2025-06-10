@@ -183,7 +183,7 @@ const Cases = () => {
         {/* CTA Section */}
         <section className="mt-16 text-center bg-gray-50 rounded-xl p-8">
           <h3 className="text-2xl font-bold text-gray-900 mb-4">
-            Quer ser nosso próximo case de sucesso?
+            Vem ser o nosso próximo case de sucesso!
           </h3>
           <p className="text-lg text-gray-600 mb-6">
             Entre em contato conosco e descubra como podemos transformar seus processos de RH.
