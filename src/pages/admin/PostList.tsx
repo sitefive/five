@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { Edit, Trash2, Plus, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
+import { Post, Author, Category } from '../../types/blog';
 
 const PostList = () => {
   const { t, i18n } = useTranslation();
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
@@ -26,16 +27,23 @@ const PostList = () => {
           title_${currentLanguage} as title,
           slug_${currentLanguage} as slug,
           published_at,
+          created_at,
+          featured,
           author:authors(name_${currentLanguage} as name),
           category:categories(name_${currentLanguage} as name)
         `)
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching posts:', error);
+        toast.error(`Erro ao carregar posts: ${error.message}`);
+        throw error;
+      }
+
       setPosts(data || []);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching posts:', error);
-      toast.error('Error loading posts');
+      toast.error(`Erro ao carregar posts: ${error.message || 'Verifique o console.'}`);
     } finally {
       setLoading(false);
     }
@@ -50,13 +58,17 @@ const PostList = () => {
         .delete()
         .eq('id', id);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error deleting post:', error);
+        toast.error(`Erro ao deletar post: ${error.message}`);
+        throw error;
+      }
 
       setPosts(posts.filter(post => post.id !== id));
       toast.success('Post deleted successfully');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error deleting post:', error);
-      toast.error('Error deleting post');
+      toast.error(`Erro ao deletar post: ${error.message || 'Verifique o console.'}`);
     }
   };
 
@@ -125,7 +137,7 @@ const PostList = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredPosts.map((post) => (
+              {filteredPosts.map((post: Post) => (
                 <tr key={post.id}>
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">
@@ -134,10 +146,10 @@ const PostList = () => {
                     <div className="text-sm text-gray-500">{post.slug}</div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
-                    {post.author?.name}
+                    {post.author?.name || 'Sem autor'}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
-                    {post.category?.name}
+                    {post.category?.name || 'Sem categoria'}
                   </td>
                   <td className="px-6 py-4">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${

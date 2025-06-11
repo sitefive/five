@@ -3,14 +3,15 @@ import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import UserModal from '../../components/admin/UserModal';
+import { User, UserFormData } from '../../types/blog';
 
 const UserList = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   useEffect(() => {
     fetchCurrentUser();
@@ -21,15 +22,19 @@ const UserList = () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        const { data: adminUser } = await supabase
+        const { data: adminUser, error } = await supabase
           .from('admin_users')
           .select('*')
           .eq('user_id', user.id)
           .single();
 
-        setCurrentUser(adminUser);
+        if (error) {
+          console.error('Error fetching current user:', error);
+        } else {
+          setCurrentUser(adminUser);
+        }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching current user:', error);
     }
   };
@@ -50,17 +55,22 @@ const UserList = () => {
         `)
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching users:', error);
+        toast.error(`Erro ao carregar usuários: ${error.message}`);
+        throw error;
+      }
+
       setUsers(data || []);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching users:', error);
-      toast.error('Error loading users');
+      toast.error(`Erro ao carregar usuários: ${error.message || 'Verifique o console.'}`);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleEdit = (user) => {
+  const handleEdit = (user: User) => {
     setEditingUser(user);
     setIsModalOpen(true);
   };
@@ -74,13 +84,17 @@ const UserList = () => {
         .delete()
         .eq('id', id);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error deleting user:', error);
+        toast.error(`Erro ao deletar usuário: ${error.message}`);
+        throw error;
+      }
 
       setUsers(users.filter(user => user.id !== id));
       toast.success('User deleted successfully');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error deleting user:', error);
-      toast.error('Error deleting user');
+      toast.error(`Erro ao deletar usuário: ${error.message || 'Verifique o console.'}`);
     }
   };
 
@@ -89,7 +103,7 @@ const UserList = () => {
     setEditingUser(null);
   };
 
-  const handleModalSave = async (userData) => {
+  const handleModalSave = async (userData: UserFormData) => {
     try {
       if (editingUser) {
         const { error } = await supabase
@@ -101,7 +115,11 @@ const UserList = () => {
           })
           .eq('id', editingUser.id);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Error updating user:', error);
+          toast.error(`Erro ao atualizar usuário: ${error.message}`);
+          throw error;
+        }
         toast.success('User updated successfully');
       } else {
         // Create auth user first
@@ -111,7 +129,11 @@ const UserList = () => {
           email_confirm: true
         });
 
-        if (authError) throw authError;
+        if (authError) {
+          console.error('Error creating auth user:', authError);
+          toast.error(`Erro ao criar usuário de autenticação: ${authError.message}`);
+          throw authError;
+        }
 
         // Then create admin user
         const { error: adminError } = await supabase
@@ -123,15 +145,19 @@ const UserList = () => {
             active: userData.active
           }]);
 
-        if (adminError) throw adminError;
+        if (adminError) {
+          console.error('Error creating admin user:', adminError);
+          toast.error(`Erro ao criar usuário admin: ${adminError.message}`);
+          throw adminError;
+        }
         toast.success('User created successfully');
       }
 
       handleModalClose();
       fetchUsers();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving user:', error);
-      toast.error('Error saving user');
+      toast.error(`Erro ao salvar usuário: ${error.message || 'Verifique o console.'}`);
     }
   };
 
@@ -201,7 +227,7 @@ const UserList = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredUsers.map((user) => (
+              {filteredUsers.map((user: User) => (
                 <tr key={user.id}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
@@ -240,7 +266,7 @@ const UserList = () => {
                         <Edit className="w-5 h-5" />
                       </button>
                       <button
-                        onClick={() => handleDelete(user.id)}
+                        onClick={() => handleDelete(user.id!)}
                         className="text-red-600 hover:text-red-900"
                       >
                         <Trash2 className="w-5 h-5" />

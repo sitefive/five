@@ -4,14 +4,15 @@ import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import CategoryModal from '../../components/admin/CategoryModal';
+import { Category, CategoryFormData } from '../../types/blog';
 
 const CategoryList = () => {
   const { t, i18n } = useTranslation();
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingCategory, setEditingCategory] = useState(null);
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
   useEffect(() => {
@@ -31,7 +32,11 @@ const CategoryList = () => {
         ])
         .order(`name_${currentLanguage}`);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching categories:', error);
+        toast.error(`Erro ao carregar categorias: ${error.message}`);
+        throw error;
+      }
 
       const formattedData = data?.map(category => ({
         id: category.id,
@@ -41,15 +46,15 @@ const CategoryList = () => {
       })) || [];
 
       setCategories(formattedData);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching categories:', error);
-      toast.error('Error loading categories');
+      toast.error(`Erro ao carregar categorias: ${error.message || 'Verifique o console.'}`);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleEdit = (category) => {
+  const handleEdit = (category: Category) => {
     setEditingCategory(category);
     setIsModalOpen(true);
   };
@@ -63,13 +68,17 @@ const CategoryList = () => {
         .delete()
         .eq('id', id);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error deleting category:', error);
+        toast.error(`Erro ao deletar categoria: ${error.message}`);
+        throw error;
+      }
 
       setCategories(categories.filter(cat => cat.id !== id));
       toast.success('Category deleted successfully');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error deleting category:', error);
-      toast.error('Error deleting category');
+      toast.error(`Erro ao deletar categoria: ${error.message || 'Verifique o console.'}`);
     }
   };
 
@@ -78,7 +87,7 @@ const CategoryList = () => {
     setEditingCategory(null);
   };
 
-  const handleModalSave = async (categoryData) => {
+  const handleModalSave = async (categoryData: CategoryFormData) => {
     try {
       if (editingCategory) {
         const { error } = await supabase
@@ -86,22 +95,30 @@ const CategoryList = () => {
           .update(categoryData)
           .eq('id', editingCategory.id);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Error updating category:', error);
+          toast.error(`Erro ao atualizar categoria: ${error.message}`);
+          throw error;
+        }
         toast.success('Category updated successfully');
       } else {
         const { error } = await supabase
           .from('categories')
           .insert([categoryData]);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Error creating category:', error);
+          toast.error(`Erro ao criar categoria: ${error.message}`);
+          throw error;
+        }
         toast.success('Category created successfully');
       }
 
       handleModalClose();
       fetchCategories();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving category:', error);
-      toast.error('Error saving category');
+      toast.error(`Erro ao salvar categoria: ${error.message || 'Verifique o console.'}`);
     }
   };
 

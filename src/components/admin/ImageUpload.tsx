@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Image as ImageIcon, X } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import toast from 'react-hot-toast';
 
 interface ImageUploadProps {
   value: string;
@@ -22,15 +23,21 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange }) => {
         .from('blog-images')
         .upload(filePath, file);
 
-      if (uploadError) throw uploadError;
+      if (uploadError) {
+        console.error('Error uploading image:', uploadError);
+        toast.error(`Erro ao fazer upload da imagem: ${uploadError.message}`);
+        throw uploadError;
+      }
 
       const { data: { publicUrl } } = supabase.storage
         .from('blog-images')
         .getPublicUrl(filePath);
 
       onChange(publicUrl);
-    } catch (error) {
+      toast.success('Imagem enviada com sucesso!');
+    } catch (error: any) {
       console.error('Error uploading image:', error);
+      toast.error(`Erro ao fazer upload da imagem: ${error.message || 'Verifique o console.'}`);
     }
   }, [onChange]);
 

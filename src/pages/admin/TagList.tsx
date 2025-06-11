@@ -4,14 +4,15 @@ import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import TagModal from '../../components/admin/TagModal';
+import { Tag } from '../../types/blog';
 
 const TagList = () => {
   const { t, i18n } = useTranslation();
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingTag, setEditingTag] = useState(null);
+  const [editingTag, setEditingTag] = useState<Tag | null>(null);
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
   useEffect(() => {
@@ -30,7 +31,11 @@ const TagList = () => {
         ])
         .order(`name_${currentLanguage}`);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching tags:', error);
+        toast.error(`Erro ao carregar tags: ${error.message}`);
+        throw error;
+      }
 
       const formattedData = data?.map(tag => ({
         id: tag.id,
@@ -39,15 +44,15 @@ const TagList = () => {
       })) || [];
 
       setTags(formattedData);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching tags:', error);
-      toast.error('Error loading tags');
+      toast.error(`Erro ao carregar tags: ${error.message || 'Verifique o console.'}`);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleEdit = (tag) => {
+  const handleEdit = (tag: Tag) => {
     setEditingTag(tag);
     setIsModalOpen(true);
   };
@@ -61,13 +66,17 @@ const TagList = () => {
         .delete()
         .eq('id', id);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error deleting tag:', error);
+        toast.error(`Erro ao deletar tag: ${error.message}`);
+        throw error;
+      }
 
       setTags(tags.filter(tag => tag.id !== id));
       toast.success('Tag deleted successfully');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error deleting tag:', error);
-      toast.error('Error deleting tag');
+      toast.error(`Erro ao deletar tag: ${error.message || 'Verifique o console.'}`);
     }
   };
 
@@ -76,7 +85,7 @@ const TagList = () => {
     setEditingTag(null);
   };
 
-  const handleModalSave = async (tagData) => {
+  const handleModalSave = async (tagData: Tag) => {
     try {
       if (editingTag) {
         const { error } = await supabase
@@ -84,22 +93,30 @@ const TagList = () => {
           .update(tagData)
           .eq('id', editingTag.id);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Error updating tag:', error);
+          toast.error(`Erro ao atualizar tag: ${error.message}`);
+          throw error;
+        }
         toast.success('Tag updated successfully');
       } else {
         const { error } = await supabase
           .from('tags')
           .insert([tagData]);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Error creating tag:', error);
+          toast.error(`Erro ao criar tag: ${error.message}`);
+          throw error;
+        }
         toast.success('Tag created successfully');
       }
 
       handleModalClose();
       fetchTags();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving tag:', error);
-      toast.error('Error saving tag');
+      toast.error(`Erro ao salvar tag: ${error.message || 'Verifique o console.'}`);
     }
   };
 

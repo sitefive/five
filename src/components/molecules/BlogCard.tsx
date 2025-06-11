@@ -40,7 +40,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
       <Link to={`/${lang}/blog/${post.slug}`} className="block">
         <div className="relative aspect-[16/9]">
           <img
-            src={post.coverImage || 'https://via.placeholder.com/800x400'}
+            src={post.cover_url || 'https://via.placeholder.com/800x400'} // PADRONIZADO AQUI
             alt={post.title}
             className="w-full h-full object-cover"
             loading="lazy"
@@ -57,11 +57,11 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
           <div className="flex items-center">
             <Calendar className="w-4 h-4 mr-1" />
-            {post.publishedAt && formatPublishDate(post.publishedAt)}
+            {post.published_at && formatPublishDate(post.published_at)}
           </div>
           <div className="flex items-center">
             <Clock className="w-4 h-4 mr-1" />
-            {t('blog.readingTime', { time: post.readingTime })}
+            {t('blog.readingTime', { time: post.reading_time || 5 })}
           </div>
         </div>
 

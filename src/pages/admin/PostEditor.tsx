@@ -7,13 +7,14 @@ import ImageUpload from '../../components/admin/ImageUpload';
 import slugify from 'slugify';
 import toast from 'react-hot-toast';
 import { Eye } from 'lucide-react';
+import { Post, Category, Author } from '../../types/blog';
 
 interface PostData {
   title: string;
   slug: string;
   excerpt: string;
   content: string;
-  cover_image: string;
+  cover_url: string; // PADRONIZADO AQUI
   author_id: string;
   category_id: string;
   published_at: string | null;
@@ -25,15 +26,15 @@ const PostEditor = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(false);
-  const [authors, setAuthors] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [authors, setAuthors] = useState<Author[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [postData, setPostData] = useState<Record<string, PostData>>({
     pt: {
       title: '',
       slug: '',
       excerpt: '',
       content: '',
-      cover_image: '',
+      cover_url: '', // PADRONIZADO AQUI
       author_id: '',
       category_id: '',
       published_at: null,
@@ -44,7 +45,7 @@ const PostEditor = () => {
       slug: '',
       excerpt: '',
       content: '',
-      cover_image: '',
+      cover_url: '', // PADRONIZADO AQUI
       author_id: '',
       category_id: '',
       published_at: null,
@@ -55,7 +56,7 @@ const PostEditor = () => {
       slug: '',
       excerpt: '',
       content: '',
-      cover_image: '',
+      cover_url: '', // PADRONIZADO AQUI
       author_id: '',
       category_id: '',
       published_at: null,
@@ -74,18 +75,38 @@ const PostEditor = () => {
           supabase.from('categories').select('*')
         ]);
 
-        setAuthors(authorsData.data || []);
-        setCategories(categoriesData.data || []);
+        if (authorsData.error) {
+          console.error('Error fetching authors:', authorsData.error);
+          toast.error(`Erro ao carregar autores: ${authorsData.error.message}`);
+        } else {
+          setAuthors(authorsData.data || []);
+        }
+
+        if (categoriesData.error) {
+          console.error('Error fetching categories:', categoriesData.error);
+          toast.error(`Erro ao carregar categorias: ${categoriesData.error.message}`);
+        } else {
+          setCategories(categoriesData.data || []);
+        }
 
         // Fetch post data if editing
         if (id) {
           const { data: post, error } = await supabase
             .from('posts')
-            .select('*')
+            .select(`
+              *,
+              author:authors(*),
+              category:categories(*),
+              post_tags:post_tags(tag:tags(*))
+            `)
             .eq('id', id)
             .single();
 
-          if (error) throw error;
+          if (error) {
+            console.error('Error fetching post:', error);
+            toast.error(`Erro ao carregar post: ${error.message}`);
+            throw error;
+          }
 
           // Set post data for each language
           const updatedPostData = { ...postData };
@@ -96,18 +117,18 @@ const PostEditor = () => {
               slug: post[`slug_${lang}`] || '',
               excerpt: post[`excerpt_${lang}`] || '',
               content: post[`content_${lang}`] || '',
-              cover_image: post.cover_image || '',
+              cover_url: post.cover_url || post.cover_image || '', // Suporte para ambos os nomes
               author_id: post.author_id || '',
               category_id: post.category_id || '',
               published_at: post.published_at,
-              featured: post.featured
+              featured: post.featured || false
             };
           });
           setPostData(updatedPostData);
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error fetching data:', error);
-        toast.error('Error loading data');
+        toast.error(`Erro ao carregar dados: ${error.message || 'Verifique o console.'}`);
       } finally {
         setLoading(false);
       }
@@ -134,7 +155,7 @@ const PostEditor = () => {
       const postFields = {
         author_id: postData.pt.author_id,
         category_id: postData.pt.category_id,
-        cover_image: postData.pt.cover_image,
+        cover_url: postData.pt.cover_url, // PADRONIZADO AQUI
         featured: postData.pt.featured,
         published_at: publish ? new Date().toISOString() : null,
         ...Object.entries(postData).reduce((acc, [lang, data]) => ({
@@ -147,21 +168,33 @@ const PostEditor = () => {
       };
 
       if (id) {
-        await supabase
+        const { error } = await supabase
           .from('posts')
           .update(postFields)
           .eq('id', id);
+
+        if (error) {
+          console.error('Error updating post:', error);
+          toast.error(`Erro ao atualizar post: ${error.message}`);
+          throw error;
+        }
       } else {
-        await supabase
+        const { error } = await supabase
           .from('posts')
           .insert([postFields]);
+
+        if (error) {
+          console.error('Error creating post:', error);
+          toast.error(`Erro ao criar post: ${error.message}`);
+          throw error;
+        }
       }
 
-      toast.success(publish ? 'Post published!' : 'Post saved!');
+      toast.success(publish ? 'Post publicado!' : 'Post salvo!');
       navigate('/admin/posts');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving post:', error);
-      toast.error('Error saving post');
+      toast.error(`Erro ao salvar post: ${error.message || 'Verifique o console.'}`);
     } finally {
       setLoading(false);
     }
@@ -295,10 +328,10 @@ const PostEditor = () => {
             Cover Image
           </label>
           <ImageUpload
-            value={postData[currentLang].cover_image}
+            value={postData[currentLang].cover_url} // PADRONIZADO AQUI
             onChange={(url) => setPostData(prev => ({
               ...prev,
-              [currentLang]: { ...prev[currentLang], cover_image: url }
+              [currentLang]: { ...prev[currentLang], cover_url: url } // PADRONIZADO AQUI
             }))}
           />
         </div>
@@ -318,7 +351,7 @@ const PostEditor = () => {
             <option value="">Select author</option>
             {authors.map(author => (
               <option key={author.id} value={author.id}>
-                {author.name}
+                {author.name_pt || author.name || 'Autor sem nome'}
               </option>
             ))}
           </select>
@@ -339,7 +372,7 @@ const PostEditor = () => {
             <option value="">Select category</option>
             {categories.map(category => (
               <option key={category.id} value={category.id}>
-                {category.name}
+                {category.name_pt || category.name || 'Categoria sem nome'}
               </option>
             ))}
           </select>

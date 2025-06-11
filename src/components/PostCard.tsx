@@ -4,21 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
 import { ptBR, es } from 'date-fns/locale';
 import Tag from './atoms/Tag';
+import { Post } from '../types/blog';
 
 interface PostCardProps {
-  post: {
-    id: string;
-    slug: string;
-    title: string;
-    excerpt: string;
-    cover_image: string;
-    published_at: string;
-    author: {
-      name: string;
-      avatar: string;
-    };
-    tags: string[];
-  };
+  post: Post;
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
@@ -41,10 +30,10 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
   return (
     <article className="bg-white rounded-lg shadow-md overflow-hidden">
-      {post.cover_image && (
+      {post.cover_url && ( // PADRONIZADO AQUI
         <Link to={`/${lang}/blog/${post.slug}`}>
           <img
-            src={post.cover_image}
+            src={post.cover_url} // PADRONIZADO AQUI
             alt={post.title}
             className="w-full h-48 object-cover"
           />
@@ -52,7 +41,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       )}
       <div className="p-6">
         <div className="flex flex-wrap gap-2 mb-3">
-          {post.tags.map((tag) => (
+          {(post.tags || []).map((tag) => (
             <Tag key={tag} label={tag} />
           ))}
         </div>
@@ -63,7 +52,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         </Link>
         <p className="text-gray-600 mb-4 line-clamp-2">{post.excerpt}</p>
         <div className="flex items-center">
-          {post.author.avatar && (
+          {post.author?.avatar && (
             <img
               src={post.author.avatar}
               alt={post.author.name}
@@ -71,9 +60,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             />
           )}
           <div>
-            <p className="font-medium">{post.author.name}</p>
+            <p className="font-medium">{post.author?.name}</p>
             <p className="text-sm text-gray-500">
-              {formatPublishDate(post.published_at)}
+              {post.published_at && formatPublishDate(post.published_at)}
             </p>
           </div>
         </div>

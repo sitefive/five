@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 import slugify from 'slugify';
+import { supabase } from '../../lib/supabase';
+import toast from 'react-hot-toast';
+import { Category } from '../../types/blog';
 
 interface CategoryModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
-  category?: any;
+  category?: Category | null;
 }
 
 const CategoryModal: React.FC<CategoryModalProps> = ({
@@ -78,17 +81,25 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
           .update(formData)
           .eq('id', category.id);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Error updating category:', error);
+          toast.error(`Erro ao atualizar categoria: ${error.message}`);
+          throw error;
+        }
       } else {
         const { error } = await supabase.from('categories').insert(formData);
-        if (error) throw error;
+        if (error) {
+          console.error('Error creating category:', error);
+          toast.error(`Erro ao criar categoria: ${error.message}`);
+          throw error;
+        }
       }
 
       onSave();
       onClose();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving category:', error);
-      alert('An error occurred while saving the category.');
+      toast.error(`Erro ao salvar categoria: ${error.message || 'Verifique o console.'}`);
     } finally {
       setLoading(false);
     }
