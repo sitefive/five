@@ -47,7 +47,7 @@ const PostEditor = () => {
         return JSON.parse(savedData);
       }
     } catch (error) {
-      console.error('Falha ao analisar dados do localStorage', error); // Traduzido
+      console.error('Falha ao analisar dados do localStorage', error);
       localStorage.removeItem(localStorageKey); // Limpa dados corrompidos
     }
 
@@ -75,8 +75,8 @@ const PostEditor = () => {
       try {
         // Fetch authors and categories
         const [authorsData, categoriesData] = await Promise.all([
-          supabase.from('authors').select(`id, name_${i18n.language.split('-')[0]} as name`), // Adicionado split para idioma
-          supabase.from('categories').select(`id, name_${i18n.language.split('-')[0]} as name`) // Adicionado split para idioma
+          supabase.from('authors').select(`id, name_${i18n.language.split('-')[0]} as name`),
+          supabase.from('categories').select(`id, name_${i18n.language.split('-')[0]} as name`)
         ]);
 
         if (authorsData.error) throw authorsData.error;
@@ -95,7 +95,7 @@ const PostEditor = () => {
               slug_pt, slug_en, slug_es,
               excerpt_pt, excerpt_en, excerpt_es,
               content_pt, content_en, content_es,
-              cover_url, /* Usar cover_url aqui */
+              cover_url,
               author_id,
               category_id,
               published_at,
@@ -130,15 +130,15 @@ const PostEditor = () => {
           localStorage.setItem(localStorageKey, JSON.stringify(loadedPostData)); // Salva os dados carregados
         }
       } catch (error: any) {
-        console.error('Erro ao carregar dados:', error); // Traduzido
-        toast.error(`Erro ao carregar dados: ${error.message || 'Verifique o console.'}`); // Traduzido
+        console.error('Erro ao carregar dados:', error);
+        toast.error(t('common.error_loading_data', { message: error.message || 'Verifique o console.' }));
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [id, localStorageKey, i18n.language]); // Adicionado i18n.language para refetch se o idioma mudar
+  }, [id, localStorageKey, i18n.language]);
 
   // Efeito para salvar o estado no localStorage sempre que 'postData' mudar
   useEffect(() => {
@@ -147,7 +147,8 @@ const PostEditor = () => {
 
 
   const handleTitleChange = (value: string) => {
-    const langSuffix = currentLang.split('-')[0]; // Garante 'pt', 'en', 'es'
+    // A lógica de langSuffix aqui é para o input de digitação, não para a query
+    // const langSuffix = currentLang.split('-')[0]; // Não necessário aqui, apenas no fetch
     const slug = slugify(value, { lower: true, strict: true });
     setPostData(prev => ({
       ...prev,
@@ -158,6 +159,17 @@ const PostEditor = () => {
       }
     }));
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type, checked } = e.target;
+    // Esta parte do handleChange é para campos que NÃO são multilíngues diretamente ligados a postData.pt, en, es
+    // Ex: author_id, category_id, featured
+    setPostData(prev => ({
+        ...prev,
+        [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
 
   const handleRichTextChange = (content: string) => {
     setPostData(prev => ({
@@ -177,6 +189,7 @@ const PostEditor = () => {
   const handleSave = async (publish: boolean = false) => {
     setLoading(true);
     try {
+      // Usar 'pt', 'en', 'es' diretamente para construir os nomes das colunas
       const langSuffixPt = 'pt';
       const langSuffixEn = 'en';
       const langSuffixEs = 'es';
@@ -223,11 +236,11 @@ const PostEditor = () => {
       // Limpa os dados do localStorage após salvar com sucesso
       localStorage.removeItem(localStorageKey);
 
-      toast.success(publish ? t('post.published_success') : t('post.saved_success')); // Traduzido
+      toast.success(publish ? t('post.published_success') : t('post.saved_success'));
       navigate('/admin/posts');
     } catch (error: any) {
-      console.error('Erro ao salvar post:', error); // Traduzido
-      toast.error(t('post.save_error', { message: error.message || 'Verifique o console.' })); // Traduzido
+      console.error('Error saving post:', error);
+      toast.error(t('post.save_error', { message: error.message || 'Verifique o console.' }));
     } finally {
       setLoading(false);
     }
@@ -237,24 +250,24 @@ const PostEditor = () => {
     if (id) {
       const currentSlug = postData[currentLang as keyof typeof postData].slug;
       if (currentSlug) {
-        window.open(`/${currentLang}/blog/${currentSlug}`, '_blank');
+        window.open(`/${currentLang.split('-')[0]}/blog/${currentSlug}`, '_blank'); // Usar langSuffix aqui
       } else {
-        toast.error(t('post.preview_no_slug_error')); // Traduzido
+        toast.error(t('post.preview_no_slug_error'));
       }
     } else {
-      toast.error(t('post.preview_save_draft_error')); // Traduzido
+      toast.error(t('post.preview_save_draft_error'));
     }
   };
 
   if (loading) {
-    return <div className="p-4">{t('common.loading')}</div>; // Traduzido
+    return <div className="p-4">{t('common.loading')}</div>;
   }
 
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">
-          {id ? t('post.edit_post_title') : t('post.new_post_title')} {/* Traduzido */}
+          {id ? t('post.edit_post_title') : t('post.new_post_title')}
         </h1>
         <div className="flex gap-4">
           {id && (
@@ -264,7 +277,7 @@ const PostEditor = () => {
               disabled={loading}
             >
               <Eye className="w-4 h-4" />
-              {t('post.preview_button')} {/* Traduzido */}
+              {t('post.preview_button')}
             </button>
           )}
           <button
@@ -272,14 +285,14 @@ const PostEditor = () => {
             className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
             disabled={loading}
           >
-            {t('post.save_draft_button')} {/* Traduzido */}
+            {t('post.save_draft_button')}
           </button>
           <button
             onClick={() => handleSave(true)}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             disabled={loading}
           >
-            {t('post.publish_button')} {/* Traduzido */}
+            {t('post.publish_button')}
           </button>
         </div>
       </div>
@@ -304,20 +317,20 @@ const PostEditor = () => {
         <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              {t('post.title_label')} {/* Traduzido */}
+              {t('post.title_label')}
             </label>
             <input
               type="text"
               value={postData[currentLang as keyof typeof postData].title}
               onChange={(e) => handleTitleChange(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder={t('post.title_placeholder')} {/* Traduzido */}
+              placeholder={t('post.title_placeholder')}
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              {t('post.slug_label')} {/* Traduzido */}
+              {t('post.slug_label')}
             </label>
             <input
               type="text"
@@ -327,13 +340,13 @@ const PostEditor = () => {
                 [currentLang]: { ...prev[currentLang], slug: e.target.value }
               }))}
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder={t('post.slug_placeholder')} {/* Traduzido */}
+              placeholder={t('post.slug_placeholder')}
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              {t('post.excerpt_label')} {/* Traduzido */}
+              {t('post.excerpt_label')}
             </label>
             <textarea
               value={postData[currentLang as keyof typeof postData].excerpt}
@@ -343,13 +356,13 @@ const PostEditor = () => {
               }))}
               className="w-full px-4 py-2 border rounded-lg"
               rows={3}
-              placeholder={t('post.excerpt_placeholder')} {/* Traduzido */}
+              placeholder={t('post.excerpt_placeholder')}
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              {t('post.content_label')} {/* Traduzido */}
+              {t('post.content_label')}
             </label>
             <RichTextEditor
               content={postData[currentLang as keyof typeof postData].content}
@@ -362,7 +375,7 @@ const PostEditor = () => {
       <div className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('post.cover_image_label')} {/* Traduzido */}
+            {t('post.cover_image_label')}
           </label>
           <ImageUpload
             value={postData.cover_url}
@@ -372,7 +385,7 @@ const PostEditor = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('post.author_label')} {/* Traduzido */}
+            {t('post.author_label')}
           </label>
           <select
             value={postData.author_id}
@@ -382,7 +395,7 @@ const PostEditor = () => {
             }))}
             className="w-full px-4 py-2 border rounded-lg"
           >
-            <option value="">{t('post.select_author_option')}</option> {/* Traduzido */}
+            <option value="">{t('post.select_author_option')}</option>
             {authors.map(author => (
               <option key={author.id} value={author.id}>
                 {author.name}
@@ -393,7 +406,7 @@ const PostEditor = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('post.category_label')} {/* Traduzido */}
+            {t('post.category_label')}
           </label>
           <select
             value={postData.category_id}
@@ -403,7 +416,7 @@ const PostEditor = () => {
             }))}
             className="w-full px-4 py-2 border rounded-lg"
           >
-            <option value="">{t('post.select_category_option')}</option> {/* Traduzido */}
+            <option value="">{t('post.select_category_option')}</option>
             {categories.map(category => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -424,7 +437,7 @@ const PostEditor = () => {
             className="mr-2"
           />
           <label htmlFor="featured" className="text-sm font-medium text-gray-700">
-            {t('post.featured_label')} {/* Traduzido */}
+            {t('post.featured_label')}
           </label>
         </div>
       </div>
