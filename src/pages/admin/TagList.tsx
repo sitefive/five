@@ -36,7 +36,7 @@ const TagList = () => {
 
       if (error) {
         console.error('Error fetching tags:', error);
-        toast.error(t('tag.error_loading_tags', { message: error.message })); // Traduzido
+        toast.error(t('tag.error_loading_tags', { message: error.message }));
         throw error;
       }
 
@@ -49,7 +49,7 @@ const TagList = () => {
       setTags(formattedData);
     } catch (error: any) {
       console.error('Error fetching tags:', error);
-      toast.error(t('common.error_loading_data', { message: error.message || 'Verifique o console.' })); // Traduzido
+      toast.error(t('common.error_loading_data', { message: error.message || 'Verifique o console.' }));
     } finally {
       setLoading(false);
     }
@@ -61,7 +61,7 @@ const TagList = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm(t('tag.confirm_delete_tag'))) return; // Traduzido
+    if (!window.confirm(t('tag.confirm_delete_tag'))) return;
 
     try {
       const { error } = await supabase
@@ -71,15 +71,15 @@ const TagList = () => {
 
       if (error) {
         console.error('Error deleting tag:', error);
-        toast.error(t('tag.error_deleting_tag', { message: error.message })); // Traduzido
+        toast.error(t('tag.error_deleting_tag', { message: error.message }));
         throw error;
       }
 
       setTags(tags.filter(tag => tag.id !== id));
-      toast.success(t('tag.deleted_success')); // Traduzido
+      toast.success(t('tag.deleted_success'));
     } catch (error: any) {
       console.error('Error deleting tag:', error);
-      toast.error(t('common.error_deleting', { message: error.message || 'Verifique o console.' })); // Traduzido
+      toast.error(t('common.error_deleting', { message: error.message || 'Verifique o console.' }));
     }
   };
 
@@ -98,26 +98,26 @@ const TagList = () => {
 
         if (error) {
           console.error('Error updating tag:', error);
-          toast.error(t('tag.error_updating_tag', { message: error.message })); // Traduzido
+          toast.error(t('tag.error_updating_tag', { message: error.message }));
           throw error;
         }
-        toast.success(t('tag.updated_success')); // Traduzido
+        toast.success(t('tag.updated_success'));
       } else {
         const { error } = await supabase.from('tags').insert([tagData]);
 
         if (error) {
           console.error('Error creating tag:', error);
-          toast.error(t('tag.error_creating_tag', { message: error.message })); // Traduzido
+          toast.error(t('tag.error_creating_tag', { message: error.message }));
           throw error;
         }
-        toast.success(t('tag.created_success')); // Traduzido
+        toast.success(t('tag.created_success'));
       }
 
       handleModalClose();
       fetchTags(); // Recarrega a lista após salvar
     } catch (error: any) {
       console.error('Error saving tag:', error);
-      toast.error(t('common.error_saving', { message: error.message || 'Verifique o console.' })); // Traduzido
+      toast.error(t('common.error_saving', { message: error.message || 'Verifique o console.' }));
     }
   };
 
@@ -128,13 +128,13 @@ const TagList = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">{t('tag.title')}</h1> {/* Traduzido */}
+        <h1 className="text-2xl font-bold">{t('tag.title')}</h1>
         <button
           onClick={() => setIsModalOpen(true)}
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center"
         >
           <Plus className="w-5 h-5 mr-2" />
-          {t('tag.new_tag_button')} {/* Traduzido */}
+          {t('tag.new_tag_button')}
         </button>
       </div>
 
@@ -142,7 +142,7 @@ const TagList = () => {
         <div className="flex-1 relative">
           <input
             type="text"
-            placeholder={t('tag.search_placeholder')} {/* Traduzido */}
+            placeholder={t('tag.search_placeholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border rounded-lg"
@@ -155,27 +155,27 @@ const TagList = () => {
           onChange={(e) => setCurrentLanguage(e.target.value)}
           className="border rounded-lg px-4 py-2"
         >
-          <option value="pt">{t('common.portuguese')}</option> {/* Traduzido */}
-          <option value="en">{t('common.english')}</option>    {/* Traduzido */}
-          <option value="es">{t('common.spanish')}</option>    {/* Traduzido */}
+          <option value="pt">{t('common.portuguese')}</option>
+          <option value="en">{t('common.english')}</option>
+          <option value="es">{t('common.spanish')}</option>
         </select>
       </div>
 
       {loading ? (
-        <div className="text-center py-4">{t('common.loading')}</div> {/* Traduzido */}
+        <div className="text-center py-4">{t('common.loading')}</div>
       ) : (
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('common.name_label')} {/* Traduzido */}
+                  {t('common.name_label')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('tag.posts_count_label')} {/* Traduzido */}
+                  {t('tag.posts_count_label')}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('common.actions_label')} {/* Traduzido */}
+                  {t('common.actions_label')}
                 </th>
               </tr>
             </thead>
@@ -184,7 +184,7 @@ const TagList = () => {
                 <tr key={tag.id}>
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">
-                      {tag.name || t('common.no_name_fallback')} {/* Traduzido fallback */}
+                      {tag.name || t('common.no_name_fallback')}
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
