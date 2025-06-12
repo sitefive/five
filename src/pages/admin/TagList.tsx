@@ -22,19 +22,17 @@ const TagList = () => {
   const fetchTags = async () => {
     try {
       setLoading(true);
-      // --- INÍCIO DA CORREÇÃO DE IDIOMA ---
       // Mapeia o idioma completo (ex: pt-BR) para o sufixo da coluna no DB (ex: pt)
       const langSuffix = currentLanguage.split('-')[0];
-      // --- FIM DA CORREÇÃO DE IDIOMA ---
 
       const { data, error } = await supabase
         .from('tags')
         .select([
           'id',
-          `name_${langSuffix} as name`, /* CORRIGIDO: usa langSuffix */
+          `name_${langSuffix} as name`,
           'post_tags(count)'
         ])
-        .order(`name_${langSuffix}`); /* CORRIGIDO: usa langSuffix */
+        .order(`name_${langSuffix}`);
 
       if (error) {
         console.error('Error fetching tags:', error);
