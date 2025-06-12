@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
-import { User, UserFormData, UserModalProps } from './types';
+import { User, UserFormData, UserModalProps } from '../../types/blog'; // Importar tipos
+import { useTranslation } from 'react-i18next'; // Importar useTranslation
 
 const UserModal: React.FC<UserModalProps> = ({
   isOpen,
@@ -8,6 +9,7 @@ const UserModal: React.FC<UserModalProps> = ({
   onSave,
   user,
 }) => {
+  const { t } = useTranslation(); // Inicializar useTranslation
   const [formData, setFormData] = useState<UserFormData>({
     name: '',
     email: '',
@@ -21,7 +23,7 @@ const UserModal: React.FC<UserModalProps> = ({
       setFormData({
         name: user.name || '',
         email: user.auth_user?.email || '',
-        password: '',
+        password: '', // Senha sempre vazia em edição por segurança
         role: user.role || 'editor',
         active: user.active ?? true,
       });
@@ -34,7 +36,7 @@ const UserModal: React.FC<UserModalProps> = ({
         active: true,
       });
     }
-  }, [user]);
+  }, [user, isOpen]); // Adicionado isOpen para resetar ao abrir
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -49,6 +51,7 @@ const UserModal: React.FC<UserModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave(formData);
+    onClose(); // Fecha o modal após salvar
   };
 
   if (!isOpen) return null;
@@ -59,7 +62,7 @@ const UserModal: React.FC<UserModalProps> = ({
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">
-              {user ? 'Edit User' : 'New User'}
+              {user ? t('user_modal.edit_user_title') : t('user_modal.new_user_title')} {/* Traduzido */}
             </h2>
             <button
               onClick={onClose}
@@ -72,7 +75,7 @@ const UserModal: React.FC<UserModalProps> = ({
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Name
+                {t('common.name_label')} {/* Traduzido */}
               </label>
               <input
                 type="text"
@@ -86,7 +89,7 @@ const UserModal: React.FC<UserModalProps> = ({
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email
+                {t('common.email_label')} {/* Traduzido */}
               </label>
               <input
                 type="email"
@@ -95,14 +98,14 @@ const UserModal: React.FC<UserModalProps> = ({
                 onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-lg"
                 required
-                disabled={!!user}
+                disabled={!!user} // Desabilita edição de email para usuários existentes
               />
             </div>
 
-            {!user && (
+            {!user && ( // Campo de senha só para novos usuários
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Password
+                  {t('common.password_label')} {/* Traduzido */}
                 </label>
                 <input
                   type="password"
@@ -118,7 +121,7 @@ const UserModal: React.FC<UserModalProps> = ({
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Role
+                {t('user.role_column_header')} {/* Traduzido */}
               </label>
               <select
                 name="role"
@@ -126,8 +129,8 @@ const UserModal: React.FC<UserModalProps> = ({
                 onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-lg"
               >
-                <option value="editor">Editor</option>
-                <option value="admin">Admin</option>
+                <option value="editor">{t('user.role_editor')}</option> {/* Traduzido */}
+                <option value="admin">{t('user.role_admin')}</option>   {/* Traduzido */}
               </select>
             </div>
 
@@ -141,7 +144,7 @@ const UserModal: React.FC<UserModalProps> = ({
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
               <label htmlFor="active" className="ml-2 block text-sm text-gray-900">
-                Active
+                {t('user.status_active')} {/* Traduzido */}
               </label>
             </div>
 
@@ -151,13 +154,13 @@ const UserModal: React.FC<UserModalProps> = ({
                 onClick={onClose}
                 className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
               >
-                Cancel
+                {t('common.cancel_button')} {/* Traduzido */}
               </button>
               <button
                 type="submit"
                 className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
               >
-                Save
+                {t('common.save_button')} {/* Traduzido */}
               </button>
             </div>
           </form>
