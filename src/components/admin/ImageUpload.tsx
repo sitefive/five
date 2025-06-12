@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Image as ImageIcon, X } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
-import toast from 'react-hot-toast';
+import toast from 'react-hot-toast'; // Importe o toast para mensagens
 
 interface ImageUploadProps {
   value: string;
@@ -16,35 +16,36 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange }) => {
 
     try {
       const fileExt = file.name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
+      // O nome do arquivo precisa ser único. Combinar timestamp com um random é uma boa prática.
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
       const filePath = `${fileName}`;
 
+      // --- INÍCIO DA CORREÇÃO DO NOME DO BUCKET ---
       const { error: uploadError, data } = await supabase.storage
-        .from('blog-images')
+        .from('media') // <-- CORRIGIDO: Usar o bucket 'media'
         .upload(filePath, file);
+      // --- FIM DA CORREÇÃO DO NOME DO BUCKET ---
 
-      if (uploadError) {
-        console.error('Error uploading image:', uploadError);
-        toast.error(`Erro ao fazer upload da imagem: ${uploadError.message}`);
-        throw uploadError;
-      }
+      if (uploadError) throw uploadError;
 
+      // --- INÍCIO DA CORREÇÃO DO NOME DO BUCKET ---
       const { data: { publicUrl } } = supabase.storage
-        .from('blog-images')
+        .from('media') // <-- CORRIGIDO: Usar o bucket 'media'
         .getPublicUrl(filePath);
+      // --- FIM DA CORREÇÃO DO NOME DO BUCKET ---
 
       onChange(publicUrl);
-      toast.success('Imagem enviada com sucesso!');
+      toast.success('Imagem enviada com sucesso!'); // Feedback de sucesso
     } catch (error: any) {
       console.error('Error uploading image:', error);
-      toast.error(`Erro ao fazer upload da imagem: ${error.message || 'Verifique o console.'}`);
+      toast.error(`Erro ao fazer upload da imagem: ${error.message || 'Verifique o console.'}`); // Feedback de erro
     }
   }, [onChange]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      'image/*': ['.png', '.jpg', '.jpeg', '.gif']
+      'image/*': ['.png', '.jpg', '.jpeg', '.gif', '.webp']
     },
     maxFiles: 1
   });
@@ -80,8 +81,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange }) => {
           <ImageIcon className="w-12 h-12 mx-auto text-gray-400 mb-4" />
           <p className="text-gray-600">
             {isDragActive
-              ? 'Drop the image here'
-              : 'Drag and drop an image here, or click to select'}
+              ? 'Solte a imagem aqui' // Traduzido
+              : 'Arraste e solte uma imagem aqui, ou clique para selecionar'} {/* Traduzido */}
           </p>
         </div>
       )}
