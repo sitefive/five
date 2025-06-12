@@ -42,12 +42,12 @@ const Login = () => {
       if (error) throw error;
 
       if (data.user) {
-        toast.success(t('auth.login_success')); // Traduzido
+        toast.success(t('auth.login_success'));
         navigate('/admin', { replace: true });
       }
     } catch (error: any) {
       console.error('Error logging in:', error);
-      toast.error(t('auth.invalid_credentials_error')); // Traduzido
+      toast.error(t('auth.invalid_credentials_error'));
     } finally {
       setLoading(false);
     }
@@ -58,17 +58,17 @@ const Login = () => {
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
-            {t('auth.admin_login_title')} {/* Traduzido */}
+            {t('auth.admin_login_title')}
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            {t('auth.access_admin_panel_subtitle')} {/* Traduzido */}
+            {t('auth.access_admin_panel_subtitle')}
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                {t('common.email_label')} {/* Traduzido */}
+                {t('common.email_label')}
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -83,13 +83,13 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:text-sm"
-                  placeholder={t('auth.email_placeholder')} {/* Traduzido */}
+                  placeholder={t('auth.email_placeholder')}
                 />
               </div>
             </div>
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                {t('common.password_label')} {/* Traduzido */}
+                {t('common.password_label')}
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -104,7 +104,7 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:text-sm"
-                  placeholder={t('auth.password_placeholder')} {/* Traduzido */}
+                  placeholder={t('auth.password_placeholder')}
                 />
               </div>
             </div>
@@ -119,10 +119,10 @@ const Login = () => {
               {loading ? (
                 <div className="flex items-center">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  {t('auth.signing_in_status')} {/* Traduzido */}
+                  {t('auth.signing_in_status')}
                 </div>
               ) : (
-                t('auth.sign_in_button') {/* Traduzido */}
+                t('auth.sign_in_button')
               )}
             </button>
           </div>
