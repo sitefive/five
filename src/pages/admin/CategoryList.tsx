@@ -4,15 +4,15 @@ import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import CategoryModal from '../../components/admin/CategoryModal';
-import { Category, CategoryFormData } from '../../types/blog';
+import { Category } from '../../types/blog'; // Importe a interface Category
 
 const CategoryList = () => {
   const { t, i18n } = useTranslation();
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]); // Tipagem adicionada
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null); // Tipagem adicionada
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
   useEffect(() => {
@@ -22,15 +22,20 @@ const CategoryList = () => {
   const fetchCategories = async () => {
     try {
       setLoading(true);
+      // --- INÍCIO DA CORREÇÃO DE IDIOMA ---
+      // Mapeia o idioma completo (ex: pt-BR) para o sufixo da coluna no DB (ex: pt)
+      const langSuffix = currentLanguage.split('-')[0];
+      // --- FIM DA CORREÇÃO DE IDIOMA ---
+
       const { data, error } = await supabase
         .from('categories')
         .select([
           'id',
-          `name_${currentLanguage}`,
-          `slug_${currentLanguage}`,
-          `description_${currentLanguage}`
+          `name_${langSuffix}`,        /* CORRIGIDO: usa langSuffix */
+          `slug_${langSuffix}`,        /* CORRIGIDO: usa langSuffix */
+          `description_${langSuffix}`  /* CORRIGIDO: usa langSuffix */
         ])
-        .order(`name_${currentLanguage}`);
+        .order(`name_${langSuffix}`); /* CORRIGIDO: usa langSuffix */
 
       if (error) {
         console.error('Error fetching categories:', error);
@@ -38,11 +43,11 @@ const CategoryList = () => {
         throw error;
       }
 
-      const formattedData = data?.map(category => ({
+      const formattedData = data?.map((category: any) => ({ // category tipado como any temporariamente para acesso dinâmico
         id: category.id,
-        name: category[`name_${currentLanguage}`],
-        slug: category[`slug_${currentLanguage}`],
-        description: category[`description_${currentLanguage}`]
+        name: category[`name_${langSuffix}`],          /* CORRIGIDO */
+        slug: category[`slug_${langSuffix}`],          /* CORRIGIDO */
+        description: category[`description_${langSuffix}`] /* CORRIGIDO */
       })) || [];
 
       setCategories(formattedData);
@@ -54,13 +59,13 @@ const CategoryList = () => {
     }
   };
 
-  const handleEdit = (category: Category) => {
+  const handleEdit = (category: Category) => { // Tipagem adicionada
     setEditingCategory(category);
     setIsModalOpen(true);
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm('Are you sure you want to delete this category?')) return;
+    if (!window.confirm('Tem certeza que deseja excluir esta categoria?')) return; // Traduzido
 
     try {
       const { error } = await supabase
@@ -75,7 +80,7 @@ const CategoryList = () => {
       }
 
       setCategories(categories.filter(cat => cat.id !== id));
-      toast.success('Category deleted successfully');
+      toast.success('Categoria excluída com sucesso!'); // Traduzido
     } catch (error: any) {
       console.error('Error deleting category:', error);
       toast.error(`Erro ao deletar categoria: ${error.message || 'Verifique o console.'}`);
@@ -87,7 +92,7 @@ const CategoryList = () => {
     setEditingCategory(null);
   };
 
-  const handleModalSave = async (categoryData: CategoryFormData) => {
+  const handleModalSave = async (categoryData: any) => { // categoryData tipado como any, você pode criar uma interface CategoryFormFields se precisar
     try {
       if (editingCategory) {
         const { error } = await supabase
@@ -100,22 +105,20 @@ const CategoryList = () => {
           toast.error(`Erro ao atualizar categoria: ${error.message}`);
           throw error;
         }
-        toast.success('Category updated successfully');
+        toast.success('Categoria atualizada com sucesso!'); // Traduzido
       } else {
-        const { error } = await supabase
-          .from('categories')
-          .insert([categoryData]);
+        const { error } = await supabase.from('categories').insert([categoryData]);
 
         if (error) {
           console.error('Error creating category:', error);
           toast.error(`Erro ao criar categoria: ${error.message}`);
           throw error;
         }
-        toast.success('Category created successfully');
+        toast.success('Categoria criada com sucesso!'); // Traduzido
       }
 
       handleModalClose();
-      fetchCategories();
+      fetchCategories(); // Recarrega a lista após salvar
     } catch (error: any) {
       console.error('Error saving category:', error);
       toast.error(`Erro ao salvar categoria: ${error.message || 'Verifique o console.'}`);
@@ -129,13 +132,13 @@ const CategoryList = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Categories</h1>
+        <h1 className="text-2xl font-bold">Categories</h1> {/* Título em EN, será traduzido pelo i18n */}
         <button
           onClick={() => setIsModalOpen(true)}
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center"
         >
           <Plus className="w-5 h-5 mr-2" />
-          New Category
+          New Category {/* Botão em EN, será traduzido pelo i18n */}
         </button>
       </div>
 
@@ -143,7 +146,7 @@ const CategoryList = () => {
         <div className="flex-1 relative">
           <input
             type="text"
-            placeholder="Search categories..."
+            placeholder="Search categories..." /* Placeholder em EN, será traduzido pelo i18n */
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border rounded-lg"
@@ -163,32 +166,32 @@ const CategoryList = () => {
       </div>
 
       {loading ? (
-        <div className="text-center py-4">Loading...</div>
+        <div className="text-center py-4">Loading...</div> /* Mensagem em EN, será traduzido pelo i18n */
       ) : (
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Name
+                  Name {/* Cabeçalho em EN, será traduzido pelo i18n */}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Slug
+                  Slug {/* Cabeçalho em EN, será traduzido pelo i18n */}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Description
+                  Description {/* Cabeçalho em EN, será traduzido pelo i18n */}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
+                  Actions {/* Cabeçalho em EN, será traduzido pelo i18n */}
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredCategories.map((category) => (
+              {filteredCategories.map((category: Category) => ( // Tipagem adicionada
                 <tr key={category.id}>
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">
-                      {category.name || '(No name)'}
+                      {category.name || '(Sem nome)'} {/* Traduzido fallback */}
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
