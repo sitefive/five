@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { Edit, Trash2, Plus, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
-import { Post, Author, Category } from '../../types/blog';
+import { Post, Author, Category } from '../../types/blog'; // Certifique-se de que Author e Category são importados para tipagem
 
 const PostList = () => {
   const { t, i18n } = useTranslation();
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]); // Tipagem adicionada
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
@@ -20,24 +20,29 @@ const PostList = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
+      // --- INÍCIO DA CORREÇÃO DE IDIOMA ---
+      // Mapeia o idioma completo (ex: pt-BR) para o sufixo da coluna no DB (ex: pt)
+      const langSuffix = currentLanguage.split('-')[0];
+      // --- FIM DA CORREÇÃO DE IDIOMA ---
+
       const { data, error } = await supabase
         .from('posts')
         .select(`
           id,
-          title_${currentLanguage} as title,
-          slug_${currentLanguage} as slug,
+          title_${langSuffix} as title, /* CORRIGIDO: usa langSuffix */
+          slug_${langSuffix} as slug,   /* CORRIGIDO: usa langSuffix */
           published_at,
           created_at,
           featured,
-          author:authors(name_${currentLanguage} as name),
-          category:categories(name_${currentLanguage} as name)
+          author:authors(name_${langSuffix} as name), /* CORRIGIDO: usa langSuffix */
+          category:categories(name_${langSuffix} as name) /* CORRIGIDO: usa langSuffix */
         `)
         .order('created_at', { ascending: false });
 
       if (error) {
         console.error('Error fetching posts:', error);
         toast.error(`Erro ao carregar posts: ${error.message}`);
-        throw error;
+        throw error; // Re-lança o erro para o catch externo
       }
 
       setPosts(data || []);
@@ -50,7 +55,7 @@ const PostList = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm('Are you sure you want to delete this post?')) return;
+    if (!window.confirm('Tem certeza que deseja excluir este post?')) return; // Traduzido
 
     try {
       const { error } = await supabase
@@ -65,7 +70,7 @@ const PostList = () => {
       }
 
       setPosts(posts.filter(post => post.id !== id));
-      toast.success('Post deleted successfully');
+      toast.success('Post excluído com sucesso!'); // Traduzido
     } catch (error: any) {
       console.error('Error deleting post:', error);
       toast.error(`Erro ao deletar post: ${error.message || 'Verifique o console.'}`);
@@ -79,13 +84,13 @@ const PostList = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Posts</h1>
+        <h1 className="text-2xl font-bold">Posts</h1> {/* Título em EN, será traduzido pelo i18n */}
         <Link
           to="/admin/posts/new"
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center"
         >
           <Plus className="w-5 h-5 mr-2" />
-          New Post
+          New Post {/* Botão em EN, será traduzido pelo i18n */}
         </Link>
       </div>
 
@@ -93,7 +98,7 @@ const PostList = () => {
         <div className="flex-1 relative">
           <input
             type="text"
-            placeholder="Search posts..."
+            placeholder="Search posts..." /* Placeholder em EN, será traduzido pelo i18n */
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border rounded-lg"
@@ -113,26 +118,26 @@ const PostList = () => {
       </div>
 
       {loading ? (
-        <div className="text-center py-4">Loading...</div>
+        <div className="text-center py-4">Loading...</div> /* Mensagem em EN, será traduzido pelo i18n */
       ) : (
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Title
+                  Title {/* Cabeçalho em EN, será traduzido pelo i18n */}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Author
+                  Author {/* Cabeçalho em EN, será traduzido pelo i18n */}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Category
+                  Category {/* Cabeçalho em EN, será traduzido pelo i18n */}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
+                  Status {/* Cabeçalho em EN, será traduzido pelo i18n */}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
+                  Actions {/* Cabeçalho em EN, será traduzido pelo i18n */}
                 </th>
               </tr>
             </thead>
@@ -141,15 +146,15 @@ const PostList = () => {
                 <tr key={post.id}>
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">
-                      {post.title || '(No title)'}
+                      {post.title || '(Sem título)'} {/* Traduzido fallback */}
                     </div>
                     <div className="text-sm text-gray-500">{post.slug}</div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
-                    {post.author?.name || 'Sem autor'}
+                    {post.author?.name || 'Sem autor'} {/* Traduzido fallback */}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
-                    {post.category?.name || 'Sem categoria'}
+                    {post.category?.name || 'Sem categoria'} {/* Traduzido fallback */}
                   </td>
                   <td className="px-6 py-4">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
@@ -157,7 +162,7 @@ const PostList = () => {
                         ? 'bg-green-100 text-green-800'
                         : 'bg-yellow-100 text-yellow-800'
                     }`}>
-                      {post.published_at ? 'Published' : 'Draft'}
+                      {post.published_at ? 'Publicado' : 'Rascunho'} {/* Traduzido */}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right text-sm font-medium">
