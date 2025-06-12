@@ -20,22 +20,20 @@ const PostList = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
-      // --- INÍCIO DA CORREÇÃO DE IDIOMA ---
       // Mapeia o idioma completo (ex: pt-BR) para o sufixo da coluna no DB (ex: pt)
       const langSuffix = currentLanguage.split('-')[0];
-      // --- FIM DA CORREÇÃO DE IDIOMA ---
 
       const { data, error } = await supabase
         .from('posts')
         .select(`
           id,
-          title_${langSuffix} as title, /* CORRIGIDO: usa langSuffix */
-          slug_${langSuffix} as slug,   /* CORRIGIDO: usa langSuffix */
+          title_${langSuffix} as title,
+          slug_${langSuffix} as slug,
           published_at,
           created_at,
           featured,
-          author:authors(name_${langSuffix} as name), /* CORRIGIDO: usa langSuffix */
-          category:categories(name_${langSuffix} as name) /* CORRIGIDO: usa langSuffix */
+          author:authors(name_${langSuffix} as name),
+          category:categories(name_${langSuffix} as name)
         `)
         .order('created_at', { ascending: false });
 
