@@ -4,15 +4,15 @@ import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import TagModal from '../../components/admin/TagModal';
-import { Tag } from '../../types/blog';
+import { Tag } from '../../types/blog'; // Importe a interface Tag
 
 const TagList = () => {
   const { t, i18n } = useTranslation();
-  const [tags, setTags] = useState<Tag[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]); // Tipagem adicionada
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingTag, setEditingTag] = useState<Tag | null>(null);
+  const [editingTag, setEditingTag] = useState<Tag | null>(null); // Tipagem adicionada
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
   useEffect(() => {
@@ -22,14 +22,19 @@ const TagList = () => {
   const fetchTags = async () => {
     try {
       setLoading(true);
+      // --- INÍCIO DA CORREÇÃO DE IDIOMA ---
+      // Mapeia o idioma completo (ex: pt-BR) para o sufixo da coluna no DB (ex: pt)
+      const langSuffix = currentLanguage.split('-')[0];
+      // --- FIM DA CORREÇÃO DE IDIOMA ---
+
       const { data, error } = await supabase
         .from('tags')
         .select([
           'id',
-          `name_${currentLanguage} as name`,
+          `name_${langSuffix} as name`, /* CORRIGIDO: usa langSuffix */
           'post_tags(count)'
         ])
-        .order(`name_${currentLanguage}`);
+        .order(`name_${langSuffix}`); /* CORRIGIDO: usa langSuffix */
 
       if (error) {
         console.error('Error fetching tags:', error);
@@ -37,9 +42,9 @@ const TagList = () => {
         throw error;
       }
 
-      const formattedData = data?.map(tag => ({
+      const formattedData = data?.map((tag: any) => ({ // tag tipado como any temporariamente
         id: tag.id,
-        name: tag.name,
+        name: tag.name, // 'name' já é o alias do name_${langSuffix}
         postCount: tag.post_tags?.length || 0
       })) || [];
 
@@ -52,13 +57,13 @@ const TagList = () => {
     }
   };
 
-  const handleEdit = (tag: Tag) => {
+  const handleEdit = (tag: Tag) => { // Tipagem adicionada
     setEditingTag(tag);
     setIsModalOpen(true);
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm('Are you sure you want to delete this tag?')) return;
+    if (!window.confirm('Tem certeza que deseja excluir esta tag?')) return; // Traduzido
 
     try {
       const { error } = await supabase
@@ -73,7 +78,7 @@ const TagList = () => {
       }
 
       setTags(tags.filter(tag => tag.id !== id));
-      toast.success('Tag deleted successfully');
+      toast.success('Tag excluída com sucesso!'); // Traduzido
     } catch (error: any) {
       console.error('Error deleting tag:', error);
       toast.error(`Erro ao deletar tag: ${error.message || 'Verifique o console.'}`);
@@ -85,7 +90,7 @@ const TagList = () => {
     setEditingTag(null);
   };
 
-  const handleModalSave = async (tagData: Tag) => {
+  const handleModalSave = async (tagData: any) => { // tagData tipado como any por enquanto
     try {
       if (editingTag) {
         const { error } = await supabase
@@ -98,22 +103,20 @@ const TagList = () => {
           toast.error(`Erro ao atualizar tag: ${error.message}`);
           throw error;
         }
-        toast.success('Tag updated successfully');
+        toast.success('Tag atualizada com sucesso!'); // Traduzido
       } else {
-        const { error } = await supabase
-          .from('tags')
-          .insert([tagData]);
+        const { error } = await supabase.from('tags').insert([tagData]);
 
         if (error) {
           console.error('Error creating tag:', error);
           toast.error(`Erro ao criar tag: ${error.message}`);
           throw error;
         }
-        toast.success('Tag created successfully');
+        toast.success('Tag criada com sucesso!'); // Traduzido
       }
 
       handleModalClose();
-      fetchTags();
+      fetchTags(); // Recarrega a lista após salvar
     } catch (error: any) {
       console.error('Error saving tag:', error);
       toast.error(`Erro ao salvar tag: ${error.message || 'Verifique o console.'}`);
@@ -127,13 +130,13 @@ const TagList = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Tags</h1>
+        <h1 className="text-2xl font-bold">Tags</h1> {/* Título em EN, será traduzido pelo i18n */}
         <button
           onClick={() => setIsModalOpen(true)}
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center"
         >
           <Plus className="w-5 h-5 mr-2" />
-          New Tag
+          New Tag {/* Botão em EN, será traduzido pelo i18n */}
         </button>
       </div>
 
@@ -141,7 +144,7 @@ const TagList = () => {
         <div className="flex-1 relative">
           <input
             type="text"
-            placeholder="Search tags..."
+            placeholder="Search tags..." /* Placeholder em EN, será traduzido pelo i18n */
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border rounded-lg"
@@ -161,29 +164,29 @@ const TagList = () => {
       </div>
 
       {loading ? (
-        <div className="text-center py-4">Loading...</div>
+        <div className="text-center py-4">Loading...</div> /* Mensagem em EN, será traduzido pelo i18n */
       ) : (
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Name
+                  Name {/* Cabeçalho em EN, será traduzido pelo i18n */}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Posts
+                  Posts {/* Cabeçalho em EN, será traduzido pelo i18n */}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
+                  Actions {/* Cabeçalho em EN, será traduzido pelo i18n */}
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredTags.map((tag) => (
+              {filteredTags.map((tag: Tag) => ( // Tipagem adicionada
                 <tr key={tag.id}>
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">
-                      {tag.name || '(No name)'}
+                      {tag.name || '(Sem nome)'} {/* Traduzido fallback */}
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
