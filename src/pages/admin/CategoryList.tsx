@@ -37,7 +37,7 @@ const CategoryList = () => {
 
       if (error) {
         console.error('Error fetching categories:', error);
-        toast.error(t('category.error_loading_categories', { message: error.message })); // Traduzido
+        toast.error(t('category.error_loading_categories', { message: error.message }));
         throw error;
       }
 
@@ -51,7 +51,7 @@ const CategoryList = () => {
       setCategories(formattedData);
     } catch (error: any) {
       console.error('Error fetching categories:', error);
-      toast.error(t('common.error_loading_data', { message: error.message || 'Verifique o console.' })); // Traduzido
+      toast.error(t('common.error_loading_data', { message: error.message || 'Verifique o console.' }));
     } finally {
       setLoading(false);
     }
@@ -63,7 +63,7 @@ const CategoryList = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm(t('category.confirm_delete_category'))) return; // Traduzido
+    if (!window.confirm(t('category.confirm_delete_category'))) return;
 
     try {
       const { error } = await supabase
@@ -73,15 +73,15 @@ const CategoryList = () => {
 
       if (error) {
         console.error('Error deleting category:', error);
-        toast.error(t('category.error_deleting_category', { message: error.message })); // Traduzido
+        toast.error(t('category.error_deleting_category', { message: error.message }));
         throw error;
       }
 
       setCategories(categories.filter(cat => cat.id !== id));
-      toast.success(t('category.deleted_success')); // Traduzido
+      toast.success(t('category.deleted_success'));
     } catch (error: any) {
       console.error('Error deleting category:', error);
-      toast.error(t('common.error_deleting', { message: error.message || 'Verifique o console.' })); // Traduzido
+      toast.error(t('common.error_deleting', { message: error.message || 'Verifique o console.' }));
     }
   };
 
@@ -100,26 +100,26 @@ const CategoryList = () => {
 
         if (error) {
           console.error('Error updating category:', error);
-          toast.error(t('category.error_updating_category', { message: error.message })); // Traduzido
+          toast.error(t('category.error_updating_category', { message: error.message }));
           throw error;
         }
-        toast.success(t('category.updated_success')); // Traduzido
+        toast.success(t('category.updated_success'));
       } else {
         const { error } = await supabase.from('categories').insert([categoryData]);
 
         if (error) {
           console.error('Error creating category:', error);
-          toast.error(t('category.error_creating_category', { message: error.message })); // Traduzido
+          toast.error(t('category.error_creating_category', { message: error.message }));
           throw error;
         }
-        toast.success(t('category.created_success')); // Traduzido
+        toast.success(t('category.created_success'));
       }
 
       handleModalClose();
       fetchCategories(); // Recarrega a lista após salvar
     } catch (error: any) {
       console.error('Error saving category:', error);
-      toast.error(t('common.error_saving', { message: error.message || 'Verifique o console.' })); // Traduzido
+      toast.error(t('common.error_saving', { message: error.message || 'Verifique o console.' }));
     }
   };
 
@@ -130,13 +130,13 @@ const CategoryList = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">{t('category.title')}</h1> {/* Traduzido */}
+        <h1 className="text-2xl font-bold">{t('category.title')}</h1>
         <button
           onClick={() => setIsModalOpen(true)}
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center"
         >
           <Plus className="w-5 h-5 mr-2" />
-          {t('category.new_category_button')} {/* Traduzido */}
+          {t('category.new_category_button')}
         </button>
       </div>
 
@@ -144,7 +144,7 @@ const CategoryList = () => {
         <div className="flex-1 relative">
           <input
             type="text"
-            placeholder={t('category.search_placeholder')} {/* Traduzido */}
+            placeholder={t('category.search_placeholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border rounded-lg"
@@ -157,30 +157,30 @@ const CategoryList = () => {
           onChange={(e) => setCurrentLanguage(e.target.value)}
           className="border rounded-lg px-4 py-2"
         >
-          <option value="pt">{t('common.portuguese')}</option> {/* Traduzido */}
-          <option value="en">{t('common.english')}</option>    {/* Traduzido */}
-          <option value="es">{t('common.spanish')}</option>    {/* Traduzido */}
+          <option value="pt">{t('common.portuguese')}</option>
+          <option value="en">{t('common.english')}</option>
+          <option value="es">{t('common.spanish')}</option>
         </select>
       </div>
 
       {loading ? (
-        <div className="text-center py-4">{t('common.loading')}</div> {/* Traduzido */}
+        <div className="text-center py-4">{t('common.loading')}</div>
       ) : (
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('common.name_label')} {/* Traduzido */}
+                  {t('common.name_label')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('common.slug_label')} {/* Traduzido */}
+                  {t('common.slug_label')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('common.description_label')} {/* Traduzido */}
+                  {t('common.description_label')}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('common.actions_label')} {/* Traduzido */}
+                  {t('common.actions_label')}
                 </th>
               </tr>
             </thead>
@@ -189,7 +189,7 @@ const CategoryList = () => {
                 <tr key={category.id}>
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">
-                      {category.name || t('common.no_name_fallback')} {/* Traduzido fallback */}
+                      {category.name || t('common.no_name_fallback')}
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
