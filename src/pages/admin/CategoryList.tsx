@@ -22,20 +22,18 @@ const CategoryList = () => {
   const fetchCategories = async () => {
     try {
       setLoading(true);
-      // --- INÍCIO DA CORREÇÃO DE IDIOMA ---
       // Mapeia o idioma completo (ex: pt-BR) para o sufixo da coluna no DB (ex: pt)
       const langSuffix = currentLanguage.split('-')[0];
-      // --- FIM DA CORREÇÃO DE IDIOMA ---
 
       const { data, error } = await supabase
         .from('categories')
         .select([
           'id',
-          `name_${langSuffix}`,        /* CORRIGIDO: usa langSuffix */
-          `slug_${langSuffix}`,        /* CORRIGIDO: usa langSuffix */
-          `description_${langSuffix}`  /* CORRIGIDO: usa langSuffix */
+          `name_${langSuffix}`,
+          `slug_${langSuffix}`,
+          `description_${langSuffix}`
         ])
-        .order(`name_${langSuffix}`); /* CORRIGIDO: usa langSuffix */
+        .order(`name_${langSuffix}`);
 
       if (error) {
         console.error('Error fetching categories:', error);
@@ -45,9 +43,9 @@ const CategoryList = () => {
 
       const formattedData = data?.map((category: any) => ({ // category tipado como any temporariamente para acesso dinâmico
         id: category.id,
-        name: category[`name_${langSuffix}`],          /* CORRIGIDO */
-        slug: category[`slug_${langSuffix}`],          /* CORRIGIDO */
-        description: category[`description_${langSuffix}`] /* CORRIGIDO */
+        name: category[`name_${langSuffix}`],
+        slug: category[`slug_${langSuffix}`],
+        description: category[`description_${langSuffix}`]
       })) || [];
 
       setCategories(formattedData);
