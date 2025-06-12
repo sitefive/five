@@ -37,7 +37,7 @@ const CategoryList = () => {
 
       if (error) {
         console.error('Error fetching categories:', error);
-        toast.error(`Erro ao carregar categorias: ${error.message}`);
+        toast.error(t('category.error_loading_categories', { message: error.message })); // Traduzido
         throw error;
       }
 
@@ -51,7 +51,7 @@ const CategoryList = () => {
       setCategories(formattedData);
     } catch (error: any) {
       console.error('Error fetching categories:', error);
-      toast.error(`Erro ao carregar categorias: ${error.message || 'Verifique o console.'}`);
+      toast.error(t('common.error_loading_data', { message: error.message || 'Verifique o console.' })); // Traduzido
     } finally {
       setLoading(false);
     }
@@ -63,7 +63,7 @@ const CategoryList = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm('Tem certeza que deseja excluir esta categoria?')) return; // Traduzido
+    if (!window.confirm(t('category.confirm_delete_category'))) return; // Traduzido
 
     try {
       const { error } = await supabase
@@ -73,15 +73,15 @@ const CategoryList = () => {
 
       if (error) {
         console.error('Error deleting category:', error);
-        toast.error(`Erro ao deletar categoria: ${error.message}`);
+        toast.error(t('category.error_deleting_category', { message: error.message })); // Traduzido
         throw error;
       }
 
       setCategories(categories.filter(cat => cat.id !== id));
-      toast.success('Categoria excluída com sucesso!'); // Traduzido
+      toast.success(t('category.deleted_success')); // Traduzido
     } catch (error: any) {
       console.error('Error deleting category:', error);
-      toast.error(`Erro ao deletar categoria: ${error.message || 'Verifique o console.'}`);
+      toast.error(t('common.error_deleting', { message: error.message || 'Verifique o console.' })); // Traduzido
     }
   };
 
@@ -100,26 +100,26 @@ const CategoryList = () => {
 
         if (error) {
           console.error('Error updating category:', error);
-          toast.error(`Erro ao atualizar categoria: ${error.message}`);
+          toast.error(t('category.error_updating_category', { message: error.message })); // Traduzido
           throw error;
         }
-        toast.success('Categoria atualizada com sucesso!'); // Traduzido
+        toast.success(t('category.updated_success')); // Traduzido
       } else {
         const { error } = await supabase.from('categories').insert([categoryData]);
 
         if (error) {
           console.error('Error creating category:', error);
-          toast.error(`Erro ao criar categoria: ${error.message}`);
+          toast.error(t('category.error_creating_category', { message: error.message })); // Traduzido
           throw error;
         }
-        toast.success('Categoria criada com sucesso!'); // Traduzido
+        toast.success(t('category.created_success')); // Traduzido
       }
 
       handleModalClose();
       fetchCategories(); // Recarrega a lista após salvar
     } catch (error: any) {
       console.error('Error saving category:', error);
-      toast.error(`Erro ao salvar categoria: ${error.message || 'Verifique o console.'}`);
+      toast.error(t('common.error_saving', { message: error.message || 'Verifique o console.' })); // Traduzido
     }
   };
 
@@ -130,13 +130,13 @@ const CategoryList = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Categories</h1> {/* Título em EN, será traduzido pelo i18n */}
+        <h1 className="text-2xl font-bold">{t('category.title')}</h1> {/* Traduzido */}
         <button
           onClick={() => setIsModalOpen(true)}
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center"
         >
           <Plus className="w-5 h-5 mr-2" />
-          New Category {/* Botão em EN, será traduzido pelo i18n */}
+          {t('category.new_category_button')} {/* Traduzido */}
         </button>
       </div>
 
@@ -144,7 +144,7 @@ const CategoryList = () => {
         <div className="flex-1 relative">
           <input
             type="text"
-            placeholder="Search categories..." /* Placeholder em EN, será traduzido pelo i18n */
+            placeholder={t('category.search_placeholder')} {/* Traduzido */}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border rounded-lg"
@@ -157,30 +157,30 @@ const CategoryList = () => {
           onChange={(e) => setCurrentLanguage(e.target.value)}
           className="border rounded-lg px-4 py-2"
         >
-          <option value="pt">Portuguese</option>
-          <option value="en">English</option>
-          <option value="es">Spanish</option>
+          <option value="pt">{t('common.portuguese')}</option> {/* Traduzido */}
+          <option value="en">{t('common.english')}</option>    {/* Traduzido */}
+          <option value="es">{t('common.spanish')}</option>    {/* Traduzido */}
         </select>
       </div>
 
       {loading ? (
-        <div className="text-center py-4">Loading...</div> /* Mensagem em EN, será traduzido pelo i18n */
+        <div className="text-center py-4">{t('common.loading')}</div> {/* Traduzido */}
       ) : (
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Name {/* Cabeçalho em EN, será traduzido pelo i18n */}
+                  {t('common.name_label')} {/* Traduzido */}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Slug {/* Cabeçalho em EN, será traduzido pelo i18n */}
+                  {t('common.slug_label')} {/* Traduzido */}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Description {/* Cabeçalho em EN, será traduzido pelo i18n */}
+                  {t('common.description_label')} {/* Traduzido */}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions {/* Cabeçalho em EN, será traduzido pelo i18n */}
+                  {t('common.actions_label')} {/* Traduzido */}
                 </th>
               </tr>
             </thead>
@@ -189,7 +189,7 @@ const CategoryList = () => {
                 <tr key={category.id}>
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">
-                      {category.name || '(Sem nome)'} {/* Traduzido fallback */}
+                      {category.name || t('common.no_name_fallback')} {/* Traduzido fallback */}
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
