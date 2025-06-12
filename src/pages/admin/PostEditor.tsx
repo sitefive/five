@@ -21,7 +21,7 @@ interface PostEditorFormData { // Interface completa para o estado postData
   pt: PostDataFields;
   en: PostDataFields;
   es: PostDataFields;
-  cover_url: string; // <-- Padronizado para cover_url
+  cover_url: string;
   author_id: string;
   category_id: string;
   published_at: string | null;
@@ -29,14 +29,14 @@ interface PostEditorFormData { // Interface completa para o estado postData
 }
 
 const PostEditor = () => {
+  const { t, i18n } = useTranslation(); // Adicionado 't' para traduções
   const { id } = useParams();
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [authors, setAuthors] = useState<Author[]>([]); // Tipagem adicionada
   const [categories, setCategories] = useState<Category[]>([]); // Tipagem adicionada
 
-  // --- INÍCIO DA LÓGICA DE PERSISTÊNCIA DE ESTADO ---
+  // --- INÍCIO DA LÓGICA DE PERSISTÊNCIA DE ESTADO (JÁ EXISTENTE) ---
   const localStorageKey = id ? `postEditorData-${id}` : 'postEditorData-new';
 
   const getInitialPostData = (): PostEditorFormData => {
@@ -47,7 +47,7 @@ const PostEditor = () => {
         return JSON.parse(savedData);
       }
     } catch (error) {
-      console.error('Failed to parse data from localStorage', error);
+      console.error('Falha ao analisar dados do localStorage', error); // Traduzido
       localStorage.removeItem(localStorageKey); // Limpa dados corrompidos
     }
 
@@ -56,7 +56,7 @@ const PostEditor = () => {
       pt: { title: '', slug: '', excerpt: '', content: '' },
       en: { title: '', slug: '', excerpt: '', content: '' },
       es: { title: '', slug: '', excerpt: '', content: '' },
-      cover_url: '', // <-- Padronizado para cover_url
+      cover_url: '',
       author_id: '',
       category_id: '',
       published_at: null,
@@ -75,8 +75,8 @@ const PostEditor = () => {
       try {
         // Fetch authors and categories
         const [authorsData, categoriesData] = await Promise.all([
-          supabase.from('authors').select(`id, name_${i18n.language} as name`),
-          supabase.from('categories').select(`id, name_${i18n.language} as name`)
+          supabase.from('authors').select(`id, name_${i18n.language.split('-')[0]} as name`), // Adicionado split para idioma
+          supabase.from('categories').select(`id, name_${i18n.language.split('-')[0]} as name`) // Adicionado split para idioma
         ]);
 
         if (authorsData.error) throw authorsData.error;
@@ -120,7 +120,7 @@ const PostEditor = () => {
               title: post.title_es || '', slug: post.slug_es || '',
               excerpt: post.excerpt_es || '', content: post.content_es || ''
             },
-            cover_url: post.cover_url || '', // <-- Padronizado para cover_url
+            cover_url: post.cover_url || '',
             author_id: post.author_id || '',
             category_id: post.category_id || '',
             published_at: post.published_at,
@@ -130,15 +130,15 @@ const PostEditor = () => {
           localStorage.setItem(localStorageKey, JSON.stringify(loadedPostData)); // Salva os dados carregados
         }
       } catch (error: any) {
-        console.error('Error fetching data:', error);
-        toast.error(`Erro ao carregar dados: ${error.message || 'Verifique o console.'}`);
+        console.error('Erro ao carregar dados:', error); // Traduzido
+        toast.error(`Erro ao carregar dados: ${error.message || 'Verifique o console.'}`); // Traduzido
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [id, localStorageKey]); // Adicione localStorageKey para re-executar se a chave mudar (útil se o ID mudar)
+  }, [id, localStorageKey, i18n.language]); // Adicionado i18n.language para refetch se o idioma mudar
 
   // Efeito para salvar o estado no localStorage sempre que 'postData' mudar
   useEffect(() => {
@@ -159,26 +159,6 @@ const PostEditor = () => {
     }));
   };
 
-  // Funções de alteração para outros campos (já existem no seu código)
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type, checked } = e.target;
-    if (name.startsWith('name_') || name.startsWith('slug_') || name.startsWith('excerpt_') || name.startsWith('content_')) {
-        // Isso não deve acontecer com a UI atual, mas como fallback
-        setPostData(prev => ({
-            ...prev,
-            [name.split('_')[1]]: { // Extrai o idioma do nome do campo
-                ...prev[name.split('_')[1] as keyof typeof prev],
-                [name.split('_')[0]]: value // Extrai o nome do campo (title, excerpt, etc)
-            }
-        }));
-    } else {
-        setPostData(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value
-        }));
-    }
-  };
-
   const handleRichTextChange = (content: string) => {
     setPostData(prev => ({
       ...prev,
@@ -189,7 +169,7 @@ const PostEditor = () => {
   const handleImageChange = (url: string) => {
     setPostData(prev => ({
       ...prev,
-      cover_url: url // <-- Padronizado para cover_url
+      cover_url: url
     }));
   };
 
@@ -197,15 +177,14 @@ const PostEditor = () => {
   const handleSave = async (publish: boolean = false) => {
     setLoading(true);
     try {
-      // Mapeia o idioma completo para o sufixo da coluna no DB
-      const langSuffixPt = 'pt'; // Opcional, mas garante consistência
+      const langSuffixPt = 'pt';
       const langSuffixEn = 'en';
       const langSuffixEs = 'es';
 
       const postFields = {
         author_id: postData.author_id,
         category_id: postData.category_id,
-        cover_url: postData.cover_url, // <-- Padronizado para cover_url
+        cover_url: postData.cover_url,
         featured: postData.featured,
         published_at: publish ? new Date().toISOString() : null,
         // Campos multilíngues
@@ -244,11 +223,11 @@ const PostEditor = () => {
       // Limpa os dados do localStorage após salvar com sucesso
       localStorage.removeItem(localStorageKey);
 
-      toast.success(publish ? 'Post publicado!' : 'Post salvo!'); // Traduzido
+      toast.success(publish ? t('post.published_success') : t('post.saved_success')); // Traduzido
       navigate('/admin/posts');
     } catch (error: any) {
-      console.error('Error saving post:', error);
-      toast.error(`Erro ao salvar post: ${error.message || 'Verifique o console.'}`); // Traduzido
+      console.error('Erro ao salvar post:', error); // Traduzido
+      toast.error(t('post.save_error', { message: error.message || 'Verifique o console.' })); // Traduzido
     } finally {
       setLoading(false);
     }
@@ -256,27 +235,26 @@ const PostEditor = () => {
 
   const handlePreview = () => {
     if (id) {
-      // Mapeia o idioma atual para o slug correspondente
-      const currentSlug = postData[currentLang].slug;
+      const currentSlug = postData[currentLang as keyof typeof postData].slug;
       if (currentSlug) {
-        window.open(`/${currentLang}/blog/${currentSlug}`, '_blank'); // Abre no idioma correto
+        window.open(`/${currentLang}/blog/${currentSlug}`, '_blank');
       } else {
-        toast.error('O post precisa ter um slug para pré-visualização.');
+        toast.error(t('post.preview_no_slug_error')); // Traduzido
       }
     } else {
-      toast.error('Salve o post como rascunho primeiro para pré-visualizar.');
+      toast.error(t('post.preview_save_draft_error')); // Traduzido
     }
   };
 
   if (loading) {
-    return <div className="p-4">Carregando...</div>; // Traduzido
+    return <div className="p-4">{t('common.loading')}</div>; // Traduzido
   }
 
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">
-          {id ? 'Edit Post' : 'New Post'} {/* Título em EN, será traduzido pelo i18n */}
+          {id ? t('post.edit_post_title') : t('post.new_post_title')} {/* Traduzido */}
         </h1>
         <div className="flex gap-4">
           {id && (
@@ -286,7 +264,7 @@ const PostEditor = () => {
               disabled={loading}
             >
               <Eye className="w-4 h-4" />
-              Visualizar {/* Traduzido */}
+              {t('post.preview_button')} {/* Traduzido */}
             </button>
           )}
           <button
@@ -294,14 +272,14 @@ const PostEditor = () => {
             className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
             disabled={loading}
           >
-            Save Draft {/* Botão em EN, será traduzido pelo i18n */}
+            {t('post.save_draft_button')} {/* Traduzido */}
           </button>
           <button
             onClick={() => handleSave(true)}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             disabled={loading}
           >
-            Publish {/* Botão em EN, será traduzido pelo i18n */}
+            {t('post.publish_button')} {/* Traduzido */}
           </button>
         </div>
       </div>
@@ -326,20 +304,20 @@ const PostEditor = () => {
         <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Title {/* Rótulo em EN, será traduzido pelo i18n */}
+              {t('post.title_label')} {/* Traduzido */}
             </label>
             <input
               type="text"
               value={postData[currentLang as keyof typeof postData].title}
               onChange={(e) => handleTitleChange(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Digite o título do post" // Traduzido placeholder
+              placeholder={t('post.title_placeholder')} {/* Traduzido */}
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Slug {/* Rótulo em EN, será traduzido pelo i18n */}
+              {t('post.slug_label')} {/* Traduzido */}
             </label>
             <input
               type="text"
@@ -349,13 +327,13 @@ const PostEditor = () => {
                 [currentLang]: { ...prev[currentLang], slug: e.target.value }
               }))}
               className="w-full px-4 py-2 border rounded-lg"
-              placeholder="post-slug" // Traduzido placeholder
+              placeholder={t('post.slug_placeholder')} {/* Traduzido */}
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Excerpt {/* Rótulo em EN, será traduzido pelo i18n */}
+              {t('post.excerpt_label')} {/* Traduzido */}
             </label>
             <textarea
               value={postData[currentLang as keyof typeof postData].excerpt}
@@ -365,17 +343,17 @@ const PostEditor = () => {
               }))}
               className="w-full px-4 py-2 border rounded-lg"
               rows={3}
-              placeholder="Breve descrição do post" // Traduzido placeholder
+              placeholder={t('post.excerpt_placeholder')} {/* Traduzido */}
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Content {/* Rótulo em EN, será traduzido pelo i18n */}
+              {t('post.content_label')} {/* Traduzido */}
             </label>
             <RichTextEditor
               content={postData[currentLang as keyof typeof postData].content}
-              onChange={handleRichTextChange} // Usando a função dedicada
+              onChange={handleRichTextChange}
             />
           </div>
         </div>
@@ -384,27 +362,27 @@ const PostEditor = () => {
       <div className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Cover Image {/* Rótulo em EN, será traduzido pelo i18n */}
+            {t('post.cover_image_label')} {/* Traduzido */}
           </label>
           <ImageUpload
-            value={postData.cover_url} // A imagem de capa é global, não por idioma
-            onChange={handleImageChange} // Usando a função dedicada
+            value={postData.cover_url}
+            onChange={handleImageChange}
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Author {/* Rótulo em EN, será traduzido pelo i18n */}
+            {t('post.author_label')} {/* Traduzido */}
           </label>
           <select
-            value={postData.author_id} // Autor é global, não por idioma
+            value={postData.author_id}
             onChange={(e) => setPostData(prev => ({
               ...prev,
               author_id: e.target.value
             }))}
             className="w-full px-4 py-2 border rounded-lg"
           >
-            <option value="">Selecionar autor</option> {/* Traduzido */}
+            <option value="">{t('post.select_author_option')}</option> {/* Traduzido */}
             {authors.map(author => (
               <option key={author.id} value={author.id}>
                 {author.name}
@@ -415,17 +393,17 @@ const PostEditor = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Category {/* Rótulo em EN, será traduzido pelo i18n */}
+            {t('post.category_label')} {/* Traduzido */}
           </label>
           <select
-            value={postData.category_id} // Categoria é global, não por idioma
+            value={postData.category_id}
             onChange={(e) => setPostData(prev => ({
               ...prev,
               category_id: e.target.value
             }))}
             className="w-full px-4 py-2 border rounded-lg"
           >
-            <option value="">Selecionar categoria</option> {/* Traduzido */}
+            <option value="">{t('post.select_category_option')}</option> {/* Traduzido */}
             {categories.map(category => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -438,7 +416,7 @@ const PostEditor = () => {
           <input
             type="checkbox"
             id="featured"
-            checked={postData.featured} // Featured é global, não por idioma
+            checked={postData.featured}
             onChange={(e) => setPostData(prev => ({
               ...prev,
               featured: e.target.checked
@@ -446,7 +424,7 @@ const PostEditor = () => {
             className="mr-2"
           />
           <label htmlFor="featured" className="text-sm font-medium text-gray-700">
-            Featured post {/* Rótulo em EN, será traduzido pelo i18n */}
+            {t('post.featured_label')} {/* Traduzido */}
           </label>
         </div>
       </div>
