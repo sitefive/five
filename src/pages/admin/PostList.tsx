@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { Post, Author, Category } from '../../types/blog'; // Certifique-se de que Author e Category são importados para tipagem
 
 const PostList = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation('admin');
   const [posts, setPosts] = useState<Post[]>([]); // Tipagem adicionada
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
