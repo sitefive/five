@@ -7,7 +7,7 @@ import CategoryModal from '../../components/admin/CategoryModal';
 import { Category } from '../../types/blog'; // Importe a interface Category
 
 const CategoryList = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation('admin');
   const [categories, setCategories] = useState<Category[]>([]); // Tipagem adicionada
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
