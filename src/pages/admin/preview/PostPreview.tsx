@@ -8,7 +8,7 @@ import { format } from 'date-fns';
 import { ptBR, es } from 'date-fns/locale';
 
 const PostPreview = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation('admin');
   const { id } = useParams<{ id: string }>();
   const [post, setPost] = useState<any>(null);
   const [loading, setLoading] = useState(true);
