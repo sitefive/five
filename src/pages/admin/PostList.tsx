@@ -53,7 +53,7 @@ const PostList = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm(t('post.confirm_delete_post'))) return; // TRADUZIDO
+    if (!window.confirm(t('post.confirm_delete_post'))) return;
 
     try {
       const { error } = await supabase
@@ -63,12 +63,12 @@ const PostList = () => {
 
       if (error) {
         console.error('Error deleting post:', error);
-        toast.error(t('post.error_deleting_post', { message: error.message })); // TRADUZIDO
+        toast.error(t('post.error_deleting_post', { message: error.message }));
         throw error;
       }
 
       setPosts(posts.filter(post => post.id !== id));
-      toast.success(t('post.deleted_success')); // TRADUZIDO
+      toast.success(t('post.deleted_success'));
     } catch (error: any) {
       console.error('Error deleting post:', error);
       toast.error(t('common.error_deleting', { message: error.message || 'Verifique o console.' }));
@@ -82,13 +82,13 @@ const PostList = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">{t('post.title_list')}</h1> {/* TRADUZIDO */}
+        <h1 className="text-2xl font-bold">{t('post.title_list')}</h1>
         <Link
           to="/admin/posts/new"
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center"
         >
           <Plus className="w-5 h-5 mr-2" />
-          {t('post.new_post_button')} {/* TRADUZIDO */}
+          {t('post.new_post_button')}
         </Link>
       </div>
 
@@ -96,7 +96,7 @@ const PostList = () => {
         <div className="flex-1 relative">
           <input
             type="text"
-            placeholder={t('post.search_placeholder')} {/* TRADUZIDO */}
+            placeholder={t('post.search_placeholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border rounded-lg"
@@ -123,19 +123,19 @@ const PostList = () => {
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('common.title_label')} {/* TRADUZIDO */}
+                  {t('common.title_label')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('post.author_label')} {/* TRADUZIDO */}
+                  {t('post.author_label')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('post.category_label')} {/* TRADUZIDO */}
+                  {t('post.category_label')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('post.status_label')} {/* TRADUZIDO */}
+                  {t('post.status_label')}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {t('common.actions_label')} {/* TRADUZIDO */}
+                  {t('common.actions_label')}
                 </th>
               </tr>
             </thead>
@@ -144,15 +144,15 @@ const PostList = () => {
                 <tr key={post.id}>
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">
-                      {post.title || t('common.no_title_fallback')} {/* TRADUZIDO fallback */}
+                      {post.title || t('common.no_title_fallback')}
                     </div>
                     <div className="text-sm text-gray-500">{post.slug}</div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
-                    {post.author?.name || t('common.no_author_fallback')} {/* TRADUZIDO fallback */}
+                    {post.author?.name || t('common.no_author_fallback')}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
-                    {post.category?.name || t('common.no_category_fallback')} {/* TRADUZIDO fallback */}
+                    {post.category?.name || t('common.no_category_fallback')}
                   </td>
                   <td className="px-6 py-4">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
@@ -160,7 +160,7 @@ const PostList = () => {
                         ? 'bg-green-100 text-green-800'
                         : 'bg-yellow-100 text-yellow-800'
                     }`}>
-                      {post.published_at ? t('post.status_published') : t('post.status_draft')} {/* TRADUZIDO */}
+                      {post.published_at ? t('post.status_published') : t('post.status_draft')}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right text-sm font-medium">
