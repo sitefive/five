@@ -29,7 +29,7 @@ interface PostEditorFormData { // Interface completa para o estado postData
 }
 
 const PostEditor = () => {
-  const { t, i18n } = useTranslation(); // Adicionado 't' para traduções
+  const { t, i18n } = useTranslation('admin'); // Adicionado 't' para traduções
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
