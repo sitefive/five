@@ -27,7 +27,7 @@ interface SiteSettings {
 }
 
 const Settings = () => {
-  const { t } = useTranslation(); // Inicializar useTranslation
+  const { t } = useTranslation('admin'); // Inicializar useTranslation
   const [loading, setLoading] = useState(true);
   const [currentLanguage, setCurrentLanguage] = useState('pt');
   const [settings, setSettings] = useState<Record<string, SiteSettings>>({
