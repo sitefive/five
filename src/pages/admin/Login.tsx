@@ -6,7 +6,7 @@ import { Lock, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next'; // Importar useTranslation
 
 const Login = () => {
-  const { t } = useTranslation(); // Inicializar useTranslation
+  const { t } = useTranslation('admin'); // Inicializar useTranslation
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
