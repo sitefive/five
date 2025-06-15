@@ -9,7 +9,7 @@ const UserModal: React.FC<UserModalProps> = ({
   onSave,
   user,
 }) => {
-  const { t } = useTranslation(); // Inicializar useTranslation
+  const { t } = useTranslation('admin'); // Inicializar useTranslation
   const [formData, setFormData] = useState<UserFormData>({
     name: '',
     email: '',
