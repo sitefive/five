@@ -7,7 +7,7 @@ import TagModal from '../../components/admin/TagModal';
 import { Tag } from '../../types/blog'; // Importe a interface Tag
 
 const TagList = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation('admin');
   const [tags, setTags] = useState<Tag[]>([]); // Tipagem adicionada
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
