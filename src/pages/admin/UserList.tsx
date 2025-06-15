@@ -7,7 +7,7 @@ import { User, UserFormData } from '../../types/blog'; // Importar User e UserFo
 import { useTranslation } from 'react-i18next'; // Importar useTranslation
 
 const UserList = () => {
-  const { t } = useTranslation(); // Inicializar useTranslation
+  const { t } = useTranslation('admin'); // Inicializar useTranslation
   const [users, setUsers] = useState<User[]>([]); // Tipagem adicionada
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
