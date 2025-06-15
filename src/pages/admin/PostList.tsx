@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'; // Já importado
 import { Edit, Trash2, Plus, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
-import { Post, Author, Category } from '../../types/blog'; // Certifique-se de que Author e Category são importados para tipagem
+import { Post, Author, Category } from '../../types/blog';
 
 const PostList = () => {
-  const { t, i18n } = useTranslation();
-  const [posts, setPosts] = useState<Post[]>([]); // Tipagem adicionada
+  // --- INÍCIO DA CORREÇÃO ---
+  // Mudar para usar o namespace 'admin'
+  const { t, i18n } = useTranslation('admin');
+  // --- FIM DA CORREÇÃO ---
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
@@ -20,7 +23,6 @@ const PostList = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
-      // Mapeia o idioma completo (ex: pt-BR) para o sufixo da coluna no DB (ex: pt)
       const langSuffix = currentLanguage.split('-')[0];
 
       const { data, error } = await supabase
@@ -40,7 +42,7 @@ const PostList = () => {
       if (error) {
         console.error('Error fetching posts:', error);
         toast.error(t('post.error_loading_posts', { message: error.message }));
-        throw error; // Re-lança o erro para o catch externo
+        throw error;
       }
 
       setPosts(data || []);
