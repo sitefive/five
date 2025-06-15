@@ -39,9 +39,15 @@
     "error_saving": "Erro ao salvar: {{message}}",
     "email_label": "Email",
     "password_label": "Senha",
-    "phone_label": "Telefone"
+    "phone_label": "Telefone",
+    "no_title_fallback": "(Sem título)",
+    "no_author_fallback": "(Sem autor)",
+    "no_category_fallback": "(Sem categoria)"
   },
   "post": {
+    "title_list": "Posts",
+    "new_post_button": "Novo Post",
+    "search_placeholder": "Buscar posts...",
     "published_success": "Post publicado!",
     "saved_success": "Post salvo!",
     "save_error": "Erro ao salvar post: {{message}}",
@@ -65,7 +71,12 @@
     "select_category_option": "Selecionar categoria",
     "featured_label": "Post em destaque",
     "error_loading_posts": "Erro ao carregar posts: {{message}}",
-    "error_deleting_post": "Erro ao deletar post: {{message}}"
+    "error_deleting_post": "Erro ao deletar post: {{message}}",
+    "confirm_delete_post": "Tem certeza que deseja excluir este post?",
+    "deleted_success": "Post excluído com sucesso!",
+    "status_label": "Status",
+    "status_published": "Publicado",
+    "status_draft": "Rascunho"
   },
   "category": {
     "title": "Categorias",
