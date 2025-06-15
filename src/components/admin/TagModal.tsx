@@ -19,7 +19,7 @@ const TagModal: React.FC<TagModalProps> = ({
   onSave,
   tag,
 }) => {
-  const { t } = useTranslation(); // Inicializar useTranslation
+  const { t } = useTranslation('admin'); // Inicializar useTranslation
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name_pt: '',
