@@ -19,7 +19,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
   onSave,
   category
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('admin');
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name_pt: '',
