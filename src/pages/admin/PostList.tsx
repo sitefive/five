@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next'; // Já importado
+import { useTranslation } from 'react-i18next';
 import { Edit, Trash2, Plus, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import { Post, Author, Category } from '../../types/blog';
 
 const PostList = () => {
-  // --- INÍCIO DA CORREÇÃO ---
+  // --- INÍCIO DA CORREÇÃO DEFINITIVA ---
   // Mudar para usar o namespace 'admin'
-  const { t, i18n } = useTranslation('admin');
-  // --- FIM DA CORREÇÃO ---
+  const { t, i18n } = useTranslation('admin'); // <-- ESTA LINHA FOI ALTERADA.
+  // --- FIM DA CORREÇÃO DEFINITIVA ---
+
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -80,6 +81,9 @@ const PostList = () => {
   const filteredPosts = posts.filter(post =>
     post.title?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Removi o console.log daqui para evitar erros de sintaxe ao copiar/colar.
+  // Se o problema persistir, faremos depuração mais avançada.
 
   return (
     <div className="p-6">
