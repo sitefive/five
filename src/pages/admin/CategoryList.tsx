@@ -4,15 +4,15 @@ import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import CategoryModal from '../../components/admin/CategoryModal';
-import { Category } from '../../types/blog'; // Importe a interface Category
+import { Category } from '../../types/blog';
 
 const CategoryList = () => {
   const { t, i18n } = useTranslation('admin');
-  const [categories, setCategories] = useState<Category[]>([]); // Tipagem adicionada
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingCategory, setEditingCategory] = useState<Category | null>(null); // Tipagem adicionada
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
   useEffect(() => {
@@ -22,9 +22,9 @@ const CategoryList = () => {
   const fetchCategories = async () => {
     try {
       setLoading(true);
-      // Mapeia o idioma completo (ex: pt-BR) para o sufixo da coluna no DB (ex: pt)
       const langSuffix = currentLanguage.split('-')[0];
 
+      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY ---
       const { data, error } = await supabase
         .from('categories')
         .select([
@@ -34,6 +34,7 @@ const CategoryList = () => {
           `description_${langSuffix}`
         ])
         .order(`name_${langSuffix}`);
+      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY ---
 
       if (error) {
         console.error('Error fetching categories:', error);
@@ -41,7 +42,7 @@ const CategoryList = () => {
         throw error;
       }
 
-      const formattedData = data?.map((category: any) => ({ // category tipado como any temporariamente para acesso dinâmico
+      const formattedData = data?.map((category: any) => ({
         id: category.id,
         name: category[`name_${langSuffix}`],
         slug: category[`slug_${langSuffix}`],
@@ -57,7 +58,7 @@ const CategoryList = () => {
     }
   };
 
-  const handleEdit = (category: Category) => { // Tipagem adicionada
+  const handleEdit = (category: Category) => {
     setEditingCategory(category);
     setIsModalOpen(true);
   };
@@ -90,7 +91,7 @@ const CategoryList = () => {
     setEditingCategory(null);
   };
 
-  const handleModalSave = async (categoryData: any) => { // categoryData tipado como any, você pode criar uma interface CategoryFormFields se precisar
+  const handleModalSave = async (categoryData: any) => {
     try {
       if (editingCategory) {
         const { error } = await supabase
@@ -116,7 +117,7 @@ const CategoryList = () => {
       }
 
       handleModalClose();
-      fetchCategories(); // Recarrega a lista após salvar
+      fetchCategories();
     } catch (error: any) {
       console.error('Error saving category:', error);
       toast.error(t('common.error_saving', { message: error.message || 'Verifique o console.' }));
@@ -185,7 +186,7 @@ const CategoryList = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredCategories.map((category: Category) => ( // Tipagem adicionada
+              {filteredCategories.map((category: Category) => (
                 <tr key={category.id}>
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">
