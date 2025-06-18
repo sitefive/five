@@ -4,15 +4,15 @@ import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import TagModal from '../../components/admin/TagModal';
-import { Tag } from '../../types/blog'; // Importe a interface Tag
+import { Tag } from '../../types/blog';
 
 const TagList = () => {
   const { t, i18n } = useTranslation('admin');
-  const [tags, setTags] = useState<Tag[]>([]); // Tipagem adicionada
+  const [tags, setTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingTag, setEditingTag] = useState<Tag | null>(null); // Tipagem adicionada
+  const [editingTag, setEditingTag] = useState<Tag | null>(null);
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
   useEffect(() => {
@@ -22,17 +22,18 @@ const TagList = () => {
   const fetchTags = async () => {
     try {
       setLoading(true);
-      // Mapeia o idioma completo (ex: pt-BR) para o sufixo da coluna no DB (ex: pt)
       const langSuffix = currentLanguage.split('-')[0];
 
+      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY ---
       const { data, error } = await supabase
         .from('tags')
-        .select([
-          'id',
-          `name_${langSuffix} as name`,
+        .select(
+          'id,' +
+          `name_${langSuffix} as name,` +
           'post_tags(count)'
-        ])
+        )
         .order(`name_${langSuffix}`);
+      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY ---
 
       if (error) {
         console.error('Error fetching tags:', error);
@@ -40,9 +41,9 @@ const TagList = () => {
         throw error;
       }
 
-      const formattedData = data?.map((tag: any) => ({ // tag tipado como any temporariamente
+      const formattedData = data?.map((tag: any) => ({
         id: tag.id,
-        name: tag.name, // 'name' já é o alias do name_${langSuffix}
+        name: tag.name,
         postCount: tag.post_tags?.length || 0
       })) || [];
 
@@ -55,7 +56,7 @@ const TagList = () => {
     }
   };
 
-  const handleEdit = (tag: Tag) => { // Tipagem adicionada
+  const handleEdit = (tag: Tag) => {
     setEditingTag(tag);
     setIsModalOpen(true);
   };
@@ -88,7 +89,7 @@ const TagList = () => {
     setEditingTag(null);
   };
 
-  const handleModalSave = async (tagData: any) => { // tagData tipado como any por enquanto
+  const handleModalSave = async (tagData: any) => {
     try {
       if (editingTag) {
         const { error } = await supabase
@@ -114,7 +115,7 @@ const TagList = () => {
       }
 
       handleModalClose();
-      fetchTags(); // Recarrega a lista após salvar
+      fetchTags();
     } catch (error: any) {
       console.error('Error saving tag:', error);
       toast.error(t('common.error_saving', { message: error.message || 'Verifique o console.' }));
@@ -180,7 +181,7 @@ const TagList = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredTags.map((tag: Tag) => ( // Tipagem adicionada
+              {filteredTags.map((tag: Tag) => (
                 <tr key={tag.id}>
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">
