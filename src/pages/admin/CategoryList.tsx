@@ -24,7 +24,6 @@ const CategoryList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
-      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY ---
       const { data, error } = await supabase
         .from('categories')
         .select([
@@ -34,11 +33,12 @@ const CategoryList = () => {
           `description_${langSuffix}`
         ])
         .order(`name_${langSuffix}`);
-      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY ---
 
       if (error) {
-        console.error('Error fetching categories:', error);
-        toast.error(t('category.error_loading_categories', { message: error.message }));
+        console.error('Error fetching categories - Supabase response:', error); // Log do objeto de erro completo
+        // --- INÍCIO DA MENSAGEM DE ERRO TEMPORÁRIA ---
+        toast.error(`Erro ao carregar categorias: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`);
+        // --- FIM DA MENSAGEM DE ERRO TEMPORÁRIA ---
         throw error;
       }
 
@@ -51,8 +51,10 @@ const CategoryList = () => {
 
       setCategories(formattedData);
     } catch (error: any) {
-      console.error('Error fetching categories:', error);
-      toast.error(t('common.error_loading_data', { message: error.message || 'Verifique o console.' }));
+      console.error('Error fetching categories - Catch block:', error); // Log do erro completo no catch
+      // --- INÍCIO DA MENSAGEM DE ERRO TEMPORÁRIA ---
+      toast.error(`Erro ao carregar categorias: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`);
+      // --- FIM DA MENSAGEM DE ERRO TEMPORÁRIA ---
     } finally {
       setLoading(false);
     }
