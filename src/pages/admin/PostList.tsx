@@ -7,7 +7,9 @@ import toast from 'react-hot-toast';
 import { Post, Author, Category } from '../../types/blog';
 
 const PostList = () => {
-  const { t, i18n } = useTranslation('admin');
+  // --- INÍCIO DA LINHA CRÍTICA ---
+  const { t, i18n } = useTranslation('admin'); // <-- VERIFIQUE ESTA LINHA: DEVE TER 'admin'
+  // --- FIM DA LINHA CRÍTICA ---
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,21 +24,19 @@ const PostList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
-      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY ---
       const { data, error } = await supabase
         .from('posts')
         .select(
-          `id,` + // Cada linha é concatenada para garantir espaços
+          'id,' +
           `title_${langSuffix} as title,` +
           `slug_${langSuffix} as slug,` +
-          `published_at,` +
-          `created_at,` +
-          `featured,` +
+          'published_at,' +
+          'created_at,' +
+          'featured,' +
           `author:authors(name_${langSuffix} as name),` +
           `category:categories(name_${langSuffix} as name)`
         )
         .order('created_at', { ascending: false });
-      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY ---
 
       if (error) {
         console.error('Error fetching posts:', error);
