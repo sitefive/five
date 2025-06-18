@@ -7,9 +7,10 @@ import toast from 'react-hot-toast';
 import { Post, Author, Category } from '../../types/blog';
 
 const PostList = () => {
-  // --- INÍCIO DA LINHA CRÍTICA ---
-  const { t, i18n } = useTranslation('admin'); // <-- VERIFIQUE ESTA LINHA: DEVE TER 'admin'
+  // --- ESTA É A LINHA CRÍTICA QUE DEVE ESTAR AQUI ---
+  const { t, i18n } = useTranslation('admin');
   // --- FIM DA LINHA CRÍTICA ---
+
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
