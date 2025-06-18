@@ -7,11 +7,7 @@ import toast from 'react-hot-toast';
 import { Post, Author, Category } from '../../types/blog';
 
 const PostList = () => {
-  // --- INÍCIO DA CORREÇÃO DEFINITIVA ---
-  // Mudar para usar o namespace 'admin'
-  const { t, i18n } = useTranslation('admin'); // <-- ESTA LINHA FOI ALTERADA.
-  // --- FIM DA CORREÇÃO DEFINITIVA ---
-
+  const { t, i18n } = useTranslation('admin');
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -26,19 +22,21 @@ const PostList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
+      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY ---
       const { data, error } = await supabase
         .from('posts')
-        .select(`
-          id,
-          title_${langSuffix} as title,
-          slug_${langSuffix} as slug,
-          published_at,
-          created_at,
-          featured,
-          author:authors(name_${langSuffix} as name),
-          category:categories(name_${langSuffix} as name)
-        `)
+        .select(
+          `id,` + // Cada linha é concatenada para garantir espaços
+          `title_${langSuffix} as title,` +
+          `slug_${langSuffix} as slug,` +
+          `published_at,` +
+          `created_at,` +
+          `featured,` +
+          `author:authors(name_${langSuffix} as name),` +
+          `category:categories(name_${langSuffix} as name)`
+        )
         .order('created_at', { ascending: false });
+      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY ---
 
       if (error) {
         console.error('Error fetching posts:', error);
@@ -81,9 +79,6 @@ const PostList = () => {
   const filteredPosts = posts.filter(post =>
     post.title?.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  // Removi o console.log daqui para evitar erros de sintaxe ao copiar/colar.
-  // Se o problema persistir, faremos depuração mais avançada.
 
   return (
     <div className="p-6">
