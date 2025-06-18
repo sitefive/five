@@ -7,10 +7,7 @@ import toast from 'react-hot-toast';
 import { Post, Author, Category } from '../../types/blog';
 
 const PostList = () => {
-  // --- ESTA É A LINHA CRÍTICA QUE DEVE ESTAR AQUI ---
   const { t, i18n } = useTranslation('admin');
-  // --- FIM DA LINHA CRÍTICA ---
-
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,15 +37,21 @@ const PostList = () => {
         .order('created_at', { ascending: false });
 
       if (error) {
-        console.error('Error fetching posts:', error);
-        toast.error(t('post.error_loading_posts', { message: error.message }));
+        console.error('Error fetching posts - Supabase response:', error); // Log do objeto de erro completo
+        // --- INÍCIO DA MENSAGEM DE ERRO TEMPORÁRIA ---
+        // Removido 't()' e interpolação para isolar o problema
+        toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`);
+        // --- FIM DA MENSAGEM DE ERRO TEMPORÁRIA ---
         throw error;
       }
 
       setPosts(data || []);
     } catch (error: any) {
-      console.error('Error fetching posts:', error);
-      toast.error(t('common.error_loading_data', { message: error.message || 'Verifique o console.' }));
+      console.error('Error fetching posts - Catch block:', error); // Log do erro completo no catch
+      // --- INÍCIO DA MENSAGEM DE ERRO TEMPORÁRIA ---
+      // Removido 't()' e interpolação para isolar o problema
+      toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`);
+      // --- FIM DA MENSAGEM DE ERRO TEMPORÁRIA ---
     } finally {
       setLoading(false);
     }
