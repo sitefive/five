@@ -8,19 +8,22 @@ import enTranslation from './locales/en/translation.json';
 import esTranslation from './locales/es/translation.json';
 
 // Importar os arquivos de tradução do novo namespace 'admin' (painel administrativo)
-import ptAdmin from './locales/pt/admin.json';
-import enAdmin from './locales/en/admin.json';
-import esAdmin from './locales/es/admin.json';
+// --- INÍCIO DA CORREÇÃO PARA QUEBRA DE CACHE (TEMPORÁRIA) ---
+// Adicionando um query parameter único para forçar o navegador a recarregar
+// Você pode mudar o número do 'v=' a cada novo deploy, se precisar forçar novamente
+import ptAdmin from './locales/pt/admin.json?v=2025061801'; // <-- MUDANÇA AQUI
+import enAdmin from './locales/en/admin.json?v=2025061801'; // <-- MUDANÇA AQUI
+import esAdmin from './locales/es/admin.json?v=2025061801'; // <-- MUDANÇA AQUI
+// --- FIM DA CORREÇÃO PARA QUEBRA DE CACHE (TEMPORÁRIA) ---
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    // Adicionar os recursos para os dois namespaces
     resources: {
       pt: {
-        translation: ptTranslation, // Namespace padrão
-        admin: ptAdmin              // Novo namespace 'admin'
+        translation: ptTranslation,
+        admin: ptAdmin
       },
       en: {
         translation: enTranslation,
@@ -31,19 +34,18 @@ i18n
         admin: esAdmin
       },
     },
-    fallbackLng: 'pt', // Idioma de fallback (Português)
-    debug: false, // Mudar para true durante o desenvolvimento para depurar traduções
+    fallbackLng: 'pt',
+    debug: true, // Ligar o debug para ver o que o i18n está fazendo no console
     interpolation: {
-      escapeValue: false, // React já escapa valores para você
+      escapeValue: false,
     },
     detection: {
-      order: ['localStorage', 'navigator'], // Ordem de detecção de idioma
-      lookupLocalStorage: 'preferredLanguage', // Chave no localStorage para idioma preferido
-      caches: ['localStorage'], // Onde armazenar o idioma detectado
+      order: ['localStorage', 'navigator'],
+      lookupLocalStorage: 'preferredLanguage',
+      caches: ['localStorage'],
     },
-    // Definir os namespaces disponíveis e o namespace padrão
-    ns: ['translation', 'admin'], // Todos os namespaces disponíveis
-    defaultNS: 'translation' // Namespace padrão (se t('chave') for chamado sem prefixo)
+    ns: ['translation', 'admin'],
+    defaultNS: 'translation'
   });
 
 export default i18n;
