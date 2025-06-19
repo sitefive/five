@@ -24,7 +24,7 @@ const TagList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
-      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY ---
+      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (FORÇADO) ---
       const { data, error } = await supabase
         .from('tags')
         .select(
@@ -33,11 +33,11 @@ const TagList = () => {
           'post_tags(count)'
         )
         .order(`name_${langSuffix}`);
-      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY ---
+      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (FORÇADO) ---
 
       if (error) {
-        console.error('Error fetching tags:', error);
-        toast.error(t('tag.error_loading_tags', { message: error.message }));
+        console.error('Error fetching tags - Supabase response:', error);
+        toast.error(`Erro ao carregar tags: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`); // Mantido temporário
         throw error;
       }
 
@@ -49,8 +49,8 @@ const TagList = () => {
 
       setTags(formattedData);
     } catch (error: any) {
-      console.error('Error fetching tags:', error);
-      toast.error(t('common.error_loading_data', { message: error.message || 'Verifique o console.' }));
+      console.error('Error fetching tags - Catch block:', error);
+      toast.error(`Erro ao carregar tags: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`); // Mantido temporário
     } finally {
       setLoading(false);
     }
