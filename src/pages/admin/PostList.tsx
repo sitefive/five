@@ -22,36 +22,33 @@ const PostList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
+      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (FORÇADO) ---
       const { data, error } = await supabase
         .from('posts')
         .select(
           'id,' +
-          `title_${langSuffix} as title,` +
-          `slug_${langSuffix} as slug,` +
+          'title_' + langSuffix + ' as title,' + // Forçando o espaço aqui
+          'slug_' + langSuffix + ' as slug,' +   // Forçando o espaço aqui
           'published_at,' +
           'created_at,' +
           'featured,' +
-          `author:authors(name_${langSuffix} as name),` +
-          `category:categories(name_${langSuffix} as name)`
+          'author:authors(name_' + langSuffix + ' as name),' + // Forçando o espaço aqui
+          'category:categories(name_' + langSuffix + ' as name)'  // Forçando o espaço aqui
         )
-        .order('created_at', { ascending: false });
+        .order(`created_at`, { ascending: false }); // order pode continuar com template literal
+
+      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (FORÇADO) ---
 
       if (error) {
-        console.error('Error fetching posts - Supabase response:', error); // Log do objeto de erro completo
-        // --- INÍCIO DA MENSAGEM DE ERRO TEMPORÁRIA ---
-        // Removido 't()' e interpolação para isolar o problema
-        toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`);
-        // --- FIM DA MENSAGEM DE ERRO TEMPORÁRIA ---
+        console.error('Error fetching posts:', error);
+        toast.error(t('post.error_loading_posts', { message: error.message }));
         throw error;
       }
 
       setPosts(data || []);
     } catch (error: any) {
-      console.error('Error fetching posts - Catch block:', error); // Log do erro completo no catch
-      // --- INÍCIO DA MENSAGEM DE ERRO TEMPORÁRIA ---
-      // Removido 't()' e interpolação para isolar o problema
-      toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`);
-      // --- FIM DA MENSAGEM DE ERRO TEMPORÁRIA ---
+      console.error('Error fetching posts:', error);
+      toast.error(t('common.error_loading_data', { message: error.message || 'Verifique o console.' }));
     } finally {
       setLoading(false);
     }
