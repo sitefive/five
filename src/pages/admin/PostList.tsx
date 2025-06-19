@@ -22,33 +22,25 @@ const PostList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
-      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (FORÇADO) ---
+      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (STRING LITERAL SIMPLES) ---
       const { data, error } = await supabase
         .from('posts')
         .select(
-          'id,' +
-          'title_' + langSuffix + ' as title,' + // Forçando o espaço aqui
-          'slug_' + langSuffix + ' as slug,' +   // Forçando o espaço aqui
-          'published_at,' +
-          'created_at,' +
-          'featured,' +
-          'author:authors(name_' + langSuffix + ' as name),' + // Forçando o espaço aqui
-          'category:categories(name_' + langSuffix + ' as name)'  // Forçando o espaço aqui
+          `id,title_${langSuffix} as title,slug_${langSuffix} as slug,published_at,created_at,featured,author:authors(name_${langSuffix} as name),category:categories(name_${langSuffix} as name)`
         )
-        .order(`created_at`, { ascending: false }); // order pode continuar com template literal
-
-      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (FORÇADO) ---
+        .order('created_at', { ascending: false });
+      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (STRING LITERAL SIMPLES) ---
 
       if (error) {
         console.error('Error fetching posts:', error);
-        toast.error(t('post.error_loading_posts', { message: error.message }));
+        toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`); // Mantido temporário para depuração
         throw error;
       }
 
       setPosts(data || []);
     } catch (error: any) {
-      console.error('Error fetching posts:', error);
-      toast.error(t('common.error_loading_data', { message: error.message || 'Verifique o console.' }));
+      console.error('Error fetching posts - Catch block:', error);
+      toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`); // Mantido temporário para depuração
     } finally {
       setLoading(false);
     }
