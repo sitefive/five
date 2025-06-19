@@ -6,6 +6,33 @@ import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import { Post, Author, Category } from '../../types/blog';
 
+// Interface auxiliar para os dados brutos que vêm do DB antes de formatar
+interface RawPostFromDB {
+  id: string;
+  published_at: string | null;
+  created_at: string;
+  featured: boolean;
+  slug_pt: string; // Buscar todos os slugs
+  slug_en: string;
+  slug_es: string;
+  title_pt: string; // Buscar todos os títulos
+  title_en: string;
+  title_es: string;
+  author: { // Buscar todos os nomes de autor
+    id: string;
+    name_pt: string;
+    name_en: string;
+    name_es: string;
+  } | null; // Pode ser nulo se não houver autor
+  category: { // Buscar todos os nomes de categoria
+    id: string;
+    name_pt: string;
+    name_en: string;
+    name_es: string;
+  } | null; // Pode ser nulo se não houver categoria
+  // Adicione outras colunas _pt, _en, _es que você usa (excerpt, content)
+}
+
 const PostList = () => {
   const { t, i18n } = useTranslation('admin');
   const [posts, setPosts] = useState<Post[]>([]);
@@ -20,27 +47,61 @@ const PostList = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
-      const langSuffix = currentLanguage.split('-')[0];
+      const langSuffix = currentLanguage.split('-')[0]; // pt, en, es
 
-      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (STRING LITERAL SIMPLES) ---
+      // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY ---
+      // Buscar todas as colunas de idioma e relacionamentos completos
       const { data, error } = await supabase
         .from('posts')
-        .select(
-          `id,title_${langSuffix} as title,slug_${langSuffix} as slug,published_at,created_at,featured,author:authors(name_${langSuffix} as name),category:categories(name_${langSuffix} as name)`
-        )
+        .select(`
+          id,
+          published_at,
+          created_at,
+          featured,
+          slug_pt, slug_en, slug_es,
+          title_pt, title_en, title_es,
+          author:authors(id, name_pt, name_en, name_es),
+          category:categories(id, name_pt, name_en, name_es)
+        `) // REMOVIDO ALIAS 'as name' E ADICIONADO TODOS OS CAMPOS _lang
         .order('created_at', { ascending: false });
-      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (STRING LITERAL SIMPLES) ---
 
       if (error) {
-        console.error('Error fetching posts:', error);
-        toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`); // Mantido temporário para depuração
+        console.error('Error fetching posts - Supabase response:', error);
+        toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`);
         throw error;
       }
 
-      setPosts(data || []);
+      // FORMATAR OS DADOS NO FRONTEND
+      const formattedPosts: Post[] = (data as RawPostFromDB[] || []).map(rawPost => {
+        const postTitle = rawPost[`title_${langSuffix}` as keyof RawPostFromDB] || rawPost.title_pt; // Pega o título no idioma atual, ou PT como fallback
+        const postSlug = rawPost[`slug_${langSuffix}` as keyof RawPostFromDB] || rawPost.slug_pt; // Pega o slug no idioma atual, ou PT como fallback
+        const authorName = rawPost.author?.[`name_${langSuffix}` as keyof typeof rawPost.author] || rawPost.author?.name_pt; // Pega o nome do autor no idioma atual
+        const categoryName = rawPost.category?.[`name_${langSuffix}` as keyof typeof rawPost.category] || rawPost.category?.name_pt; // Pega o nome da categoria no idioma atual
+
+        return {
+          id: rawPost.id,
+          title: postTitle as string, // Cast para string
+          slug: postSlug as string, // Cast para string
+          published_at: rawPost.published_at,
+          created_at: rawPost.created_at,
+          featured: rawPost.featured,
+          // Esses campos não são mais trazidos pela query direta, então seriam nulos ou indefinidos
+          content: '', // Preencher se for necessário (não é para listagem)
+          excerpt: '', // Preencher se for necessário (não é para listagem)
+          cover_url: '', // Preencher se for necessário (não é para listagem)
+          language: langSuffix, // O idioma que estamos exibindo
+          category_id: rawPost.category?.id || '',
+          author: rawPost.author ? { id: rawPost.author.id, name: authorName as string } : undefined, // Formatar objeto Author
+          category: rawPost.category ? { id: rawPost.category.id, name: categoryName as string, slug: rawPost[`slug_${langSuffix}` as keyof RawPostFromDB] as string } : undefined, // Formatar objeto Category
+          tags: [] // Tags são carregadas separadamente ou em PostEditor
+        };
+      });
+      setPosts(formattedPosts);
+      // --- FIM DA CORREÇÃO DEFINITIVA DA QUERY ---
+
     } catch (error: any) {
       console.error('Error fetching posts - Catch block:', error);
-      toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`); // Mantido temporário para depuração
+      toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`);
     } finally {
       setLoading(false);
     }
