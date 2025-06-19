@@ -24,21 +24,18 @@ const CategoryList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
-      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (FORÇADO) ---
+      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (STRING LITERAL SIMPLES) ---
       const { data, error } = await supabase
         .from('categories')
-        .select([
-          'id',
-          `name_${langSuffix}`,
-          `slug_${langSuffix}`,
-          `description_${langSuffix}`
-        ])
+        .select(
+          `id,name_${langSuffix},slug_${langSuffix},description_${langSuffix}`
+        )
         .order(`name_${langSuffix}`);
-      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (FORÇADO) ---
+      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (STRING LITERAL SIMPLES) ---
 
       if (error) {
         console.error('Error fetching categories - Supabase response:', error);
-        toast.error(`Erro ao carregar categorias: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`); // Mantido temporário
+        toast.error(`Erro ao carregar categorias: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`);
         throw error;
       }
 
@@ -52,7 +49,7 @@ const CategoryList = () => {
       setCategories(formattedData);
     } catch (error: any) {
       console.error('Error fetching categories - Catch block:', error);
-      toast.error(`Erro ao carregar categorias: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`); // Mantido temporário
+      toast.error(`Erro ao carregar categorias: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`);
     } finally {
       setLoading(false);
     }
