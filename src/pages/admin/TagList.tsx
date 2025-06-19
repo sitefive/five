@@ -6,6 +6,15 @@ import toast from 'react-hot-toast';
 import TagModal from '../../components/admin/TagModal';
 import { Tag } from '../../types/blog';
 
+// Interface auxiliar para os dados brutos que vêm do DB antes de formatar
+interface RawTagFromDB {
+  id: string;
+  name_pt: string;
+  name_en: string;
+  name_es: string;
+  post_tags: { count: number }[]; // Assumindo que post_tags é um array com 'count'
+}
+
 const TagList = () => {
   const { t, i18n } = useTranslation('admin');
   const [tags, setTags] = useState<Tag[]>([]);
@@ -24,16 +33,15 @@ const TagList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
-      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (STRING LITERAL SIMPLES) ---
+      // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY ---
+      // Buscar todas as colunas de idioma para o nome
       const { data, error } = await supabase
         .from('tags')
-        .select(
-          'id,' +
-          `name_${langSuffix} as name,` +
-          'post_tags(count)'
-        )
-        .order(`name_${langSuffix}`);
-      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (STRING LITERAL SIMPLES) ---
+        .select(`
+          id,
+          name_pt, name_en, name_es,
+          post_tags(count)
+        `); // REMOVIDO ALIAS 'as name' E ADICIONADO TODOS OS CAMPOS _lang
 
       if (error) {
         console.error('Error fetching tags - Supabase response:', error);
@@ -41,13 +49,18 @@ const TagList = () => {
         throw error;
       }
 
-      const formattedData = data?.map((tag: any) => ({
-        id: tag.id,
-        name: tag.name,
-        postCount: tag.post_tags?.length || 0
-      })) || [];
+      // FORMATAR OS DADOS NO FRONTEND
+      const formattedTags: Tag[] = (data as RawTagFromDB[] || []).map(rawTag => {
+        const tagName = rawTag[`name_${langSuffix}` as keyof RawTagFromDB];
+        return {
+          id: rawTag.id,
+          name: tagName as string,
+          postCount: rawTag.post_tags?.[0]?.count || 0 // post_tags retorna um array de objetos com count
+        };
+      });
+      setTags(formattedTags);
+      // --- FIM DA CORREÇÃO DEFINITIVA DA QUERY ---
 
-      setTags(formattedData);
     } catch (error: any) {
       console.error('Error fetching tags - Catch block:', error);
       toast.error(`Erro ao carregar tags: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`);
