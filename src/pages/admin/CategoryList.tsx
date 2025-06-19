@@ -6,6 +6,20 @@ import toast from 'react-hot-toast';
 import CategoryModal from '../../components/admin/CategoryModal';
 import { Category } from '../../types/blog';
 
+// Interface auxiliar para os dados brutos que vêm do DB antes de formatar
+interface RawCategoryFromDB {
+  id: string;
+  name_pt: string;
+  name_en: string;
+  name_es: string;
+  slug_pt: string;
+  slug_en: string;
+  slug_es: string;
+  description_pt: string;
+  description_en: string;
+  description_es: string;
+}
+
 const CategoryList = () => {
   const { t, i18n } = useTranslation('admin');
   const [categories, setCategories] = useState<Category[]>([]);
@@ -24,14 +38,16 @@ const CategoryList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
-      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (STRING LITERAL SIMPLES) ---
+      // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY ---
+      // Buscar todas as colunas de idioma
       const { data, error } = await supabase
         .from('categories')
-        .select(
-          `id,name_${langSuffix},slug_${langSuffix},description_${langSuffix}`
-        )
-        .order(`name_${langSuffix}`);
-      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (STRING LITERAL SIMPLES) ---
+        .select(`
+          id,
+          name_pt, name_en, name_es,
+          slug_pt, slug_en, slug_es,
+          description_pt, description_en, description_es
+        `); // REMOVIDO ALIAS E ADICIONADO TODOS OS CAMPOS _lang
 
       if (error) {
         console.error('Error fetching categories - Supabase response:', error);
@@ -39,14 +55,22 @@ const CategoryList = () => {
         throw error;
       }
 
-      const formattedData = data?.map((category: any) => ({
-        id: category.id,
-        name: category[`name_${langSuffix}`],
-        slug: category[`slug_${langSuffix}`],
-        description: category[`description_${langSuffix}`]
-      })) || [];
+      // FORMATAR OS DADOS NO FRONTEND
+      const formattedCategories: Category[] = (data as RawCategoryFromDB[] || []).map(rawCategory => {
+        const categoryName = rawCategory[`name_${langSuffix}` as keyof RawCategoryFromDB];
+        const categorySlug = rawCategory[`slug_${langSuffix}` as keyof RawCategoryFromDB];
+        const categoryDescription = rawCategory[`description_${langSuffix}` as keyof RawCategoryFromDB];
 
-      setCategories(formattedData);
+        return {
+          id: rawCategory.id,
+          name: categoryName as string,
+          slug: categorySlug as string,
+          description: categoryDescription as string,
+        };
+      });
+      setCategories(formattedCategories);
+      // --- FIM DA CORREÇÃO DEFINITIVA DA QUERY ---
+
     } catch (error: any) {
       console.error('Error fetching categories - Catch block:', error);
       toast.error(`Erro ao carregar categorias: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`);
