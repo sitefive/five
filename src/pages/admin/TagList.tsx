@@ -24,7 +24,7 @@ const TagList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
-      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (FORÇADO) ---
+      // --- INÍCIO DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (STRING LITERAL SIMPLES) ---
       const { data, error } = await supabase
         .from('tags')
         .select(
@@ -33,11 +33,11 @@ const TagList = () => {
           'post_tags(count)'
         )
         .order(`name_${langSuffix}`);
-      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (FORÇADO) ---
+      // --- FIM DA CORREÇÃO DE ESPAÇAMENTO NA QUERY (STRING LITERAL SIMPLES) ---
 
       if (error) {
         console.error('Error fetching tags - Supabase response:', error);
-        toast.error(`Erro ao carregar tags: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`); // Mantido temporário
+        toast.error(`Erro ao carregar tags: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`);
         throw error;
       }
 
@@ -50,7 +50,7 @@ const TagList = () => {
       setTags(formattedData);
     } catch (error: any) {
       console.error('Error fetching tags - Catch block:', error);
-      toast.error(`Erro ao carregar tags: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`); // Mantido temporário
+      toast.error(`Erro ao carregar tags: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`);
     } finally {
       setLoading(false);
     }
