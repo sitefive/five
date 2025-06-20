@@ -29,10 +29,10 @@ export interface UserModalProps {
 // Tipos relacionados aos autores
 export interface Author {
   id: string;
-  name?: string; // name_pt, name_en, etc. serão mapeados para 'name'
+  name?: string; // Nome no idioma atual (será mapeado no frontend)
   avatar?: string;
-  bio?: string; // bio_pt, bio_en, etc. serão mapeados para 'bio'
-  // Propriedades multilíngues brutas
+  bio?: string; // Bio no idioma atual
+  // Propriedades multilíngues brutas (para buscar do DB)
   name_pt?: string;
   name_en?: string;
   name_es?: string;
@@ -44,11 +44,11 @@ export interface Author {
 // Tipos relacionados às categorias
 export interface Category {
   id: string;
-  name: string;
-  slug: string;
-  description?: string;
+  name: string; // Nome no idioma atual
+  slug: string; // Slug no idioma atual
+  description?: string; // Descrição no idioma atual
   created_at?: string;
-  // Propriedades multilíngues brutas
+  // Propriedades multilíngues brutas (para buscar do DB)
   name_pt?: string;
   name_en?: string;
   name_es?: string;
@@ -60,17 +60,13 @@ export interface Category {
   description_es?: string;
 }
 
-export interface CategoryFormData {
-  name: string;
-  slug: string;
-  description?: string;
-  // Propriedades multilíngues
-  name_pt?: string;
-  name_en?: string;
-  name_es?: string;
-  slug_pt?: string;
-  slug_en?: string;
-  slug_es?: string;
+export interface CategoryFormData { // <--- CORRIGIDO AQUI
+  name_pt: string;
+  name_en: string;
+  name_es: string;
+  slug_pt: string;
+  slug_en: string;
+  slug_es: string;
   description_pt?: string;
   description_en?: string;
   description_es?: string;
@@ -80,23 +76,26 @@ export interface CategoryFormData {
 export interface Tag {
   id: string;
   name: string;
-  slug?: string;
+  slug?: string; // Adicionado para consistência, se tags tiverem slug
   postCount?: number; // Para a contagem de posts em TagList
   // Propriedades multilíngues brutas
   name_pt?: string;
   name_en?: string;
   name_es?: string;
+  slug_pt?: string; // Adicionado para consistência
+  slug_en?: string;
+  slug_es?: string;
 }
 
 // Tipos relacionados aos posts
 export interface Post {
   id: string;
-  title: string; // Isso será o title_${lang} formatado
-  slug: string; // Isso será o slug_${lang} formatado
-  content: string;
-  excerpt: string;
-  cover_url: string; // PADRONIZADO AQUI
-  language?: string;
+  title: string; // Título no idioma atual (mapeado no frontend)
+  slug: string; // Slug no idioma atual (mapeado no frontend)
+  content: string; // Conteúdo no idioma atual (mapeado no frontend)
+  excerpt: string; // Resumo no idioma atual (mapeado no frontend)
+  cover_url: string; // Imagem de capa
+  language?: string; // Idioma primário do post (para o banco, se houver)
   category_id?: string;
   author_id?: string;
   published_at: string | null; // Pode ser null para rascunhos
@@ -105,35 +104,37 @@ export interface Post {
   featured?: boolean;
   reading_time?: number;
 
-  // Dados de relações (JOINs) - Opcional, pois podem não vir em todas as queries
-  author?: Author; // Objeto completo do autor
-  category?: Category; // Objeto completo da categoria
-  tags?: string[]; // Array de nomes das tags (já formatado por PostList/BlogContext)
+  // Dados de relações (JOINs) formatados para o idioma atual
+  author?: Author; // Objeto Author já formatado
+  category?: Category; // Objeto Category já formatado
+  tags?: string[]; // Array de nomes de tags já formatado
 
-  // Propriedades multilíngues brutas (para uso em formulários como PostEditor)
-  title_pt?: string;
-  title_en?: string;
-  title_es?: string;
-  slug_pt?: string;
-  slug_en?: string;
-  slug_es?: string;
-  excerpt_pt?: string;
-  excerpt_en?: string;
-  excerpt_es?: string;
-  content_pt?: string;
-  content_en?: string;
-  content_es?: string;
+  // Propriedades multilíngues brutas (para buscar do DB e usar em formulários)
+  title_pt?: string; title_en?: string; title_es?: string;
+  slug_pt?: string; slug_en?: string; slug_es?: string;
+  excerpt_pt?: string; excerpt_en?: string; excerpt_es?: string;
+  content_pt?: string; content_en?: string; content_es?: string;
 }
 
-export interface PostFormData {
-  title: string;
-  slug: string;
-  content: string;
-  excerpt: string;
-  cover_url: string; // PADRONIZADO AQUI
+export interface PostFormData { // <--- CORRIGIDO AQUI
+  title_pt: string;
+  title_en: string;
+  title_es: string;
+  slug_pt: string;
+  slug_en: string;
+  slug_es: string;
+  content_pt: string;
+  content_en: string;
+  content_es: string;
+  excerpt_pt: string;
+  excerpt_en: string;
+  excerpt_es: string;
+  cover_url: string;
   language: string;
   category_id: string;
   author_id?: string;
+  published_at: string | null; // Adicionado para Publicar/Rascunho
+  featured: boolean; // Adicionado
 }
 
 // Tipos relacionados à newsletter
