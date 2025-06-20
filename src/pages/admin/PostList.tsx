@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; // <-- LINHA CORRIGIDA
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Edit, Trash2, Plus, Search } from 'lucide-react';
@@ -66,7 +66,6 @@ const PostList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
-      // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY (REMOVIDOS COMENTÁRIOS INTERNOS) ---
       const { data, error } = await supabase
         .from('posts')
         .select(`
@@ -81,15 +80,14 @@ const PostList = () => {
           cover_url,
           author:authors(id, name_pt, name_en, name_es),
           category:categories(id, name_pt, name_en, name_es, slug_pt, slug_en, slug_es)
-        `); // COMENTÁRIOS REMOVIDOS AQUI!
+        `);
 
       if (error) {
         console.error('Error fetching posts - Supabase response:', error);
-        toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`); // Mantido temporário para depuração
+        toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`);
         throw error;
       }
 
-      // FORMATAR OS DADOS NO FRONTEND
       const formattedPosts: Post[] = (data as RawPostFromDB[] || []).map(rawPost => {
         const postTitle = rawPost[`title_${langSuffix}` as keyof RawPostFromDB] || rawPost.title_pt || t('common.no_title_fallback');
         const postSlug = rawPost[`slug_${langSuffix}` as keyof RawPostFromDB] || rawPost.slug_pt || 'no-slug';
@@ -120,7 +118,6 @@ const PostList = () => {
         };
       });
       setPosts(formattedPosts);
-      // --- FIM DA CORREÇÃO DEFINITIVA DA QUERY ---
 
     } catch (error: any) {
       console.error('Error fetching posts - Catch block:', error);
