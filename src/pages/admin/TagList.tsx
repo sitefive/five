@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; // <-- OLHE ESTA LINHA COM ATENÇÃO: DEVE SER 'from' e não '=>'
 import { useTranslation } from 'react-i18next';
 import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import TagModal from '../../components/admin/TagModal';
-// Importe a interface Tag e a RawTagFromDB do seu types/blog
 import { Tag } from '../../types/blog';
 
 // Interface auxiliar para os dados brutos que vêm do DB antes de formatar
@@ -34,15 +33,13 @@ const TagList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
-      // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY ---
-      // Buscar todas as colunas de idioma para o nome
       const { data, error } = await supabase
         .from('tags')
         .select(`
           id,
           name_pt, name_en, name_es,
           post_tags(count)
-        `); // REMOVIDO ALIAS 'as name' E ADICIONADO TODOS OS CAMPOS _lang
+        `);
 
       if (error) {
         console.error('Error fetching tags - Supabase response:', error);
@@ -50,7 +47,6 @@ const TagList = () => {
         throw error;
       }
 
-      // FORMATAR OS DADOS NO FRONTEND
       const formattedTags: Tag[] = (data as RawTagFromDB[] || []).map(rawTag => {
         const tagName = rawTag[`name_${langSuffix}` as keyof RawTagFromDB];
         return {
@@ -60,11 +56,10 @@ const TagList = () => {
         };
       });
       setTags(formattedTags);
-      // --- FIM DA CORREÇÃO DEFINITIVA DA QUERY ---
 
     } catch (error: any) {
       console.error('Error fetching tags - Catch block:', error);
-      toast.error(`Erro ao carregar tags: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`); // Mantido temporário
+      toast.error(`Erro ao carregar tags: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`);
     } finally {
       setLoading(false);
     }
@@ -103,7 +98,7 @@ const TagList = () => {
     setEditingTag(null);
   };
 
-  const handleModalSave = async (tagData: any) => { // tagData tipado como any por enquanto
+  const handleModalSave = async (tagData: any) => {
     try {
       if (editingTag) {
         const { error } = await supabase
