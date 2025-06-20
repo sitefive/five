@@ -4,6 +4,7 @@ import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import TagModal from '../../components/admin/TagModal';
+// Importe a interface Tag e a RawTagFromDB do seu types/blog
 import { Tag } from '../../types/blog';
 
 // Interface auxiliar para os dados brutos que vêm do DB antes de formatar
@@ -45,7 +46,7 @@ const TagList = () => {
 
       if (error) {
         console.error('Error fetching tags - Supabase response:', error);
-        toast.error(`Erro ao carregar tags: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`);
+        toast.error(`Erro ao carregar tags: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`); // Mantido temporário
         throw error;
       }
 
@@ -55,7 +56,7 @@ const TagList = () => {
         return {
           id: rawTag.id,
           name: tagName as string,
-          postCount: rawTag.post_tags?.[0]?.count || 0 // post_tags retorna um array de objetos com count
+          postCount: rawTag.post_tags?.[0]?.count || 0
         };
       });
       setTags(formattedTags);
@@ -63,7 +64,7 @@ const TagList = () => {
 
     } catch (error: any) {
       console.error('Error fetching tags - Catch block:', error);
-      toast.error(`Erro ao carregar tags: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`);
+      toast.error(`Erro ao carregar tags: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`); // Mantido temporário
     } finally {
       setLoading(false);
     }
@@ -102,7 +103,7 @@ const TagList = () => {
     setEditingTag(null);
   };
 
-  const handleModalSave = async (tagData: any) => {
+  const handleModalSave = async (tagData: any) => { // tagData tipado como any por enquanto
     try {
       if (editingTag) {
         const { error } = await supabase
