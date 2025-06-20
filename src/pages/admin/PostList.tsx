@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; // <-- AGORA ESTÁ 100% CORRETO AQUI: 'from'
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Edit, Trash2, Plus, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
-// Importe as interfaces completas e as Raw do seu types/blog
 import { Post, Author, Category } from '../../types/blog';
 
 // Interfaces auxiliares para os dados brutos que vêm do DB antes de formatar
-// Elas precisam refletir EXATAMENTE o que a query vai retornar
 interface RawAuthorFromDB {
   id: string;
   name_pt: string;
   name_en: string;
   name_es: string;
-  // Adicione outras colunas de autor que a query busca, se houver
 }
 
 interface RawCategoryFromDB {
@@ -22,10 +19,12 @@ interface RawCategoryFromDB {
   name_pt: string;
   name_en: string;
   name_es: string;
-  slug_pt: string; // Adicionado slug para Category
+  slug_pt: string;
   slug_en: string;
   slug_es: string;
-  // Adicione outras colunas de categoria que a query busca, se houver
+  description_pt: string;
+  description_en: string;
+  description_es: string;
 }
 
 interface RawPostFromDB {
@@ -33,17 +32,21 @@ interface RawPostFromDB {
   published_at: string | null;
   created_at: string;
   featured: boolean;
-  // Buscar todas as colunas de idioma para title, slug, excerpt, content
-  title_pt: string; title_en: string; title_es: string;
-  slug_pt: string; slug_en: string; slug_es: string;
-  excerpt_pt: string; excerpt_en: string; excerpt_es: string;
-  content_pt: string; content_en: string; content_es: string;
-  // Cover URL
+  slug_pt: string;
+  slug_en: string;
+  slug_es: string;
+  title_pt: string;
+  title_en: string;
+  title_es: string;
+  excerpt_pt: string;
+  excerpt_en: string;
+  excerpt_es: string;
+  content_pt: string;
+  content_en: string;
+  content_es: string;
   cover_url: string;
-  // Relações com as colunas brutas
   author: RawAuthorFromDB | null;
   category: RawCategoryFromDB | null;
-  // tags (se vierem de outra query ou formatadas de post_tags)
 }
 
 
@@ -61,9 +64,9 @@ const PostList = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
-      const langSuffix = currentLanguage.split('-')[0]; // pt, en, es
+      const langSuffix = currentLanguage.split('-')[0];
 
-      // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY (Buscar todas as colunas de idioma) ---
+      // --- INÍCIO DA CORREÇÃO FINAL DA QUERY (Sem comentários, sem as name, com todos os campos) ---
       const { data, error } = await supabase
         .from('posts')
         .select(`
@@ -76,17 +79,16 @@ const PostList = () => {
           excerpt_pt, excerpt_en, excerpt_es,
           content_pt, content_en, content_es,
           cover_url,
-          author:authors(id, name_pt, name_en, name_es), /* Buscar todos os nomes de autor */
-          category:categories(id, name_pt, name_en, name_es, slug_pt, slug_en, slug_es) /* Buscar todos os nomes de categoria e slugs */
-        `); // REMOVIDO ALIAS 'as name' E ADICIONADO TODOS OS CAMPOS _lang
+          author:authors(id, name_pt, name_en, name_es),
+          category:categories(id, name_pt, name_en, name_es, slug_pt, slug_en, slug_es)
+        `); // COMENTÁRIOS REMOVIDOS E ALIAS DINÂMICOS NA QUERY EVITADOS
 
       if (error) {
         console.error('Error fetching posts - Supabase response:', error);
-        toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`); // Mantido temporário para depuração
+        toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`);
         throw error;
       }
 
-      // --- FORMATAR OS DADOS NO FRONTEND ---
       const formattedPosts: Post[] = (data as RawPostFromDB[] || []).map(rawPost => {
         const postTitle = rawPost[`title_${langSuffix}` as keyof RawPostFromDB] || rawPost.title_pt || t('common.no_title_fallback');
         const postSlug = rawPost[`slug_${langSuffix}` as keyof RawPostFromDB] || rawPost.slug_pt || 'no-slug';
@@ -105,21 +107,18 @@ const PostList = () => {
           featured: rawPost.featured,
           cover_url: rawPost.cover_url,
           
-          // Campos que não são necessários para a listagem (PostList), mas são parte da interface Post
           content: rawPost[`content_${langSuffix}` as keyof RawPostFromDB] || '',
           excerpt: rawPost[`excerpt_${langSuffix}` as keyof RawPostFromDB] || '',
-          language: langSuffix, // Idioma da exibição atual
+          language: langSuffix,
           category_id: rawPost.category?.id,
           author_id: rawPost.author?.id,
           
-          // Objetos de relacionamento formatados
           author: rawPost.author ? { id: rawPost.author.id, name: authorName } : undefined,
           category: rawPost.category ? { id: rawPost.category.id, name: categoryName, slug: categorySlug } : undefined,
-          tags: [] // Tags são carregadas separadamente ou em PostEditor
+          tags: []
         };
       });
       setPosts(formattedPosts);
-      // --- FIM DA CORREÇÃO DEFINITIVA DA QUERY ---
 
     } catch (error: any) {
       console.error('Error fetching posts - Catch block:', error);
