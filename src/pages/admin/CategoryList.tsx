@@ -4,6 +4,7 @@ import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import CategoryModal from '../../components/admin/CategoryModal';
+// Importe a interface Category e a RawCategoryFromDB do seu types/blog
 import { Category } from '../../types/blog';
 
 // Interface auxiliar para os dados brutos que vêm do DB antes de formatar
@@ -38,8 +39,7 @@ const CategoryList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
-      // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY ---
-      // Buscar todas as colunas de idioma
+      // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY (Buscar todas as colunas de idioma) ---
       const { data, error } = await supabase
         .from('categories')
         .select(`
@@ -47,25 +47,35 @@ const CategoryList = () => {
           name_pt, name_en, name_es,
           slug_pt, slug_en, slug_es,
           description_pt, description_en, description_es
-        `); // REMOVIDO ALIAS E ADICIONADO TODOS OS CAMPOS _lang
+        `); // REMOVIDO ALIAS 'as name' E ADICIONADO TODOS OS CAMPOS _lang
 
       if (error) {
         console.error('Error fetching categories - Supabase response:', error);
-        toast.error(`Erro ao carregar categorias: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`);
+        toast.error(`Erro ao carregar categorias: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`); // Mantido temporário
         throw error;
       }
 
       // FORMATAR OS DADOS NO FRONTEND
       const formattedCategories: Category[] = (data as RawCategoryFromDB[] || []).map(rawCategory => {
-        const categoryName = rawCategory[`name_${langSuffix}` as keyof RawCategoryFromDB];
-        const categorySlug = rawCategory[`slug_${langSuffix}` as keyof RawCategoryFromDB];
-        const categoryDescription = rawCategory[`description_${langSuffix}` as keyof RawCategoryFromDB];
+        const categoryName = rawCategory[`name_${langSuffix}` as keyof RawCategoryFromDB] || rawCategory.name_pt || t('common.no_name_fallback');
+        const categorySlug = rawCategory[`slug_${langSuffix}` as keyof RawCategoryFromDB] || rawCategory.slug_pt || 'no-slug';
+        const categoryDescription = rawCategory[`description_${langSuffix}` as keyof RawCategoryFromDB] || rawCategory.description_pt || '';
 
         return {
           id: rawCategory.id,
-          name: categoryName as string,
-          slug: categorySlug as string,
-          description: categoryDescription as string,
+          name: categoryName,
+          slug: categorySlug,
+          description: categoryDescription,
+          // Adicionar as colunas brutas para o formulário (se necessário)
+          name_pt: rawCategory.name_pt,
+          name_en: rawCategory.name_en,
+          name_es: rawCategory.name_es,
+          slug_pt: rawCategory.slug_pt,
+          slug_en: rawCategory.slug_en,
+          slug_es: rawCategory.slug_es,
+          description_pt: rawCategory.description_pt,
+          description_en: rawCategory.description_en,
+          description_es: rawCategory.description_es
         };
       });
       setCategories(formattedCategories);
@@ -112,7 +122,7 @@ const CategoryList = () => {
     setEditingCategory(null);
   };
 
-  const handleModalSave = async (categoryData: any) => {
+  const handleModalSave = async (categoryData: any) => { // categoryData tipado como any, você pode criar uma interface CategoryFormFields se precisar
     try {
       if (editingCategory) {
         const { error } = await supabase
