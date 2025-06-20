@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // <-- LINHA CORRIGIDA
+import React, { useState, useEffect } from 'react'; // <-- OLHE ESTA LINHA COM ATENÇÃO: DEVE SER 'from' e não '=>'
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Edit, Trash2, Plus, Search } from 'lucide-react';
