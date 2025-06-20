@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } => 'react';
 import { useTranslation } from 'react-i18next';
 import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import CategoryModal from '../../components/admin/CategoryModal';
-// Importe a interface Category e a RawCategoryFromDB do seu types/blog
 import { Category } from '../../types/blog';
 
 // Interface auxiliar para os dados brutos que vêm do DB antes de formatar
@@ -39,7 +38,8 @@ const CategoryList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0];
 
-      // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY (Buscar todas as colunas de idioma) ---
+      // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY (REMOVIDOS COMENTÁRIOS INTERNOS) ---
+      // Buscar todas as colunas de idioma
       const { data, error } = await supabase
         .from('categories')
         .select(`
@@ -47,7 +47,7 @@ const CategoryList = () => {
           name_pt, name_en, name_es,
           slug_pt, slug_en, slug_es,
           description_pt, description_en, description_es
-        `); // REMOVIDO ALIAS 'as name' E ADICIONADO TODOS OS CAMPOS _lang
+        `); // COMENTÁRIOS REMOVIDOS AQUI!
 
       if (error) {
         console.error('Error fetching categories - Supabase response:', error);
@@ -66,8 +66,7 @@ const CategoryList = () => {
           name: categoryName,
           slug: categorySlug,
           description: categoryDescription,
-          // Adicionar as colunas brutas para o formulário (se necessário)
-          name_pt: rawCategory.name_pt,
+          name_pt: rawCategory.name_pt, // Incluindo para consistência com o que vem do DB
           name_en: rawCategory.name_en,
           name_es: rawCategory.name_es,
           slug_pt: rawCategory.slug_pt,
@@ -149,7 +148,8 @@ const CategoryList = () => {
 
       handleModalClose();
       fetchCategories();
-    } catch (error: any) {
+    }
+    catch (error: any) {
       console.error('Error saving category:', error);
       toast.error(t('common.error_saving', { message: error.message || 'Verifique o console.' }));
     }
