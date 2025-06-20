@@ -8,13 +8,13 @@ import enTranslation from './locales/en/translation.json';
 import esTranslation from './locales/es/translation.json';
 
 // Importar os arquivos de tradução do novo namespace 'admin' (painel administrativo)
-// --- INÍCIO DA CORREÇÃO PARA QUEBRA DE CACHE (TEMPORÁRIA) ---
-// Adicionando um query parameter único para forçar o navegador a recarregar
-// Você pode mudar o número do 'v=' a cada novo deploy, se precisar forçar novamente
-import ptAdmin from './locales/pt/admin.json?v=2025061801'; // <-- IMPORTANTE
-import enAdmin from './locales/en/admin.json?v=2025061801'; // <-- IMPORTANTE
-import esAdmin from './locales/es/admin.json?v=2025061801'; // <-- IMPORTANTE
-// --- FIM DA CORREÇÃO PARA QUEBRA DE CACHE (TEMPORÁRIA) ---
+// --- INÍCIO DA CORREÇÃO PARA QUEBRA DE CACHE (AGRESSIVA E FINAL) ---
+// Mudamos o número do 'v=' para um valor TOTALMENTE NOVO para forçar o recarregamento.
+// Use a data e hora atual para torná-lo único
+import ptAdmin from './locales/pt/admin.json?v=202506201100'; // <-- NOVO VALOR AQUI!
+import enAdmin from './locales/en/admin.json?v=202506201100'; // <-- NOVO VALOR AQUI!
+import esAdmin from './locales/es/admin.json?v=202506201100'; // <-- NOVO VALOR AQUI!
+// --- FIM DA CORREÇÃO PARA QUEBRA DE CACHE (AGRESSIVA E FINAL) ---
 
 i18n
   .use(LanguageDetector)
@@ -35,7 +35,7 @@ i18n
       },
     },
     fallbackLng: 'pt',
-    debug: true, // Ligar o debug para ver o que o i18n está fazendo no console
+    debug: true, // Deixe como true para ver os logs do i18n no console, se ainda houver problemas
     interpolation: {
       escapeValue: false,
     },
