@@ -7,40 +7,62 @@ import ImageUpload from '../../components/admin/ImageUpload';
 import slugify from 'slugify';
 import toast from 'react-hot-toast';
 import { Eye } from 'lucide-react';
-import { Author, Category } from '../../types/blog'; // Importe Author e Category para tipagem
+// Importe as interfaces completas e as Raw do seu types/blog
+import { Author, Category, PostEditorFormData, PostFormData } from '../../types/blog'; // Certifique-se de importar PostEditorFormData e PostFormData
 
-interface PostDataFields { // Interface para os campos do post por idioma
-  title: string;
-  slug: string;
-  excerpt: string;
-  content: string;
-  // cover_url, author_id, category_id, published_at, featured são globais do post, não por idioma
+// Interfaces auxiliares para os dados brutos que vêm do DB antes de formatar
+// Elas precisam refletir EXATAMENTE o que a query vai retornar
+interface RawAuthorFromDB {
+  id: string;
+  name_pt: string;
+  name_en: string;
+  name_es: string;
+  // Adicione outras colunas de autor que a query busca, se houver
 }
 
-interface PostEditorFormData { // Interface completa para o estado postData
-  pt: PostDataFields;
-  en: PostDataFields;
-  es: PostDataFields;
+interface RawCategoryFromDB {
+  id: string;
+  name_pt: string;
+  name_en: string;
+  name_es: string;
+  slug_pt: string; // Adicionado slug para Category
+  slug_en: string;
+  slug_es: string;
+  description_pt: string;
+  description_en: string;
+  description_es: string;
+  // Adicione outras colunas de categoria que a query busca, se houver
+}
+
+interface RawPostFromDB {
+  id: string;
+  published_at: string | null;
+  created_at: string;
+  featured: boolean;
   cover_url: string;
   author_id: string;
   category_id: string;
-  published_at: string | null;
-  featured: boolean;
+  
+  // Todas as colunas de idioma para Post
+  title_pt: string; title_en: string; title_es: string;
+  slug_pt: string; slug_en: string; slug_es: string;
+  excerpt_pt: string; excerpt_en: string; excerpt_es: string;
+  content_pt: string; content_en: string; content_es: string;
 }
 
+
 const PostEditor = () => {
-  const { t, i18n } = useTranslation('admin'); // Adicionado 't' para traduções
+  const { t, i18n } = useTranslation('admin');
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [authors, setAuthors] = useState<Author[]>([]); // Tipagem adicionada
-  const [categories, setCategories] = useState<Category[]>([]); // Tipagem adicionada
+  const [authors, setAuthors] = useState<Author[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
-  // --- INÍCIO DA LÓGICA DE PERSISTÊNCIA DE ESTADO (JÁ EXISTENTE) ---
+  // --- INÍCIO DA LÓGICA DE PERSISTÊNCIA DE ESTADO ---
   const localStorageKey = id ? `postEditorData-${id}` : 'postEditorData-new';
 
   const getInitialPostData = (): PostEditorFormData => {
-    // Tenta carregar do localStorage
     try {
       const savedData = localStorage.getItem(localStorageKey);
       if (savedData) {
@@ -51,7 +73,6 @@ const PostEditor = () => {
       localStorage.removeItem(localStorageKey); // Limpa dados corrompidos
     }
 
-    // Se não houver dados salvos ou houver erro, retorna o estado inicial padrão
     return {
       pt: { title: '', slug: '', excerpt: '', content: '' },
       en: { title: '', slug: '', excerpt: '', content: '' },
@@ -72,18 +93,33 @@ const PostEditor = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+      const langSuffix = i18n.language.split('-')[0]; // Pega o sufixo do idioma da UI
+
       try {
-        // Fetch authors and categories
+        // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY (Buscar todas as colunas de idioma) ---
         const [authorsData, categoriesData] = await Promise.all([
-          supabase.from('authors').select(`id, name_${i18n.language.split('-')[0]} as name`),
-          supabase.from('categories').select(`id, name_${i18n.language.split('-')[0]} as name`)
+          supabase.from('authors').select(`id, name_pt, name_en, name_es`), // Buscar todos os nomes de autor
+          supabase.from('categories').select(`id, name_pt, name_en, name_es, slug_pt, slug_en, slug_es, description_pt, description_en, description_es`) // Buscar todos os nomes de categoria e slugs
         ]);
 
         if (authorsData.error) throw authorsData.error;
         if (categoriesData.error) throw categoriesData.error;
 
-        setAuthors(authorsData.data || []);
-        setCategories(categoriesData.data || []);
+        // Formatar autores
+        const formattedAuthors: Author[] = (authorsData.data as RawAuthorFromDB[] || []).map(rawAuthor => ({
+          id: rawAuthor.id,
+          name: rawAuthor[`name_${langSuffix}` as keyof RawAuthorFromDB] || rawAuthor.name_pt || t('common.no_name_fallback')
+        }));
+        setAuthors(formattedAuthors);
+
+        // Formatar categorias
+        const formattedCategories: Category[] = (categoriesData.data as RawCategoryFromDB[] || []).map(rawCategory => ({
+          id: rawCategory.id,
+          name: rawCategory[`name_${langSuffix}` as keyof RawCategoryFromDB] || rawCategory.name_pt || t('common.no_name_fallback'),
+          slug: rawCategory[`slug_${langSuffix}` as keyof RawCategoryFromDB] || rawCategory.slug_pt || 'no-slug',
+          description: rawCategory[`description_${langSuffix}` as keyof RawCategoryFromDB] || rawCategory.description_pt || ''
+        }));
+        setCategories(formattedCategories);
 
         // Fetch post data if editing
         if (id) {
@@ -100,7 +136,7 @@ const PostEditor = () => {
               category_id,
               published_at,
               featured
-            `)
+            `) // REMOVIDO ALIAS 'as name' E ADICIONADO TODOS OS CAMPOS _lang
             .eq('id', id)
             .single();
 
@@ -138,7 +174,7 @@ const PostEditor = () => {
     };
 
     fetchData();
-  }, [id, localStorageKey, i18n.language]);
+  }, [id, localStorageKey, i18n.language, t]); // Adicionado 't' para garantir que fetchData re-execute se a função de tradução mudar (não comum, mas boa prática)
 
   // Efeito para salvar o estado no localStorage sempre que 'postData' mudar
   useEffect(() => {
@@ -147,8 +183,6 @@ const PostEditor = () => {
 
 
   const handleTitleChange = (value: string) => {
-    // A lógica de langSuffix aqui é para o input de digitação, não para a query
-    // const langSuffix = currentLang.split('-')[0]; // Não necessário aqui, apenas no fetch
     const slug = slugify(value, { lower: true, strict: true });
     setPostData(prev => ({
       ...prev,
@@ -162,8 +196,6 @@ const PostEditor = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type, checked } = e.target;
-    // Esta parte do handleChange é para campos que NÃO são multilíngues diretamente ligados a postData.pt, en, es
-    // Ex: author_id, category_id, featured
     setPostData(prev => ({
         ...prev,
         [name]: type === 'checkbox' ? checked : value
@@ -189,32 +221,33 @@ const PostEditor = () => {
   const handleSave = async (publish: boolean = false) => {
     setLoading(true);
     try {
-      // Usar 'pt', 'en', 'es' diretamente para construir os nomes das colunas
       const langSuffixPt = 'pt';
       const langSuffixEn = 'en';
       const langSuffixEs = 'es';
 
-      const postFields = {
+      // --- ATENÇÃO: postFields é a forma como os dados são enviados para o DB ---
+      const postFields: PostFormData = { // Tipagem explícita aqui
         author_id: postData.author_id,
         category_id: postData.category_id,
         cover_url: postData.cover_url,
         featured: postData.featured,
         published_at: publish ? new Date().toISOString() : null,
+        language: currentLang.split('-')[0], // Idioma primário do post
         // Campos multilíngues
-        [`title_${langSuffixPt}`]: postData.pt.title,
-        [`slug_${langSuffixPt}`]: postData.pt.slug,
-        [`excerpt_${langSuffixPt}`]: postData.pt.excerpt,
-        [`content_${langSuffixPt}`]: postData.pt.content,
+        title_pt: postData.pt.title,
+        slug_pt: postData.pt.slug,
+        excerpt_pt: postData.pt.excerpt,
+        content_pt: postData.pt.content,
 
-        [`title_${langSuffixEn}`]: postData.en.title,
-        [`slug_${langSuffixEn}`]: postData.en.slug,
-        [`excerpt_${langSuffixEn}`]: postData.en.excerpt,
-        [`content_${langSuffixEn}`]: postData.en.content,
+        title_en: postData.en.title,
+        slug_en: postData.en.slug,
+        excerpt_en: postData.en.excerpt,
+        content_en: postData.en.content,
 
-        [`title_${langSuffixEs}`]: postData.es.title,
-        [`slug_${langSuffixEs}`]: postData.es.slug,
-        [`excerpt_${langSuffixEs}`]: postData.es.excerpt,
-        [`content_${langSuffixEs}`]: postData.es.content,
+        title_es: postData.es.title,
+        slug_es: postData.es.slug,
+        excerpt_es: postData.es.excerpt,
+        content_es: postData.es.content,
       };
 
       let operationError = null;
@@ -250,7 +283,7 @@ const PostEditor = () => {
     if (id) {
       const currentSlug = postData[currentLang as keyof typeof postData].slug;
       if (currentSlug) {
-        window.open(`/${currentLang.split('-')[0]}/blog/${currentSlug}`, '_blank'); // Usar langSuffix aqui
+        window.open(`/${currentLang.split('-')[0]}/blog/${currentSlug}`, '_blank');
       } else {
         toast.error(t('post.preview_no_slug_error'));
       }
