@@ -4,34 +4,48 @@ import { useTranslation } from 'react-i18next';
 import { Edit, Trash2, Plus, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
+// Importe as interfaces completas e as Raw do seu types/blog
 import { Post, Author, Category } from '../../types/blog';
 
-// Interface auxiliar para os dados brutos que vêm do DB antes de formatar
+// Interfaces auxiliares para os dados brutos que vêm do DB antes de formatar
+// Elas precisam refletir EXATAMENTE o que a query vai retornar
+interface RawAuthorFromDB {
+  id: string;
+  name_pt: string;
+  name_en: string;
+  name_es: string;
+  // Adicione outras colunas de autor que a query busca, se houver
+}
+
+interface RawCategoryFromDB {
+  id: string;
+  name_pt: string;
+  name_en: string;
+  name_es: string;
+  slug_pt: string; // Adicionado slug para Category
+  slug_en: string;
+  slug_es: string;
+  // Adicione outras colunas de categoria que a query busca, se houver
+}
+
 interface RawPostFromDB {
   id: string;
   published_at: string | null;
   created_at: string;
   featured: boolean;
-  slug_pt: string; // Buscar todos os slugs
-  slug_en: string;
-  slug_es: string;
-  title_pt: string; // Buscar todos os títulos
-  title_en: string;
-  title_es: string;
-  author: { // Buscar todos os nomes de autor
-    id: string;
-    name_pt: string;
-    name_en: string;
-    name_es: string;
-  } | null; // Pode ser nulo se não houver autor
-  category: { // Buscar todos os nomes de categoria
-    id: string;
-    name_pt: string;
-    name_en: string;
-    name_es: string;
-  } | null; // Pode ser nulo se não houver categoria
-  // Adicione outras colunas _pt, _en, _es que você usa (excerpt, content)
+  // Buscar todas as colunas de idioma para title, slug, excerpt, content
+  title_pt: string; title_en: string; title_es: string;
+  slug_pt: string; slug_en: string; slug_es: string;
+  excerpt_pt: string; excerpt_en: string; excerpt_es: string;
+  content_pt: string; content_en: string; content_es: string;
+  // Cover URL
+  cover_url: string;
+  // Relações com as colunas brutas
+  author: RawAuthorFromDB | null;
+  category: RawCategoryFromDB | null;
+  // tags (se vierem de outra query ou formatadas de post_tags)
 }
+
 
 const PostList = () => {
   const { t, i18n } = useTranslation('admin');
@@ -49,8 +63,7 @@ const PostList = () => {
       setLoading(true);
       const langSuffix = currentLanguage.split('-')[0]; // pt, en, es
 
-      // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY ---
-      // Buscar todas as colunas de idioma e relacionamentos completos
+      // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY (Buscar todas as colunas de idioma) ---
       const { data, error } = await supabase
         .from('posts')
         .select(`
@@ -60,39 +73,48 @@ const PostList = () => {
           featured,
           slug_pt, slug_en, slug_es,
           title_pt, title_en, title_es,
-          author:authors(id, name_pt, name_en, name_es),
-          category:categories(id, name_pt, name_en, name_es)
-        `) // REMOVIDO ALIAS 'as name' E ADICIONADO TODOS OS CAMPOS _lang
-        .order('created_at', { ascending: false });
+          excerpt_pt, excerpt_en, excerpt_es,
+          content_pt, content_en, content_es,
+          cover_url,
+          author:authors(id, name_pt, name_en, name_es), /* Buscar todos os nomes de autor */
+          category:categories(id, name_pt, name_en, name_es, slug_pt, slug_en, slug_es) /* Buscar todos os nomes de categoria e slugs */
+        `); // REMOVIDO ALIAS 'as name' E ADICIONADO TODOS OS CAMPOS _lang
 
       if (error) {
         console.error('Error fetching posts - Supabase response:', error);
-        toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`);
+        toast.error(`Erro ao carregar posts: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`); // Mantido temporário para depuração
         throw error;
       }
 
-      // FORMATAR OS DADOS NO FRONTEND
+      // --- FORMATAR OS DADOS NO FRONTEND ---
       const formattedPosts: Post[] = (data as RawPostFromDB[] || []).map(rawPost => {
-        const postTitle = rawPost[`title_${langSuffix}` as keyof RawPostFromDB] || rawPost.title_pt; // Pega o título no idioma atual, ou PT como fallback
-        const postSlug = rawPost[`slug_${langSuffix}` as keyof RawPostFromDB] || rawPost.slug_pt; // Pega o slug no idioma atual, ou PT como fallback
-        const authorName = rawPost.author?.[`name_${langSuffix}` as keyof typeof rawPost.author] || rawPost.author?.name_pt; // Pega o nome do autor no idioma atual
-        const categoryName = rawPost.category?.[`name_${langSuffix}` as keyof typeof rawPost.category] || rawPost.category?.name_pt; // Pega o nome da categoria no idioma atual
+        const postTitle = rawPost[`title_${langSuffix}` as keyof RawPostFromDB] || rawPost.title_pt || t('common.no_title_fallback');
+        const postSlug = rawPost[`slug_${langSuffix}` as keyof RawPostFromDB] || rawPost.slug_pt || 'no-slug';
+        
+        const authorName = rawPost.author?.[`name_${langSuffix}` as keyof RawAuthorFromDB] || rawPost.author?.name_pt || t('common.no_author_fallback');
+        const categoryName = rawPost.category?.[`name_${langSuffix}` as keyof RawCategoryFromDB] || rawPost.category?.name_pt || t('common.no_category_fallback');
+        const categorySlug = rawPost.category?.[`slug_${langSuffix}` as keyof RawCategoryFromDB] || rawPost.category?.slug_pt || 'no-slug';
+
 
         return {
           id: rawPost.id,
-          title: postTitle as string, // Cast para string
-          slug: postSlug as string, // Cast para string
+          title: postTitle,
+          slug: postSlug,
           published_at: rawPost.published_at,
           created_at: rawPost.created_at,
           featured: rawPost.featured,
-          // Esses campos não são mais trazidos pela query direta, então seriam nulos ou indefinidos
-          content: '', // Preencher se for necessário (não é para listagem)
-          excerpt: '', // Preencher se for necessário (não é para listagem)
-          cover_url: '', // Preencher se for necessário (não é para listagem)
-          language: langSuffix, // O idioma que estamos exibindo
-          category_id: rawPost.category?.id || '',
-          author: rawPost.author ? { id: rawPost.author.id, name: authorName as string } : undefined, // Formatar objeto Author
-          category: rawPost.category ? { id: rawPost.category.id, name: categoryName as string, slug: rawPost[`slug_${langSuffix}` as keyof RawPostFromDB] as string } : undefined, // Formatar objeto Category
+          cover_url: rawPost.cover_url,
+          
+          // Campos que não são necessários para a listagem (PostList), mas são parte da interface Post
+          content: rawPost[`content_${langSuffix}` as keyof RawPostFromDB] || '',
+          excerpt: rawPost[`excerpt_${langSuffix}` as keyof RawPostFromDB] || '',
+          language: langSuffix, // Idioma da exibição atual
+          category_id: rawPost.category?.id,
+          author_id: rawPost.author?.id,
+          
+          // Objetos de relacionamento formatados
+          author: rawPost.author ? { id: rawPost.author.id, name: authorName } : undefined,
+          category: rawPost.category ? { id: rawPost.category.id, name: categoryName, slug: categorySlug } : undefined,
           tags: [] // Tags são carregadas separadamente ou em PostEditor
         };
       });
