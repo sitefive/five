@@ -3,17 +3,17 @@ import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import UserModal from '../../components/admin/UserModal';
-import { User, UserFormData } from '../../types/blog'; // Importar User e UserFormData
-import { useTranslation } from 'react-i18next'; // Importar useTranslation
+import { User, UserFormData } from '../../types/blog';
+import { useTranslation } from 'react-i18next';
 
 const UserList = () => {
-  const { t } = useTranslation('admin'); // Inicializar useTranslation
-  const [users, setUsers] = useState<User[]>([]); // Tipagem adicionada
+  const { t } = useTranslation('admin');
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState<User | null>(null); // Tipagem adicionada
-  const [currentUser, setCurrentUser] = useState<User | null>(null); // Tipagem adicionada
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   useEffect(() => {
     fetchCurrentUser();
@@ -26,11 +26,11 @@ const UserList = () => {
       if (user) {
         const { data: adminUser, error } = await supabase
           .from('admin_users')
-          .select('id, user_id, name, role, active, created_at') // Seleciona apenas o que precisa
+          .select('id, user_id, name, role, active, created_at')
           .eq('user_id', user.id)
           .single();
 
-        if (error && error.code !== 'PGRST116') throw error; // PGRST116 é "no rows returned"
+        if (error && error.code !== 'PGRST116') throw error;
 
         setCurrentUser(adminUser);
       }
@@ -52,7 +52,7 @@ const UserList = () => {
           role,
           active,
           created_at
-        `) // Não fazemos mais o join aqui, pegaremos o email separadamente
+        `)
         .order('created_at', { ascending: false });
 
       if (error) {
@@ -61,16 +61,19 @@ const UserList = () => {
         throw error;
       }
 
-      // Agora, vamos buscar os emails de auth.users separadamente para cada usuário
+      // --- INÍCIO DA CORREÇÃO DEFINITIVA PARA BUSCAR EMAIL ---
       const usersWithEmails = await Promise.all(data.map(async (adminUser: any) => {
-        const { data: authUserData, error: authUserError } = await supabase.auth.admin.getUserById(adminUser.user_id);
-        if (authUserError) {
-          console.error(`Erro ao buscar email para ${adminUser.name}:`, authUserError);
-          // Retornar o usuário sem email se houver erro, para não quebrar a lista
+        // Chamar a função do banco de dados (RPC) para obter o email
+        const { data: emailData, error: emailError } = await supabase.rpc('get_user_email_by_id', { user_uuid: adminUser.user_id });
+        
+        if (emailError) {
+          console.error(`Erro ao buscar email para ${adminUser.name} (user_id: ${adminUser.user_id}):`, emailError);
+          // Retornar o usuário sem email ou com uma mensagem de erro se a função falhar
           return { ...adminUser, auth_user: { email: t('user.email_not_found') } };
         }
-        return { ...adminUser, auth_user: { email: authUserData.user?.email } };
+        return { ...adminUser, auth_user: { email: emailData } }; // emailData é a string do email
       }));
+      // --- FIM DA CORREÇÃO DEFINITIVA PARA BUSCAR EMAIL ---
 
       setUsers(usersWithEmails || []);
     } catch (error: any) {
@@ -81,7 +84,7 @@ const UserList = () => {
     }
   };
 
-  const handleEdit = (user: User) => { // Tipagem adicionada
+  const handleEdit = (user: User) => {
     setEditingUser(user);
     setIsModalOpen(true);
   };
@@ -90,7 +93,6 @@ const UserList = () => {
     if (!window.confirm(t('user.confirm_delete_user'))) return;
 
     try {
-      // Primeiro, obtenha o user_id da tabela admin_users antes de deletar
       const { data: adminUserData, error: fetchError } = await supabase
         .from('admin_users')
         .select('user_id')
@@ -100,7 +102,6 @@ const UserList = () => {
       if (fetchError) throw fetchError;
       if (!adminUserData?.user_id) throw new Error(t('user.user_id_not_found'));
 
-      // Deletar da tabela admin_users
       const { error: adminDeleteError } = await supabase
         .from('admin_users')
         .delete()
@@ -108,10 +109,11 @@ const UserList = () => {
 
       if (adminDeleteError) throw adminDeleteError;
 
-      // --- INÍCIO DA CORREÇÃO DE SINTAXE E TRATAMENTO DE ERRO ---
+      // --- ATENÇÃO: deletar o usuário do auth.users. Isso DEVE ser feito com chave service_role ou por Admin API
       // Deletar do Supabase Auth (auth.users)
+      // Como não usamos a service_role key no frontend, isso pode falhar.
+      // Se esta parte ainda falhar, seria necessário criar uma EDGE FUNCTION ou outra RPC para deletar usuários da tabela auth.users com segurança.
       const { error: authDeleteError } = await supabase.auth.admin.deleteUser(adminUserData.user_id);
-      // --- FIM DA CORREÇÃO DE SINTAXE E TRATAMENTO DE ERRO ---
 
       if (authDeleteError) throw authDeleteError;
 
@@ -128,10 +130,9 @@ const UserList = () => {
     setEditingUser(null);
   };
 
-  const handleModalSave = async (userData: UserFormData) => { // Tipagem adicionada
+  const handleModalSave = async (userData: UserFormData) => {
     try {
       if (editingUser) {
-        // Atualizar admin_users (name, role, active)
         const { error: adminUpdateError } = await supabase
           .from('admin_users')
           .update({
@@ -144,18 +145,15 @@ const UserList = () => {
         if (adminUpdateError) throw adminUpdateError;
         toast.success(t('user.user_updated_success'));
       } else {
-        // --- INÍCIO DA CORREÇÃO DE SINTAXE E TRATAMENTO DE ERRO ---
-        // Criar auth user primeiro
+        // Criar auth user primeiro (também usa API de Admin, pode precisar de ajuste futuro)
         const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
           email: userData.email,
           password: userData.password,
-          email_confirm: true // Você pode mudar para false se não quiser confirmação por email
+          email_confirm: true
         });
-        // --- FIM DA CORREÇÃO DE SINTAXE E TRATAMENTO DE ERRO ---
 
         if (authError) throw authError;
 
-        // Então criar admin user
         const { error: adminError } = await supabase
           .from('admin_users')
           .insert([{
@@ -182,7 +180,6 @@ const UserList = () => {
     user.auth_user?.email?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Only admins can manage users
   if (loading) {
     return <div className="text-center py-4">{t('common.loading')}</div>;
   }
@@ -247,7 +244,7 @@ const UserList = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredUsers.map((user: User) => ( // Tipagem adicionada
+              {filteredUsers.map((user: User) => (
                 <tr key={user.id}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
