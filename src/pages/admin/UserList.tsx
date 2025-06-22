@@ -118,7 +118,7 @@ const UserList = () => {
   const handleModalSave = async (userData: UserFormData) => {
     try {
       if (editingUser) {
-        // Atualizar usuário existente
+        // Atualizar usuário existente (LÓGICA MANTIDA)
         const { data, error } = await supabase
           .rpc('update_admin_user', {
             admin_user_id: editingUser.id,
@@ -130,17 +130,21 @@ const UserList = () => {
         if (error) throw error;
         toast.success(t('user.user_updated_success'));
       } else {
-        // Criar novo usuário
-        const { data, error } = await supabase
-          .rpc('create_admin_user', {
-            email_param: userData.email,
-            password_param: userData.password,
-            name_param: userData.name,
-            role_param: userData.role
-          });
+        // ========== ALTERAÇÃO COMEÇA AQUI ==========
+        // Criar novo usuário usando a Edge Function
+        console.log("Invocando a Edge Function 'create-user'...");
+        const { data, error } = await supabase.functions.invoke('create-user', {
+          body: userData, // Passa todos os dados do formulário para a função
+        });
 
-        if (error) throw error;
+        if (error) {
+          // Se a Edge Function retornar um erro, ele será lançado aqui
+          throw new Error(error.message);
+        }
+        
+        console.log("Resposta da Edge Function:", data);
         toast.success(t('user.user_created_success'));
+        // ========== ALTERAÇÃO TERMINA AQUI ==========
       }
 
       handleModalClose();
@@ -148,6 +152,7 @@ const UserList = () => {
     } catch (error: any) {
       console.error('Error saving user:', error);
       const errorMessage = error.message || 'Erro desconhecido';
+      // A estrutura de toast de erro existente já vai capturar a mensagem da Edge Function
       if (editingUser) {
         toast.error(t('user.error_updating_user', { message: errorMessage }));
       } else {
