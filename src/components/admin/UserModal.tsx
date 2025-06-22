@@ -62,7 +62,7 @@ const UserModal: React.FC<UserModalProps> = ({
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">
-              {user ? t('user_modal.edit_user_title') : t('user_modal.new_user_title')} {/* Traduzido */}
+              {user ? t('user.edit_user_title') : t('user.new_user_title')} {/* Corrigido */}
             </h2>
             <button
               onClick={onClose}
