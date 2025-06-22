@@ -61,19 +61,23 @@ const UserList = () => {
         throw error;
       }
 
-      // --- INÍCIO DA CORREÇÃO DEFINITIVA PARA BUSCAR EMAIL ---
+      // Buscar emails usando a função RPC
       const usersWithEmails = await Promise.all(data.map(async (adminUser: any) => {
-        // Chamar a função do banco de dados (RPC) para obter o email
-        const { data: emailData, error: emailError } = await supabase.rpc('get_user_email_by_id', { user_uuid: adminUser.user_id });
-        
-        if (emailError) {
-          console.error(`Erro ao buscar email para ${adminUser.name} (user_id: ${adminUser.user_id}):`, emailError);
-          // Retornar o usuário sem email ou com uma mensagem de erro se a função falhar
+        try {
+          const { data: emailData, error: emailError } = await supabase
+            .rpc('get_user_email_by_id', { user_uuid: adminUser.user_id });
+          
+          if (emailError) {
+            console.error(`Erro ao buscar email para ${adminUser.name}:`, emailError);
+            return { ...adminUser, auth_user: { email: t('user.email_not_found') } };
+          }
+          
+          return { ...adminUser, auth_user: { email: emailData } };
+        } catch (error) {
+          console.error(`Erro ao buscar email para ${adminUser.name}:`, error);
           return { ...adminUser, auth_user: { email: t('user.email_not_found') } };
         }
-        return { ...adminUser, auth_user: { email: emailData } }; // emailData é a string do email
       }));
-      // --- FIM DA CORREÇÃO DEFINITIVA PARA BUSCAR EMAIL ---
 
       setUsers(usersWithEmails || []);
     } catch (error: any) {
@@ -93,35 +97,16 @@ const UserList = () => {
     if (!window.confirm(t('user.confirm_delete_user'))) return;
 
     try {
-      const { data: adminUserData, error: fetchError } = await supabase
-        .from('admin_users')
-        .select('user_id')
-        .eq('id', id)
-        .single();
+      const { data, error } = await supabase
+        .rpc('delete_admin_user', { admin_user_id: id });
 
-      if (fetchError) throw fetchError;
-      if (!adminUserData?.user_id) throw new Error(t('user.user_id_not_found'));
-
-      const { error: adminDeleteError } = await supabase
-        .from('admin_users')
-        .delete()
-        .eq('id', id);
-
-      if (adminDeleteError) throw adminDeleteError;
-
-      // --- ATENÇÃO: deletar o usuário do auth.users. Isso DEVE ser feito com chave service_role ou por Admin API
-      // Deletar do Supabase Auth (auth.users)
-      // Como não usamos a service_role key no frontend, isso pode falhar.
-      // Se esta parte ainda falhar, seria necessário criar uma EDGE FUNCTION ou outra RPC para deletar usuários da tabela auth.users com segurança.
-      const { error: authDeleteError } = await supabase.auth.admin.deleteUser(adminUserData.user_id);
-
-      if (authDeleteError) throw authDeleteError;
+      if (error) throw error;
 
       setUsers(users.filter(user => user.id !== id));
       toast.success(t('user.user_deleted_success'));
     } catch (error: any) {
       console.error('Error deleting user:', error);
-      toast.error(t('common.error_deleting', { message: error.message || 'Verifique o console.' }));
+      toast.error(t('user.error_deleting_user', { message: error.message || 'Verifique o console.' }));
     }
   };
 
@@ -133,37 +118,28 @@ const UserList = () => {
   const handleModalSave = async (userData: UserFormData) => {
     try {
       if (editingUser) {
-        const { error: adminUpdateError } = await supabase
-          .from('admin_users')
-          .update({
-            name: userData.name,
-            role: userData.role,
-            active: userData.active
-          })
-          .eq('id', editingUser.id);
+        // Atualizar usuário existente
+        const { data, error } = await supabase
+          .rpc('update_admin_user', {
+            admin_user_id: editingUser.id,
+            name_param: userData.name,
+            role_param: userData.role,
+            active_param: userData.active
+          });
 
-        if (adminUpdateError) throw adminUpdateError;
+        if (error) throw error;
         toast.success(t('user.user_updated_success'));
       } else {
-        // Criar auth user primeiro (também usa API de Admin, pode precisar de ajuste futuro)
-        const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
-          email: userData.email,
-          password: userData.password,
-          email_confirm: true
-        });
+        // Criar novo usuário
+        const { data, error } = await supabase
+          .rpc('create_admin_user', {
+            email_param: userData.email,
+            password_param: userData.password,
+            name_param: userData.name,
+            role_param: userData.role
+          });
 
-        if (authError) throw authError;
-
-        const { error: adminError } = await supabase
-          .from('admin_users')
-          .insert([{
-            user_id: authUser.user.id,
-            name: userData.name,
-            role: userData.role,
-            active: userData.active
-          }]);
-
-        if (adminError) throw adminError;
+        if (error) throw error;
         toast.success(t('user.user_created_success'));
       }
 
@@ -171,7 +147,12 @@ const UserList = () => {
       fetchUsers();
     } catch (error: any) {
       console.error('Error saving user:', error);
-      toast.error(t('common.error_saving', { message: error.message || 'Verifique o console.' }));
+      const errorMessage = error.message || 'Erro desconhecido';
+      if (editingUser) {
+        toast.error(t('user.error_updating_user', { message: errorMessage }));
+      } else {
+        toast.error(t('user.error_creating_user', { message: errorMessage }));
+      }
     }
   };
 

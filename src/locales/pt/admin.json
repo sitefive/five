@@ -42,7 +42,8 @@
     "phone_label": "Telefone",
     "no_title_fallback": "(Sem título)",
     "no_author_fallback": "(Sem autor)",
-    "no_category_fallback": "(Sem categoria)"
+    "no_category_fallback": "(Sem categoria)",
+    "submitting": "Enviando..."
   },
   "post": {
     "title_list": "Posts",
@@ -147,7 +148,10 @@
     "error_loading_users": "Erro ao carregar usuários: {{message}}",
     "error_loading_current_user": "Erro ao carregar usuário atual: {{message}}",
     "edit_user_title": "Editar Usuário",
-    "new_user_title": "Novo Usuário"
+    "new_user_title": "Novo Usuário",
+    "error_creating_user": "Erro ao criar usuário: {{message}}",
+    "error_updating_user": "Erro ao atualizar usuário: {{message}}",
+    "error_deleting_user": "Erro ao deletar usuário: {{message}}"
   },
   "settings": {
     "title": "Configurações do Site",
