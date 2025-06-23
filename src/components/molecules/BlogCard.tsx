@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
-import { Clock, Calendar, User } from 'lucide-react'; // Adicionado o ícone de User
+import { Clock, Calendar, User } from 'lucide-react';
 import { format } from 'date-fns';
 import { ptBR, es } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
@@ -70,16 +70,12 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           <h2 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 mb-2">
             {post.title}
           </h2>
-          <p className="text-gray-600 mb-4">{post.excerpt}</p>
+          <p className="text-gray-600 mb-4 line-clamp-2">{post.excerpt}</p>
         </Link>
 
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
           {post.author && (
-            <Link
-              to={`/${lang}/autor/${post.author.id}`}
-              className="flex items-center group"
-            >
-              {/* =========== CORREÇÃO APLICADA AQUI =========== */}
+            <div className="flex items-center group"> {/* Removido o Link aqui para simplificar */}
               {post.author.avatar ? (
                 <img
                   src={post.author.avatar}
@@ -91,11 +87,10 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
                     <User className="w-4 h-4 text-gray-500" />
                 </div>
               )}
-              {/* ================================================ */}
-              <span className="text-sm text-gray-700 group-hover:text-blue-600 transition-colors duration-200">
+              <span className="text-sm text-gray-700">
                 {post.author.name}
               </span>
-            </Link>
+            </div>
           )}
 
           <div className="flex gap-2">
