@@ -3,12 +3,13 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Share2, Facebook, Twitter, Linkedin as LinkedIn, Link as LinkIcon } from 'lucide-react';
 import { useAnalytics } from '../../hooks/useAnalytics';
+import Button from '../atoms/Button'; // <<<<====== A CORREÇÃO FINAL E DEFINITIVA ESTÁ AQUI
 
 interface ShareButtonsProps {
   url: string;
   title: string;
   description: string;
-  postId: string;
+  postId?: string; // Tornando opcional para segurança
 }
 
 const ShareButtons: React.FC<ShareButtonsProps> = ({ url, title, description, postId }) => {
@@ -17,7 +18,9 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ url, title, description, po
 
   const handleShare = async (platform: string) => {
     try {
-      trackEvent(postId, 'share', { platform });
+      if (postId) {
+          trackEvent(postId, 'share', { platform });
+      }
       
       if (platform === 'native' && navigator.share) {
         await navigator.share({
@@ -27,6 +30,7 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ url, title, description, po
         });
       } else if (platform === 'copy') {
         await navigator.clipboard.writeText(url);
+        // Adicionar um feedback visual para o usuário seria uma boa melhoria aqui
       }
     } catch (error) {
       console.error('Error sharing:', error);
@@ -34,18 +38,19 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ url, title, description, po
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-wrap items-center gap-2 mt-6 pt-6 border-t">
       <Button
         variant="outline"
         size="sm"
         icon={<Share2 className="w-4 h-4" />}
         onClick={() => handleShare('native')}
-        className="sm:hidden"
+        className="sm:hidden" // Este botão só aparece em dispositivos com capacidade de compartilhamento nativo
       >
         {t('blog.share')}
       </Button>
 
       <div className="hidden sm:flex items-center gap-2">
+        <p className="text-sm font-medium text-gray-600 mr-2">{t('blog.share')}:</p>
         <motion.a
           href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
           target="_blank"
