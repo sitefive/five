@@ -10,37 +10,37 @@
     "toggle": "Toggle menu"
   },
   "hero": {
-    "title": "Consultancy Specialized in HR Systems",
-    "subtitle": "Transforming your HR with Tailored IT Solutions",
+    "title": "Specialized Consulting in Human Resources Systems",
+    "subtitle": "Powering your HR with Tailored IT Solutions",
     "cta": "Request a Consultation"
   },
   "services": {
     "title": "Our Services",
-    "subtitle": "Tailored solutions to accelerate your business",
+    "subtitle": "Smart solutions to boost your business",
     "consulting": {
       "title": "Specialized Consulting",
-      "description": "Strategic consulting to optimize HR processes and systems",
+      "description": "Strategies to optimize high-performance HR processes and systems",
       "benefits": {
         "title": "Benefits",
         "items": [
-          "Detailed process analysis",
-          "Tailored solutions",
+          "Complete process mapping",
+          "Customized solutions",
           "Guided implementation",
-          "Continuous support"
+          "Continuous monitoring"
         ]
       },
       "page": {
         "title": "Specialized Consulting",
-        "description": "Customized HR systems solutions with strategic focus, aligned to business needs and your operation's maturity.",
+        "description": "Customized HR systems solutions with a strategic focus, aligned with business needs and the maturity of your operation.",
         "benefits": {
           "title": "Benefits",
           "items": [
-            "In-depth diagnosis of current scenario",
+            "In-depth diagnosis of the current scenario",
             "Tailored solutions for your reality",
             "Greater efficiency in people management",
             "Reduction of rework and operational failures",
-            "More skilled and engaged team",
-            "Strategic support for decision making"
+            "A more skilled and engaged team",
+            "Strategic support for decision-making"
           ]
         },
         "methodology": {
@@ -49,7 +49,7 @@
             "diagnosis": {
               "title": "Diagnosis",
               "steps": [
-                "Understanding business and challenges",
+                "Understanding the business and challenges",
                 "Analysis of current processes",
                 "Identification of critical points",
                 "System maturity assessment"
@@ -59,15 +59,15 @@
               "title": "Planning",
               "steps": [
                 "Definition of objectives and goals",
-                "Action plan development",
+                "Development of the action plan",
                 "Alignment with leadership",
-                "Delivery schedule and resources"
+                "Schedule of deliverables and resources"
               ]
             },
             "implementation": {
               "title": "Implementation",
               "steps": [
-                "System configurations",
+                "System parameterizations",
                 "Technical and functional support",
                 "Validation with users",
                 "Change management"
@@ -76,7 +76,7 @@
             "monitoring": {
               "title": "Monitoring",
               "steps": [
-                "Results evaluation",
+                "Evaluation of results",
                 "Post-implementation support",
                 "Continuous improvement recommendations",
                 "Executive reports"
@@ -88,28 +88,28 @@
     },
     "support": {
       "title": "AMS Support",
-      "description": "Ongoing support and maintenance for HR systems",
+      "description": "Maintenance, technical support, and evolution of HR systems",
       "benefits": {
         "title": "Benefits",
         "items": [
+          "Agile and specialized service",
           "24/7 support",
-          "Quick issue resolution",
-          "Proactive monitoring",
-          "Specialized team"
+          "Failure prevention",
+          "Efficient incident resolution"
         ]
       },
       "page": {
         "title": "AMS Support",
-        "description": "Continuous technical and functional support, ensuring optimal performance of your HR system with agility, flexibility and security.",
+        "description": "Continuous technical and functional support, ensuring the optimal operation of your HR system with agility, flexibility, and security.",
         "benefits": {
           "title": "Benefits",
           "items": [
             "Specialized on-demand support",
             "Quick incident resolution",
-            "Hourly or monthly package service",
+            "Service by the hour or monthly package",
             "Reduced downtime",
-            "Team focused on your business model",
-            "Free internal team for strategic activities"
+            "Team focused on serving your business model",
+            "Freeing up the internal team for strategic activities"
           ]
         },
         "methodology": {
@@ -120,14 +120,14 @@
               "steps": [
                 "Survey of main demands",
                 "Analysis of recurring incidents",
-                "Understanding of functional scope",
-                "Identification of attention points"
+                "Understanding of the functional scope",
+                "Identification of points of attention"
               ]
             },
             "planning": {
               "title": "Planning",
               "steps": [
-                "Definition of service model",
+                "Definition of the service model",
                 "Creation of support flows",
                 "Establishment of SLA and priorities",
                 "Planning of proactive services"
@@ -137,9 +137,9 @@
               "title": "Implementation",
               "steps": [
                 "Execution of corrective services",
-                "Support for configurations and integrations",
+                "Support for parameterizations and integrations",
                 "Registration and documentation of solutions",
-                "Continuous communication with client"
+                "Continuous communication with the client"
               ]
             },
             "improvement": {
@@ -147,7 +147,7 @@
               "steps": [
                 "Analysis of support indicators",
                 "Preventive and evolutionary actions",
-                "Systemic improvement proposals",
+                "System improvement proposals",
                 "Periodic performance reviews"
               ]
             }
@@ -157,27 +157,27 @@
     },
     "revitalization": {
       "title": "System Revitalization",
-      "description": "Modernization and upgrading of legacy systems",
+      "description": "Updating, modernizing, and improving legacy systems",
       "benefits": {
         "title": "Benefits",
         "items": [
-          "Updated technologies",
-          "Improved performance",
-          "Cost reduction",
-          "Enhanced security"
+          "Updated technological infrastructure",
+          "Better performance and stability",
+          "Optimization of operational costs",
+          "More security and reliability"
         ]
       },
       "page": {
         "title": "System Revitalization",
-        "description": "Recovery and enhancement of existing implementations, elevating system performance with intelligent use of already contracted resources.",
+        "description": "Recovery and improvement of existing implementations, enhancing system performance with intelligent use of already contracted resources.",
         "benefits": {
           "title": "Benefits",
           "items": [
             "Correction of implementation failures",
-            "Increased efficiency of current system",
-            "Utilization of forgotten functionalities",
-            "Reduction of parallel controls usage (spreadsheets)",
-            "User re-engagement with the system",
+            "Increased efficiency of the current system",
+            "Utilization of forgotten features",
+            "Reduction in the use of parallel controls (spreadsheets)",
+            "Re-engagement of users with the system",
             "Savings by avoiding new implementation"
           ]
         },
@@ -187,7 +187,7 @@
             "diagnosis": {
               "title": "Diagnosis",
               "steps": [
-                "Analysis of current system scenario",
+                "Analysis of the current system scenario",
                 "Survey of failures and limitations",
                 "Assessment of adherence to business processes",
                 "Interviews with key users"
@@ -196,8 +196,8 @@
             "planning": {
               "title": "Planning",
               "steps": [
-                "Definition of revitalization scope",
-                "Proposal of adjustments and improvements",
+                "Definition of the revitalization scope",
+                "Proposal for adjustments and improvements",
                 "Restructuring schedule",
                 "Alignment with impacted areas"
               ]
@@ -206,8 +206,8 @@
               "title": "Implementation",
               "steps": [
                 "System adjustments and reconfigurations",
-                "Update of records and flows",
-                "Delivery validation with client",
+                "Updating records and flows",
+                "Validation of deliverables with the client",
                 "Testing and approvals"
               ]
             },
@@ -226,19 +226,19 @@
     },
     "optimization": {
       "title": "Process Optimization",
-      "description": "Continuous improvement of workflows and processes",
+      "description": "Improving workflows to increase productivity and efficiency",
       "benefits": {
         "title": "Benefits",
         "items": [
-          "Increased efficiency",
-          "Streamlined processes",
-          "Error reduction",
-          "Higher productivity"
+          "More efficient operations",
+          "Lean and agile processes",
+          "Reduction of failures and rework",
+          "Significant productivity gains"
         ]
       },
       "page": {
         "title": "Process Optimization",
-        "description": "Enhancement and automation of workflows for greater operational efficiency, cost reduction and increased productivity.",
+        "description": "Improvement and automation of workflows for greater operational efficiency, cost reduction, and increased productivity.",
         "benefits": {
           "title": "Benefits",
           "items": [
@@ -258,17 +258,17 @@
               "steps": [
                 "Identification of critical processes",
                 "Documentation of current flows",
-                "Bottleneck analysis",
-                "Indicator survey"
+                "Analysis of bottlenecks",
+                "Survey of indicators"
               ]
             },
             "optimization": {
               "title": "Optimization",
               "steps": [
                 "Process redesign",
-                "Waste elimination",
-                "Activity automation",
-                "Control definition"
+                "Elimination of waste",
+                "Automation of activities",
+                "Definition of controls"
               ]
             },
             "implementation": {
@@ -276,7 +276,7 @@
               "steps": [
                 "Team training",
                 "Implementation of improvements",
-                "Results monitoring",
+                "Monitoring of results",
                 "Continuous improvement"
               ]
             },
@@ -299,80 +299,80 @@
         "diagnosis": {
           "title": "Diagnosis",
           "steps": [
-            "Initial analysis",
-            "Identifying problems",
-            "Process assessment",
-            "Goal setting"
+            "In-depth analysis of current processes",
+            "Identification of critical points",
+            "Evaluation of systems and flows",
+            "Definition of project objectives"
           ]
         },
         "planning": {
           "title": "Planning",
           "steps": [
-            "Strategy development",
-            "Action plan creation",
-            "Resource allocation",
-            "Detailed timeline"
+            "Creation of the action strategy",
+            "Development of the action plan",
+            "Distribution of responsibilities",
+            "Elaboration of a detailed schedule"
           ]
         },
         "implementation": {
           "title": "Implementation",
           "steps": [
-            "Project execution",
-            "Ongoing monitoring",
-            "Necessary adjustments",
-            "Result evaluation"
+            "Execution of the proposed solutions",
+            "Constant monitoring of results",
+            "Adjustments and continuous improvements",
+            "Validation of achieved objectives"
           ]
         }
       }
     },
-    "cta": "Talk to a Specialist"
+    "cta": "Talk to an expert"
   },
   "about": {
     "title": "About Us",
-    "description": "We are specialists in turning challenges into opportunities, driving sustainable business growth.",
+    "description": "We transform challenges into opportunities, driving the sustainable growth of our clients.",
     "focus": {
-      "title": "Client Focus",
-      "description": "We understand each client's needs to deliver tailored solutions."
+      "title": "Customer Focus",
+      "description": "We understand the unique needs of each client to offer personalized and assertive solutions."
     },
     "automation": {
-      "title": "Smart Automation",
-      "description": "We apply advanced technologies to automate and optimize processes."
+      "title": "Intelligent Automation",
+      "description": "We apply cutting-edge technology to automate processes and generate more operational efficiency."
     },
     "consulting": {
       "title": "Strategic Consulting",
-      "description": "We provide expert guidance to achieve outstanding results."
+      "description": "We accompany your journey with solutions that guarantee solid and lasting results."
     }
   },
   "cases": {
-    "title": "Success Stories",
-    "description": "Check out some of our successful cases",
+    "title": "Success Cases",
+    "description": "See how we've helped companies transform their processes",
     "viewCase": "View full case",
     "trajectory": {
-      "title": "Our Journey",
+      "title": "Our Trajectory",
       "description1": "Even before the founding of Five Consulting, our team had already participated in projects in",
       "description2": "more than 100 companies ",
       "description3": "of various sizes and segments.",
-      "description4": "This journey consolidated our experience in HR systems implementation, technical support, process optimization, training and strategic consulting.",
-      "description5": "With this background, we can quickly understand your business challenges and deliver tailored solutions with agility, technical depth and focus on results.",
+      "description4": "This journey has consolidated our experience in HR systems implementation, technical support, process optimization, training, and strategic consulting.",
+      "description5": "With this background, we can quickly understand your business challenges and deliver tailored solutions with agility, technical depth, and a focus on results.",
       "stats": {
         "companies": "Companies served",
         "experience": "Years of experience in HR projects"
       }
     },
     "sectors": {
-      "title": "Sectors we operate in",
+      "title": "Sectors We Operate In",
       "description": "Our team's experience extends across projects in companies from various sectors of the economy, including:",
       "list": {
         "industry": "Industry",
         "retail": "Retail",
-        "health": "Healthcare",
+        "health": "Health",
         "education": "Education",
         "pharmaceutical": "Pharmaceutical",
         "logistics": "Logistics",
         "finance": "Finance",
         "technology": "Technology",
         "automotive": "Automotive",
-        "construction": "Construction",
+        "construction": "Civil Construction",
         "fraud": "Fraud Prevention",
         "supermarket": "Supermarket"
       }
@@ -383,11 +383,11 @@
         "company": "ClearSale",
         "segment": "Fraud Prevention",
         "service": "Monthly AMS Support",
-        "challenge": "Reduce ticket backlog and improve response time for internal demands.",
+        "challenge": "Reduce the backlog of tickets and improve response time for internal demands.",
         "actions": [
           "Continuous service via AMS model",
           "Strategic ticket management",
-          "Technical support for environment stabilization"
+          "Technical support in stabilizing the environment"
         ],
         "results": [
           "Significant backlog reduction",
@@ -396,13 +396,13 @@
       },
       "mitre": {
         "company": "Mitre",
-        "segment": "Construction",
-        "service": "Specific consulting",
-        "challenge": "Improve the admission and onboarding process for new employees with focus on efficiency and digitalization.",
+        "segment": "Civil Construction",
+        "service": "One-off consulting",
+        "challenge": "Improve the admission and integration process for new employees with a focus on efficiency and digitalization.",
         "actions": [
-          "Admission flow diagnosis",
-          "Process optimization focused on employee experience",
-          "Creation of customized reports with focus on digital signature"
+          "Diagnosis of the admission flow",
+          "Optimization of the process focusing on employee experience",
+          "Creation of customized reports focusing on digital signatures"
         ],
         "results": [
           "More agile and digital process",
@@ -416,13 +416,13 @@
     },
     "cta": {
       "title": "Come be our next success story!",
-      "description": "Contact us and discover how we can transform your HR processes.",
+      "description": "Contact us and find out how we can transform your HR processes.",
       "button": "Contact us"
     }
   },
   "contact": {
     "title": "Contact",
-    "description": "Get in touch with us",
+    "description": "Talk to our team",
     "form": {
       "title": "Contact Us",
       "name": "Name",
@@ -430,18 +430,21 @@
       "phone": "Phone",
       "subject": "Subject",
       "message": "Message",
-      "submit": "Send Message",
+      "submit": "Send message",
       "success": "Message sent successfully!",
       "error": "Error sending message. Please try again."
     }
   },
+  "common": {
+    "home": "Home"
+  },
   "footer": {
     "about": "About",
-    "aboutText": "We are experts in transforming challenges into opportunities through innovative solutions.",
+    "aboutText": "Specialists in transforming challenges into innovative solutions for companies.",
     "quickLinks": "Quick Links",
     "contact": "Contact",
     "newsletter": "Newsletter",
-    "newsletterText": "Subscribe to receive news and updates",
+    "newsletterText": "Sign up to receive news and exclusive content",
     "rights": "© 2025 FIVE Consulting - CNPJ: 44.262.900/0001-82. All rights reserved.",
     "privacyPolicy": "Privacy Policy",
     "termsOfUse": "Terms of Use"
@@ -450,24 +453,26 @@
     "placeholder": "Your email",
     "subscribe": "Subscribe",
     "success": "Subscription successful!",
-    "error": "Subscription failed",
+    "error": "Error during subscription",
     "emailRequired": "Email is required",
-    "unsubscribe": "You can unsubscribe at any time"
+    "unsubscribe": "You can cancel your subscription at any time"
   },
   "cookies": {
     "title": "Cookies",
-    "message": "We use cookies to enhance your experience. By continuing, you agree to our",
+    "message": "This site uses cookies to improve your experience. By continuing to browse, you agree to our",
     "privacyLink": "Privacy Policy",
     "accept": "Accept",
     "customize": "Customize"
   },
   "whatsapp": {
-    "tooltip": "Chat with us on WhatsApp",
+    "tooltip": "Talk to us on WhatsApp",
     "message": "Hello! I would like to know more about your services."
   },
   "blog": {
     "title": "Blog",
-    "subtitle": "Insights, analysis, and business trends",
+    "subtitle": "Insights, trends, and solutions to boost your business",
+    "category": "Category",
+    "showingCategoryPosts": "Showing posts in category",
     "search": "Search",
     "categories": "Categories",
     "recentPosts": "Recent Posts",
@@ -492,101 +497,112 @@
   },
   "privacy": {
     "title": "Privacy Policy",
-    "description": "Learn how we collect, use, and protect your personal information.",
-    "intro": "FIVE Consulting values your privacy. This Privacy Policy explains how we collect, use, and protect your data.",
+    "description": "Learn how we protect your personal data.",
+    "intro": "FIVE Consulting values your privacy. This Privacy Policy describes how we collect, use, and protect your information.",
     "collection": {
       "title": "1. Information We Collect",
-      "description": "We may collect personal information such as name, email, phone number, and professional details provided voluntarily when you contact us or subscribe to our newsletter."
+      "description": "We collect data such as name, email, phone, and professional information that you voluntarily provide when contacting us or subscribing to our newsletter."
     },
     "usage": {
       "title": "2. How We Use Your Data",
-      "description": "We use your data to respond to inquiries, send relevant content, provide contracted services, improve user experience, and comply with legal obligations."
+      "description": "We use your data to provide services, respond to requests, send relevant content, improve your experience, and comply with legal obligations."
     },
     "sharing": {
       "title": "3. Data Sharing",
-      "description": "We do not share your information with third parties unless necessary to deliver services or required by law."
+      "description": "Your data is not shared with third parties, except when necessary for the performance of services or by legal requirement."
     },
     "security": {
       "title": "4. Information Security",
-      "description": "We implement technical and organizational measures to protect your data from unauthorized access, destruction, loss, or alteration."
+      "description": "We adopt strict security practices to protect your data against unauthorized access, loss, or alteration."
     },
     "cookies": {
       "title": "5. Cookies",
-      "description": "We use cookies to improve your website experience, analyze traffic, and personalize content. You can manage cookie preferences in our consent banner."
+      "description": "We use cookies to improve your Browse, personalize content, and analyze traffic. You can manage your preferences in our cookie banner."
     },
     "rights": {
       "title": "6. Your Rights",
-      "description": "Under the LGPD, you have the right to access, correct, or delete your personal data. Contact us at contato@fiveconsulting.com.br."
+      "description": "In accordance with the LGPD, you can access, correct, or request the deletion of your data. Contact us at contato@fiveconsulting.com.br."
     },
     "changes": {
       "title": "7. Changes to This Policy",
-      "description": "This policy may be updated periodically. The latest version will always be available on this page."
+      "description": "We may update this policy periodically. The current version will always be available on this page."
     },
     "lastUpdate": "Last updated: {{date}}"
   },
   "terms": {
     "title": "Terms of Use",
-    "description": "Please carefully read the terms and conditions that govern the use of this website and our services.",
-    "intro": "These Terms of Use govern the use of the website and our services. By accessing or using any functionality, you fully agree to these terms.",
+    "description": "Check the terms and conditions for using our site and services.",
+    "intro": "These Terms of Use govern the access and use of this site and our services. By using any feature, you agree to these terms.",
     "usageLicense": {
-      "title": "1. Usage License",
-      "description": "We grant you a limited, non-exclusive, non-transferable license to access and use our services.",
+      "title": "1. License to Use",
+      "description": "You are granted a limited, non-exclusive, non-transferable license to use our services according to these terms.",
       "items": [
-        "For personal and non-commercial use",
-        "Redistributing content is prohibited",
-        "Modifying content is prohibited",
-        "Use for illegal purposes is prohibited"
-      ]
+        "Personal and non-commercial use",
+        "Prohibited to redistribute content",
+        "Prohibited to modify content",
+        "Prohibited for illegal purposes"
+      ],
+      "termination": "We reserve the right to suspend or terminate your access for violating these terms."
     },
     "disclaimer": {
-      "title": "2. Disclaimer",
-      "description": "Our services are provided 'as is' without warranties of any kind.",
+      "title": "2. Disclaimer of Liability",
+      "description": "The services are provided 'as is', without express or implied warranties.",
       "items": [
-        "No guarantee of continuous availability",
-        "Not liable for indirect damages",
-        "No guarantee of complete accuracy",
-        "We reserve the right to modify services"
-      ]
+        "We do not guarantee continuous availability",
+        "We are not liable for indirect damages",
+        "We do not guarantee the full accuracy of the content",
+        "We may change the services at any time"
+      ],
+      "termination": "We are not liable for damages arising from the use or inability to use our services."
     },
     "limitations": {
-      "title": "3. Usage Limitations",
+      "title": "3. Limitations of Use",
       "description": "By using our services, you agree not to:",
       "items": [
-        "Violate laws or regulations",
-        "Infringe intellectual property rights",
-        "Distribute malware or malicious code",
-        "Attempt to access restricted areas"
-      ]
+        "Violate any law or regulation",
+        "Infringe on intellectual property rights",
+        "Distribute malware or malicious codes",
+        "Access restricted areas without authorization"
+      ],
+      "termination": "Non-compliance may result in immediate suspension of services and legal action."
     },
     "accuracy": {
-      "title": "4. Information Accuracy",
-      "description": "We strive to keep the information accurate and up to date.",
+      "title": "4. Accuracy of Information",
+      "description": "We strive to keep the information updated and correct.",
       "items": [
-        "Content subject to change",
-        "Regular information verification",
-        "Correction of identified errors",
-        "Periodic content updates"
-      ]
+        "Content may be changed without prior notice",
+        "We perform periodic checks",
+        "We correct any errors quickly",
+        "We maintain frequent updates"
+      ],
+      "termination": "We do not guarantee that all information is free of errors or completely up-to-date."
     },
     "links": {
       "title": "5. External Links",
-      "description": "Our site may contain links to third-party websites.",
+      "description": "Our site may contain links to third-party sites.",
       "items": [
-        "We do not control external websites",
+        "We have no control over external sites",
         "We are not responsible for third-party content",
-        "Access is at the user's own risk",
-        "We recommend reviewing third-party terms"
-      ]
+        "Access is the user's responsibility",
+        "We recommend reading the terms of external sites"
+      ],
+      "termination": "We disclaim any liability for damages caused by third-party content or services."
+    },
+    "changes": {
+      "title": "6. Changes to Terms",
+      "description": "These Terms of Use may be modified at any time. Changes take effect immediately upon being posted on this page. It is your responsibility to review them periodically.",
+      "termination": "Continued use of the services after changes indicates your acceptance of the updated terms."
     },
     "governingLaw": {
-      "title": "6. Governing Law",
-      "description": "These terms are governed by the laws of Brazil.",
+      "title": "7. Governing Law",
+      "description": "These terms are governed by Brazilian laws.",
       "items": [
         "Jurisdiction of Brazilian courts",
         "Dispute resolution in Brazil",
-        "Application of Brazilian law",
-        "Exclusive chosen venue"
-      ]
+        "Application of national legislation",
+        "Exclusive jurisdiction in the district of São Paulo, SP"
+      ],
+      "termination": "Any disputes will be resolved in the jurisdiction of São Paulo, Brazil."
     },
     "lastUpdate": "Last updated: {{date}}"
   }
