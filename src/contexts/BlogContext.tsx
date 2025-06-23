@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useReducer, useCallback } from 'react';
+import React, { createContext, useContext, useReducer, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Post, Category, BlogState, BlogAction } from '../types/blog';
-import { useSupabaseCache } from '../hooks/useSupabaseCache';
+import { supabase } from '../lib/supabase'; // Certifique-se que o caminho está correto
 
 const POSTS_PER_PAGE = 9;
 
@@ -28,173 +28,194 @@ const initialState: BlogState = {
 
 const BlogContext = createContext<BlogContextType | undefined>(undefined);
 
+// O reducer continua o mesmo
 function blogReducer(state: BlogState, action: BlogAction): BlogState {
   switch (action.type) {
-    case 'SET_POSTS':
-      return {
-        ...state,
-        posts: [...state.posts, ...action.payload],
-        filteredPosts: filterPosts([...state.posts, ...action.payload], state.searchQuery, state.currentCategory),
-        hasMore: action.payload.length === POSTS_PER_PAGE
-      };
-    case 'RESET_POSTS':
-      return {
-        ...state,
-        posts: [],
-        page: 1,
-        hasMore: true
-      };
-    case 'SET_CATEGORIES':
-      return {
-        ...state,
-        categories: action.payload
-      };
-    case 'SET_SEARCH_QUERY':
-      return {
-        ...state,
-        searchQuery: action.payload,
-        posts: [],
-        page: 1,
-        hasMore: true
-      };
-    case 'SET_CATEGORY':
-      return {
-        ...state,
-        currentCategory: action.payload,
-        posts: [],
-        page: 1,
-        hasMore: true
-      };
     case 'SET_LOADING':
-      return {
-        ...state,
-        loading: action.payload
-      };
+      return { ...state, loading: action.payload };
     case 'SET_ERROR':
+      return { ...state, error: action.payload, loading: false };
+    case 'SET_DATA':
       return {
         ...state,
-        error: action.payload
+        posts: action.payload.posts,
+        filteredPosts: action.payload.posts, // Inicialmente, os posts filtrados são todos os posts
+        categories: action.payload.categories,
+        total: action.payload.total,
+        page: 1,
+        hasMore: action.payload.posts.length > 0,
+        loading: false
       };
-    case 'INCREMENT_PAGE':
-      return {
-        ...state,
-        page: state.page + 1
-      };
-    case 'SET_TOTAL':
-      return {
-        ...state,
-        total: action.payload
-      };
+    case 'ADD_POSTS':
+        return {
+            ...state,
+            posts: [...state.posts, ...action.payload.posts],
+            filteredPosts: [...state.posts, ...action.payload.posts], // Atualiza com os novos posts
+            page: state.page + 1,
+            hasMore: action.payload.posts.length === POSTS_PER_PAGE,
+            loading: false
+        };
+    case 'APPLY_FILTERS':
+        return {
+            ...state,
+            searchQuery: action.payload.searchQuery,
+            currentCategory: action.payload.currentCategory,
+            filteredPosts: state.posts.filter(post => {
+                const matchesQuery = !action.payload.searchQuery ||
+                    post.title.toLowerCase().includes(action.payload.searchQuery.toLowerCase()) ||
+                    post.excerpt.toLowerCase().includes(action.payload.searchQuery.toLowerCase());
+
+                const matchesCategory = !action.payload.currentCategory || (post.category && post.category.id === action.payload.currentCategory.id);
+                
+                return matchesQuery && matchesCategory;
+            })
+        };
     default:
       return state;
   }
 }
 
-function filterPosts(posts: Post[], query: string, category: Category | null): Post[] {
-  return posts.filter(post => {
-    const matchesQuery = !query || 
-      post.title.toLowerCase().includes(query.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(query.toLowerCase());
-    
-    const matchesCategory = !category || post.category.id === category.id;
-    
-    return matchesQuery && matchesCategory;
-  });
-}
-
 export function BlogProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(blogReducer, initialState);
   const { i18n } = useTranslation();
-  const { fetchData: fetchPosts } = useSupabaseCache('posts', {
-    select: `
-      id,
-      title_${i18n.language} as title,
-      slug_${i18n.language} as slug,
-      excerpt_${i18n.language} as excerpt,
-      content_${i18n.language} as content,
-      cover_url,
-      published_at,
-      reading_time,
-      featured,
-      author:authors(
-        id,
-        name_${i18n.language} as name,
-        avatar,
-        bio_${i18n.language} as bio
-      ),
-      category:categories(
-        id,
-        name_${i18n.language} as name,
-        slug_${i18n.language} as slug
-      ),
-      post_tags:post_tags(
-        tag:tags(
-          id,
-          name_${i18n.language} as name
-        )
-      )
-    `,
-    filters: {
-      published_at: { operator: 'not.is', value: null },
-    },
-    pagination: {
-      page: state.page,
-      perPage: POSTS_PER_PAGE,
-    },
-    search: state.searchQuery ? {
-      column: `title_${i18n.language}`,
-      query: state.searchQuery,
-    } : undefined,
-    categoryId: state.currentCategory?.id,
-    onSuccess: (posts) => {
-      const formattedPosts = posts.map(post => ({
-        ...post,
-        tags: post.post_tags ? post.post_tags.map((pt: any) => pt.tag.name) : [],
-      }));
-      dispatch({ type: 'SET_POSTS', payload: formattedPosts });
-    },
-    onError: () => {
-      dispatch({ type: 'SET_ERROR', payload: 'Error loading blog data' });
-    },
-  });
+  const lang = i18n.language;
 
-  const { fetchData: fetchCategories } = useSupabaseCache('categories', {
-    select: `
-      id,
-      name_${i18n.language} as name,
-      slug_${i18n.language} as slug,
-      description_${i18n.language} as description
-    `,
-    orderBy: 'name',
-    onSuccess: (categories) => {
-      dispatch({ type: 'SET_CATEGORIES', payload: categories });
-    },
-    onError: (error) => {
-      console.error('Error fetching categories:', error);
-    },
-  });
+  // Debounce para a busca
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(state.searchQuery);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+        setDebouncedSearchQuery(state.searchQuery);
+    }, 300); // 300ms de delay
+
+    return () => {
+        clearTimeout(handler);
+    };
+  }, [state.searchQuery]);
+
+
+  // Efeito principal para buscar os dados
+  useEffect(() => {
+    const fetchInitialData = async () => {
+        dispatch({ type: 'SET_LOADING', payload: true });
+
+        // Monta a query para os posts
+        let query = supabase
+            .from('posts')
+            .select(`
+                id,
+                title:title_${lang},
+                slug:slug_${lang},
+                excerpt:excerpt_${lang},
+                cover_url,
+                published_at,
+                reading_time,
+                featured,
+                author:authors(id, name:name_${lang}, avatar),
+                category:categories(id, name:name_${lang}, slug:slug_${lang}),
+                post_tags:post_tags(tag:tags(id, name:name_${lang}))
+            `, { count: 'exact' })
+            .order('published_at', { ascending: false })
+            .limit(POSTS_PER_PAGE);
+
+        // Adiciona filtros de categoria e busca se existirem
+        if(state.currentCategory) {
+            query = query.eq('category_id', state.currentCategory.id);
+        }
+        if(debouncedSearchQuery) {
+            query = query.textSearch(`fts_${lang}`, debouncedSearchQuery); // Supondo que você tenha uma coluna 'fts' para Full-Text Search
+        }
+
+        try {
+            // Executa a query dos posts e categorias em paralelo
+            const [postResult, categoryResult] = await Promise.all([
+                query,
+                supabase.from('categories').select(`id, name:name_${lang}, slug:slug_${lang}`)
+            ]);
+
+            if (postResult.error) throw postResult.error;
+            if (categoryResult.error) throw categoryResult.error;
+
+            const formattedPosts = (postResult.data || []).map(post => ({
+                ...post,
+                tags: post.post_tags ? post.post_tags.map((pt: any) => pt.tag.name) : [],
+            }));
+            
+            dispatch({ type: 'SET_DATA', payload: {
+                posts: formattedPosts,
+                categories: categoryResult.data || [],
+                total: postResult.count || 0,
+            }});
+
+        } catch (error: any) {
+            console.error("Erro ao buscar dados do blog:", error);
+            dispatch({ type: 'SET_ERROR', payload: error.message });
+        }
+    };
+
+    fetchInitialData();
+  }, [lang, state.currentCategory, debouncedSearchQuery]); // Re-executa quando o idioma, categoria ou busca mudam
+
+
+  const loadMorePosts = useCallback(async () => {
+    if (state.loading || !state.hasMore) return;
+
+    dispatch({ type: 'SET_LOADING', payload: true });
+    const from = state.page * POSTS_PER_PAGE;
+    const to = from + POSTS_PER_PAGE - 1;
+
+    let query = supabase
+            .from('posts')
+            .select(`
+                id,
+                title:title_${lang},
+                slug:slug_${lang},
+                excerpt:excerpt_${lang},
+                cover_url,
+                published_at,
+                reading_time,
+                featured,
+                author:authors(id, name:name_${lang}, avatar),
+                category:categories(id, name:name_${lang}, slug:slug_${lang}),
+                post_tags:post_tags(tag:tags(id, name:name_${lang}))
+            `)
+            .order('published_at', { ascending: false })
+            .range(from, to);
+
+    if(state.currentCategory) {
+        query = query.eq('category_id', state.currentCategory.id);
+    }
+    if(debouncedSearchQuery) {
+        query = query.textSearch(`fts_${lang}`, debouncedSearchQuery);
+    }
+
+    try {
+        const { data, error } = await query;
+        if (error) throw error;
+        
+        const formattedPosts = (data || []).map(post => ({
+            ...post,
+            tags: post.post_tags ? post.post_tags.map((pt: any) => pt.tag.name) : [],
+        }));
+
+        dispatch({ type: 'ADD_POSTS', payload: { posts: formattedPosts } });
+
+    } catch (error: any) {
+        console.error("Erro ao carregar mais posts:", error);
+        dispatch({ type: 'SET_ERROR', payload: error.message });
+    }
+
+  }, [state.loading, state.hasMore, state.page, lang, state.currentCategory, debouncedSearchQuery]);
 
   const searchPosts = useCallback((query: string) => {
-    dispatch({ type: 'SET_SEARCH_QUERY', payload: query });
-  }, []);
-
+    dispatch({ type: 'APPLY_FILTERS', payload: { searchQuery: query, currentCategory: state.currentCategory } });
+  }, [state.currentCategory]);
+  
   const filterByCategory = useCallback((category: Category | null) => {
-    dispatch({ type: 'SET_CATEGORY', payload: category });
-  }, []);
+    dispatch({ type: 'APPLY_FILTERS', payload: { searchQuery: state.searchQuery, currentCategory: category } });
+  }, [state.searchQuery]);
 
-  const loadMorePosts = useCallback(() => {
-    if (!state.loading && state.hasMore) {
-      dispatch({ type: 'INCREMENT_PAGE' });
-    }
-  }, [state.loading, state.hasMore]);
-
-  const value = {
-    state,
-    dispatch,
-    searchPosts,
-    filterByCategory,
-    loadMorePosts,
-  };
+  const value = { state, dispatch, searchPosts, filterByCategory, loadMorePosts };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;
 }
