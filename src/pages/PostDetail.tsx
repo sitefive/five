@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Calendar, Clock, User } from 'lucide-react';
+import { Calendar, Clock, User, ArrowLeft } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
-import ParallaxHeader from '../components/ParallaxHeader';
 import { supabase } from '../lib/supabase';
+import { format } from 'date-fns';
+import { ptBR, es } from 'date-fns/locale';
+import ParallaxHeader from '../components/ParallaxHeader';
 import ShareButtons from '../components/molecules/ShareButtons';
 import Breadcrumbs from '../components/molecules/Breadcrumbs';
 import BlogPostSchema from '../components/seo/BlogPostSchema';
-import PostReactions from '../components/molecules/PostReactions';
-import ReadingProgress from '../components/molecules/ReadingProgress';
-import RelatedPosts from '../components/molecules/RelatedPosts';
-import Comments from '../components/molecules/Comments';
-import { format } from 'date-fns';
-import { ptBR, es } from 'date-fns/locale';
+// Supondo que você tenha esses componentes
+// import PostReactions from '../components/molecules/PostReactions';
+// import ReadingProgress from '../components/molecules/ReadingProgress';
+// import RelatedPosts from '../components/molecules/RelatedPosts';
+// import Comments from '../components/molecules/Comments';
 
 const PostDetail = () => {
   const { t, i18n } = useTranslation();
   const { slug, lang } = useParams<{ slug: string; lang: string }>();
   const [post, setPost] = useState<any>(null);
-  const [categories, setCategories] = useState<any[]>([]);
-  const [recentPosts, setRecentPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,13 +32,23 @@ const PostDetail = () => {
   };
 
   const formatPublishDate = (date: string) => {
-    return format(new Date(date), "dd 'de' MMM 'de' yyyy", {
-      locale: getDateLocale()
-    });
+    try {
+      return format(new Date(date), "dd 'de' MMM 'de' yyyy", {
+        locale: getDateLocale()
+      });
+    } catch {
+      return 'Data inválida';
+    }
   };
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!slug || !lang) {
+        setError(t('blog.postNotFound'));
+        setLoading(false);
+        return;
+      }
+
       setLoading(true);
       setError(null);
 
@@ -52,50 +61,47 @@ const PostDetail = () => {
             category:categories(*),
             post_tags:post_tags(tag:tags(*))
           `)
-          .eq('slug', slug)
+          .eq(`slug_${lang}`, slug)
           .single();
 
-        if (postError || !postData) throw postError || new Error(t('blog.postNotFound'));
+        if (postError || !postData) {
+          throw postError || new Error(t('blog.postNotFound'));
+        }
 
-        setPost({
-          ...postData,
-          tags: postData.post_tags?.map((pt: any) => pt.tag.name) || [],
-        });
+        // Formatação segura dos dados
+        const formattedPost = {
+            ...postData,
+            title: postData[`title_${lang}`] || '',
+            content: postData[`content_${lang}`] || '',
+            excerpt: postData[`excerpt_${lang}`] || '',
+            slug: postData[`slug_${lang}`] || '',
+            tags: postData.post_tags?.map((pt: any) => pt.tag?.[`name_${lang}`])?.filter(Boolean) || [],
+            author: postData.author ? {
+                ...postData.author,
+                name: postData.author[`name_${lang}`]
+            } : null,
+            category: postData.category ? {
+                ...postData.category,
+                name: postData.category[`name_${lang}`],
+                slug: postData.category[`slug_${lang}`]
+            } : null
+        };
+        setPost(formattedPost);
 
-        const { data: categoryData } = await supabase
-          .from('categories')
-          .select('id, name, slug, posts(count)')
-          .order('name', { ascending: true });
-
-        const formattedCategories = categoryData?.map((cat: any) => ({
-          id: cat.id,
-          name: cat.name,
-          slug: cat.slug,
-          count: cat.posts?.length || 0,
-        })) || [];
-
-        setCategories(formattedCategories);
-
-        const { data: recent } = await supabase
-          .from('posts')
-          .select('id, title, slug')
-          .order('published_at', { ascending: false })
-          .limit(3);
-
-        setRecentPosts(recent || []);
-      } catch (err) {
-        setError(t('blog.errorLoading'));
+      } catch (err: any) {
+        console.error("Error fetching post details:", err);
+        setError(err.message || t('blog.errorLoading'));
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [slug, t, i18n.language]);
+  }, [slug, lang, t]);
 
   if (loading) {
     return (
-      <div className="pt-20 text-center">
+      <div className="flex items-center justify-center min-h-screen">
         <p>{t('common.loading')}</p>
       </div>
     );
@@ -103,8 +109,8 @@ const PostDetail = () => {
 
   if (error || !post) {
     return (
-      <div className="pt-20 text-center">
-        <h1 className="text-2xl font-semibold">{error || t('blog.postNotFound')}</h1>
+      <div className="flex items-center justify-center min-h-screen">
+        <h1 className="text-2xl font-semibold">{error}</h1>
       </div>
     );
   }
@@ -123,16 +129,15 @@ const PostDetail = () => {
 
   return (
     <div className="pt-00">
-      <ReadingProgress />
+      {/* <ReadingProgress /> */}
       <Helmet>
         <title>{post?.title} | FIVE Consulting</title>
         <meta name="description" content={post?.excerpt} />
         <meta property="og:title" content={post?.title} />
         <meta property="og:description" content={post?.excerpt} />
-        <meta property="og:image" content={post?.cover_image} />
+        <meta property="og:image" content={post?.cover_url} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="article" />
-        <meta name="twitter:card" content="summary_large_image" />
         <link rel="canonical" href={canonicalUrl} />
       </Helmet>
 
@@ -140,7 +145,7 @@ const PostDetail = () => {
         <BlogPostSchema
           title={post.title}
           description={post.excerpt}
-          image={post.cover_image}
+          image={post.cover_url}
           author={post.author}
           publishedAt={post.published_at}
           url={canonicalUrl}
@@ -150,88 +155,49 @@ const PostDetail = () => {
       <ParallaxHeader
         title={post?.title || ''}
         description={post?.excerpt}
-        image={post?.cover_image}
+        image={post?.cover_url}
       />
 
       <div className="container mx-auto px-4 py-16">
         <Breadcrumbs items={breadcrumbItems} />
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="md:col-span-2">
-            <article className="bg-white rounded-xl shadow-lg overflow-hidden">
-              <div className="p-6">
-                <div className="flex items-center text-sm text-gray-500 space-x-4 mb-4">
+        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+            <article className="p-6 md:p-8">
+              <div className="flex flex-wrap items-center text-sm text-gray-500 gap-x-4 gap-y-2 mb-4">
+                {post.author?.name && (
                   <div className="flex items-center">
-                    <User className="w-4 h-4 mr-1" />
-                    {post.author?.name || post.author?.username || t('blog.author')}
+                    <User className="w-4 h-4 mr-1.5" />
+                    {post.author.name}
                   </div>
+                )}
+                {post.published_at && (
                   <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-1" />
+                    <Calendar className="w-4 h-4 mr-1.5" />
                     {formatPublishDate(post.published_at)}
                   </div>
-                  <div className="flex items-center">
-                    <Clock className="w-4 h-4 mr-1" />
-                    {t('blog.readingTime', { time: post.reading_time || '—' })}
-                  </div>
-                </div>
-
-                <ShareButtons
+                )}
+                {post.reading_time && (
+                    <div className="flex items-center">
+                        <Clock className="w-4 h-4 mr-1.5" />
+                        {t('blog.readingTime', { time: post.reading_time })}
+                    </div>
+                )}
+              </div>
+              
+              <div className="mt-6 prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post.content || '' }} />
+              
+              <ShareButtons
                   url={canonicalUrl}
                   title={post.title}
                   description={post.excerpt}
                 />
 
-                <div className="mt-6 prose prose-lg max-w-none">
-                  {post.content}
-                </div>
-                
-                <PostReactions postId={post.id} />
-                <Comments postId={post.id} comments={post.comments} />
-              </div>
+              {/* <PostReactions postId={post.id} /> */}
+              {/* <Comments postId={post.id} comments={post.comments} /> */}
             </article>
-
-            <RelatedPosts currentPost={post} posts={relatedPosts} />
-          </div>
-
-          {/* Sidebar */}
-          <div className="md:col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h2 className="text-xl font-semibold mb-4">{t('blog.search')}</h2>
-              <input
-                type="text"
-                placeholder={t('blog.search')}
-                className="w-full p-2 border border-gray-300 rounded-md"
-              />
-
-              <div className="mt-8">
-                <h2 className="text-xl font-semibold mb-4">{t('blog.categories')}</h2>
-                <ul className="space-y-2">
-                  {categories.map((cat) => (
-                    <li key={cat.id} className="text-gray-600">
-                      <Link to={`/${lang}/blog/categoria/${cat.slug}`} className="hover:text-blue-500">
-                        {cat.name} ({cat.count})
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-8">
-                <h2 className="text-xl font-semibold mb-4">{t('blog.recentPosts')}</h2>
-                <ul className="space-y-2">
-                  {recentPosts.map((p) => (
-                    <li key={p.id} className="text-gray-600">
-                      <Link to={`/${lang}/blog/${p.slug}`} className="hover:text-blue-500">
-                        {p.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
         </div>
+
+        {/* <RelatedPosts currentPost={post} /> */}
       </div>
     </div>
   );
