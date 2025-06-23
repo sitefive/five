@@ -435,6 +435,9 @@
       "error": "Error al enviar el mensaje. Inténtalo nuevamente."
     }
   },
+  "common": {
+    "home": "Inicio"
+  },
   "footer": {
     "about": "Sobre Nosotros",
     "aboutText": "Nos especializamos en transformar desafíos en oportunidades mediante soluciones innovadoras.",
@@ -468,6 +471,8 @@
   "blog": {
     "title": "Blog",
     "subtitle": "Ideas, análisis y tendencias del mundo empresarial",
+    "category": "Categoría",
+    "showingCategoryPosts": "Mostrando entradas en la categoría",
     "search": "Buscar",
     "categories": "Categorías",
     "recentPosts": "Posts Recientes",
