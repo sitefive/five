@@ -232,7 +232,7 @@ const PostEditor = () => {
         cover_url: postData.cover_url,
         featured: postData.featured,
         published_at: publish ? new Date().toISOString() : null,
-        language: currentLang.split('-')[0], // Idioma primário do post
+        // language: currentLang.split('-')[0], // <<== LINHA REMOVIDA
         // Campos multilíngues
         title_pt: postData.pt.title,
         slug_pt: postData.pt.slug,
