@@ -435,6 +435,9 @@
       "error": "Erro ao enviar mensagem. Tente novamente."
     }
   },
+  "common": {
+    "home": "Início"
+  },
   "footer": {
     "about": "Sobre",
     "aboutText": "Especialistas em transformar desafios em soluções inovadoras para empresas.",
@@ -468,6 +471,7 @@
   "blog": {
     "title": "Blog",
     "subtitle": "Insights, tendências e soluções para impulsionar seu negócio",
+    "showingCategoryPosts": "Exibindo posts na categoria",
     "search": "Pesquisar",
     "categories": "Categorias",
     "recentPosts": "Posts Recentes",
