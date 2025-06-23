@@ -112,7 +112,7 @@ export function BlogProvider({ children }: { children: React.ReactNode }) {
       slug_${i18n.language} as slug,
       excerpt_${i18n.language} as excerpt,
       content_${i18n.language} as content,
-      cover_image,
+      cover_url,
       published_at,
       reading_time,
       featured,
