@@ -10,6 +10,7 @@ import ParallaxHeader from '../components/ParallaxHeader';
 import ShareButtons from '../components/molecules/ShareButtons';
 import Breadcrumbs from '../components/molecules/Breadcrumbs';
 import BlogPostSchema from '../components/seo/BlogPostSchema';
+import Button from '../components/atoms/Button'; // <<<<====== LINHA ADICIONADA AQUI
 
 // Supondo que você tenha esses componentes ou queira reativá-los
 // import PostReactions from '../components/molecules/PostReactions';
@@ -21,8 +22,6 @@ const PostDetail = () => {
   const { t, i18n } = useTranslation();
   const { slug, lang } = useParams<{ slug: string; lang: string }>();
   const [post, setPost] = useState<any>(null);
-  const [categories, setCategories] = useState<any[]>([]);
-  const [recentPosts, setRecentPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,7 +36,7 @@ const PostDetail = () => {
   const formatPublishDate = (date: string | null) => {
     if (!date) return '';
     try {
-      return format(new Date(date), "dd 'de' MMM 'de' yyyy", {
+      return format(new Date(date), "dd 'de' MMM 'de'<x_bin_389>", {
         locale: getDateLocale()
       });
     } catch {
@@ -57,7 +56,6 @@ const PostDetail = () => {
       setError(null);
 
       try {
-        // Busca o post principal
         const { data: postData, error: postError } = await supabase
           .from('posts')
           .select(`
@@ -93,18 +91,6 @@ const PostDetail = () => {
             } : null
         };
         setPost(formattedPost);
-
-        // Busca categorias e posts recentes em paralelo
-        const [categoryResult, recentResult] = await Promise.all([
-          supabase.from('categories').select(`id, name:name_${langSuffix}, slug:slug_${langSuffix}, posts(count)`),
-          supabase.from('posts').select(`id, title:title_${langSuffix}, slug:slug_${langSuffix}`).not('id', 'eq', postData.id).order('published_at', { ascending: false }).limit(3)
-        ]);
-        
-        if (categoryResult.error) throw categoryResult.error;
-        setCategories(categoryResult.data || []);
-        
-        if (recentResult.error) throw recentResult.error;
-        setRecentPosts(recentResult.data || []);
 
       } catch (err: any) {
         console.error("Error fetching post details:", err);
@@ -158,7 +144,7 @@ const PostDetail = () => {
         <link rel="canonical" href={canonicalUrl} />
       </Helmet>
 
-      {post && (
+      {post.author && (
         <BlogPostSchema
           title={post.title}
           description={post.excerpt}
@@ -178,75 +164,37 @@ const PostDetail = () => {
       <div className="container mx-auto px-4 py-16">
         <Breadcrumbs items={breadcrumbItems} />
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-          {/* Main Content */}
-          <div className="md:col-span-2">
-            <article className="bg-white rounded-xl shadow-lg overflow-hidden">
-              <div className="p-6 md:p-8">
-                <div className="flex flex-wrap items-center text-sm text-gray-500 gap-x-4 gap-y-2 mb-4">
-                  {post.author?.name && (
+        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+            <article className="p-6 md:p-8">
+              <div className="flex flex-wrap items-center text-sm text-gray-500 gap-x-4 gap-y-2 mb-4">
+                {post.author?.name && (
+                  <div className="flex items-center">
+                    <User className="w-4 h-4 mr-1.5" />
+                    {post.author.name}
+                  </div>
+                )}
+                {post.published_at && (
+                  <div className="flex items-center">
+                    <Calendar className="w-4 h-4 mr-1.5" />
+                    {formatPublishDate(post.published_at)}
+                  </div>
+                )}
+                {post.reading_time && (
                     <div className="flex items-center">
-                      <User className="w-4 h-4 mr-1.5" />
-                      {post.author.name}
+                        <Clock className="w-4 h-4 mr-1.5" />
+                        {t('blog.readingTime', { time: post.reading_time })}
                     </div>
-                  )}
-                  {post.published_at && (
-                    <div className="flex items-center">
-                      <Calendar className="w-4 h-4 mr-1.5" />
-                      {formatPublishDate(post.published_at)}
-                    </div>
-                  )}
-                  {post.reading_time && (
-                      <div className="flex items-center">
-                          <Clock className="w-4 h-4 mr-1.5" />
-                          {t('blog.readingTime', { time: post.reading_time })}
-                      </div>
-                  )}
-                </div>
-                
-                <div className="mt-6 prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post.content || '' }} />
-                
-                <ShareButtons
-                    url={canonicalUrl}
-                    title={post.title}
-                    description={post.excerpt}
-                  />
+                )}
               </div>
+              
+              <div className="mt-6 prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post.content || '' }} />
+              
+              <ShareButtons
+                  url={canonicalUrl}
+                  title={post.title}
+                  description={post.excerpt}
+                />
             </article>
-          </div>
-
-          {/* Sidebar */}
-          <aside className="md:col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-24">
-              <div className="mt-8">
-                <h2 className="text-xl font-semibold mb-4">{t('blog.categories')}</h2>
-                <ul className="space-y-2">
-                  {categories.map((cat) => (
-                    <li key={cat.id} className="text-gray-600">
-                      <Link to={`/${lang}/blog/categoria/${cat.slug}`} className="hover:text-blue-500 flex justify-between">
-                        <span>{cat.name}</span>
-                        {/* ======================= CORREÇÃO FINAL APLICADA AQUI ======================= */}
-                        <span>({cat.posts?.[0]?.count || 0})</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-8">
-                <h2 className="text-xl font-semibold mb-4">{t('blog.recentPosts')}</h2>
-                <ul className="space-y-2">
-                  {recentPosts.map((p) => (
-                    <li key={p.id} className="text-gray-600">
-                      <Link to={`/${lang}/blog/${p.slug}`} className="hover:text-blue-500">
-                        {p.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </aside>
         </div>
       </div>
     </div>
