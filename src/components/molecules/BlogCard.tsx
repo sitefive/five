@@ -40,14 +40,10 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
       <Link to={`/${lang}/blog/${post.slug}`} className="block">
         <div className="relative aspect-[16/9]">
           <img
-            src={post.cover_url || 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=800&h=400'}
+            src={post.cover_url || 'https://via.placeholder.com/800x400'} // PADRONIZADO AQUI
             alt={post.title}
             className="w-full h-full object-cover"
             loading="lazy"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=800&h=400';
-            }}
           />
           {post.featured && (
             <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
@@ -73,30 +69,29 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           <h2 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 mb-2">
             {post.title}
           </h2>
-          <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
+          <p className="text-gray-600 mb-4">{post.excerpt}</p>
         </Link>
 
         <div className="flex items-center justify-between">
           {post.author && (
-            <div className="flex items-center">
+            <Link
+              to={`/${lang}/autor/${post.author.id}`}
+              className="flex items-center group"
+            >
               <img
-                src={post.author.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100&h=100'}
+                src={post.author.avatar || 'https://via.placeholder.com/100'}
                 alt={post.author.name}
-                className="w-8 h-8 rounded-full mr-2 object-cover"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100&h=100';
-                }}
+                className="w-8 h-8 rounded-full mr-2"
               />
-              <span className="text-sm text-gray-700">
+              <span className="text-sm text-gray-700 group-hover:text-blue-600 transition-colors duration-200">
                 {post.author.name}
               </span>
-            </div>
+            </Link>
           )}
 
           <div className="flex gap-2">
-            {(post.tags || []).slice(0, 2).map((tag, index) => (
-              <Tag key={index} label={tag} />
+            {(post.tags || []).slice(0, 2).map((tag) => (
+              <Tag key={tag} label={tag} />
             ))}
           </div>
         </div>
