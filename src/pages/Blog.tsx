@@ -31,7 +31,7 @@ const Blog: React.FC = () => {
           <link rel="canonical" href={canonicalUrl} />
         </Helmet>
 
-        <div className="pt-00">
+        <div className="pt-0">
           <ParallaxHeader
             title={t('blog.title')}
             description={t('blog.subtitle')}

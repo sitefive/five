@@ -15,6 +15,7 @@ const BlogHeader: React.FC = () => {
       const value = event.target.value;
       setSearchValue(value);
       
+      // Debounce search
       const timeoutId = setTimeout(() => {
         searchPosts(value);
       }, 300);
@@ -25,26 +26,28 @@ const BlogHeader: React.FC = () => {
   );
 
   const getResultsText = () => {
+    const count = state.filteredPosts.length;
+    
     if (state.currentCategory && state.searchQuery) {
       return t('blog.showingResultsWithCategoryAndSearch', {
-        count: state.filteredPosts.length,
+        count,
         category: state.currentCategory.name,
         query: state.searchQuery
       });
     }
     if (state.currentCategory) {
       return t('blog.showingResultsInCategory', {
-        count: state.filteredPosts.length,
+        count,
         category: state.currentCategory.name
       });
     }
     if (state.searchQuery) {
       return t('blog.showingResultsWithSearch', {
-        count: state.filteredPosts.length,
+        count,
         query: state.searchQuery
       });
     }
-    return t('blog.showingResults', { count: state.filteredPosts.length });
+    return t('blog.showingResults', { count });
   };
 
   return (
@@ -73,7 +76,19 @@ const BlogHeader: React.FC = () => {
 
       <div className="flex items-center justify-between">
         <p className="text-gray-600">{getResultsText()}</p>
+        {state.loading && (
+          <div className="flex items-center text-sm text-gray-500">
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-2"></div>
+            Carregando...
+          </div>
+        )}
       </div>
+
+      {state.error && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <p className="text-red-700">{state.error}</p>
+        </div>
+      )}
     </div>
   );
 };
