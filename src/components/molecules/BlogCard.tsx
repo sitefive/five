@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
-import { Clock, Calendar } from 'lucide-react';
+import { Clock, Calendar, User } from 'lucide-react'; // Adicionado o ícone de User
 import { format } from 'date-fns';
 import { ptBR, es } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
@@ -25,6 +25,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   };
 
   const formatPublishDate = (date: string) => {
+    if (!date) return '';
     return format(new Date(date), "dd 'de' MMM 'de' yyyy", {
       locale: getDateLocale()
     });
@@ -35,12 +36,12 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col"
     >
       <Link to={`/${lang}/blog/${post.slug}`} className="block">
         <div className="relative aspect-[16/9]">
           <img
-            src={post.cover_url || 'https://via.placeholder.com/800x400'} // PADRONIZADO AQUI
+            src={post.cover_url || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80'}
             alt={post.title}
             className="w-full h-full object-cover"
             loading="lazy"
@@ -53,7 +54,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         </div>
       </Link>
 
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-grow">
         <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
           <div className="flex items-center">
             <Calendar className="w-4 h-4 mr-1" />
@@ -65,24 +66,32 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           </div>
         </div>
 
-        <Link to={`/${lang}/blog/${post.slug}`} className="block group">
+        <Link to={`/${lang}/blog/${post.slug}`} className="block group flex-grow">
           <h2 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 mb-2">
             {post.title}
           </h2>
           <p className="text-gray-600 mb-4">{post.excerpt}</p>
         </Link>
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
           {post.author && (
             <Link
               to={`/${lang}/autor/${post.author.id}`}
               className="flex items-center group"
             >
-              <img
-                src={post.author.avatar || 'https://via.placeholder.com/100'}
-                alt={post.author.name}
-                className="w-8 h-8 rounded-full mr-2"
-              />
+              {/* =========== CORREÇÃO APLICADA AQUI =========== */}
+              {post.author.avatar ? (
+                <img
+                  src={post.author.avatar}
+                  alt={post.author.name}
+                  className="w-8 h-8 rounded-full mr-2 object-cover"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full mr-2 bg-gray-200 flex items-center justify-center">
+                    <User className="w-4 h-4 text-gray-500" />
+                </div>
+              )}
+              {/* ================================================ */}
               <span className="text-sm text-gray-700 group-hover:text-blue-600 transition-colors duration-200">
                 {post.author.name}
               </span>
@@ -90,7 +99,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           )}
 
           <div className="flex gap-2">
-            {(post.tags || []).slice(0, 2).map((tag) => (
+            {(post.tags || []).slice(0, 2).map((tag: string) => (
               <Tag key={tag} label={tag} />
             ))}
           </div>
