@@ -54,7 +54,7 @@ const PostPreview = () => {
           slug: postData[`slug_${i18n.language}`] || postData.slug_pt || postData.slug,
           excerpt: postData[`excerpt_${i18n.language}`] || postData.excerpt_pt || postData.excerpt,
           content: postData[`content_${i18n.language}`] || postData.content_pt || postData.content,
-          cover_image: postData.cover_image,
+          cover_url: postData.cover_url, // <<== CORRIGIDO AQUI
           author: {
             ...postData.author,
             name: postData.author?.[`name_${i18n.language}`] || postData.author?.name_pt || postData.author?.name,
@@ -139,7 +139,7 @@ const PostPreview = () => {
         <div 
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: `url(${post.cover_image || 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80'})`,
+            backgroundImage: `url(${post.cover_url || 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80'})`, // <<== CORRIGIDO AQUI
             backgroundAttachment: 'fixed',
             backgroundPosition: 'center',
             backgroundSize: 'cover',
