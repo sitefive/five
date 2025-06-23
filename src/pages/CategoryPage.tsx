@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { supabase } from '../lib/supabase';
-import BlogCard from '../components/molecules/BlogCard'; // Supondo que o PostCard se chame BlogCard
+import BlogCard from '../components/molecules/BlogCard';
 import Breadcrumbs from '../components/molecules/Breadcrumbs';
 import { Helmet } from 'react-helmet-async';
+import ParallaxHeader from '../components/ParallaxHeader'; // Importação adicionada
 
 const CategoryPage = () => {
   const { slug, lang } = useParams<{ slug: string, lang: string }>();
@@ -21,39 +22,39 @@ const CategoryPage = () => {
       }
       setLoading(true);
 
-      // 1. Busca a categoria na coluna de slug correta, baseada no idioma da URL
+      const langSuffix = lang.split('-')[0];
+
       const { data: categoryData, error: categoryError } = await supabase
         .from('categories')
-        .select(`id, name:name_${lang}, slug:slug_${lang}`)
-        .eq(`slug_${lang}`, slug)
+        .select(`id, name:name_${langSuffix}, slug:slug_${langSuffix}`)
+        .eq(`slug_${langSuffix}`, slug)
         .single();
 
       if (categoryError || !categoryData) {
         setLoading(false);
-        setCategory(null); // Garante que vai mostrar "Categoria não encontrada"
+        setCategory(null);
         return;
       }
 
       setCategory(categoryData);
 
-      // 2. Busca os posts dessa categoria, já com os campos no idioma correto
       const { data: postsData, error: postsError } = await supabase
         .from('posts')
         .select(`
           id,
-          title:title_${lang},
-          slug:slug_${lang},
-          excerpt:excerpt_${lang},
+          title:title_${langSuffix},
+          slug:slug_${langSuffix},
+          excerpt:excerpt_${langSuffix},
           cover_url,
           published_at,
           reading_time,
           featured,
-          author:authors(id, name:name_${lang}, avatar),
-          category:categories(id, name:name_${lang}, slug:slug_${lang}),
-          post_tags:post_tags(tag:tags(id, name:name_${lang}))
+          author:authors(id, name:name_${langSuffix}, avatar),
+          category:categories(id, name:name_${langSuffix}, slug:slug_${langSuffix}),
+          post_tags:post_tags(tag:tags(id, name:name_${langSuffix}))
         `)
         .eq('category_id', categoryData.id)
-        .not('published_at', 'is', null) // Garante que só posts publicados apareçam
+        .not('published_at', 'is', null)
         .order('published_at', { ascending: false });
 
       if (postsError) {
@@ -85,16 +86,25 @@ const CategoryPage = () => {
   if (!category) return <div className="min-h-screen pt-20 text-center">Categoria não encontrada</div>;
 
   return (
-    <div className="pt-20 bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
        <Helmet>
         <title>{`Categoria: ${category.name}`} - FIVE Consulting</title>
         <meta name="description" content={`Posts na categoria ${category.name}`} />
         <link rel="canonical" href={canonicalUrl} />
       </Helmet>
+      
+      {/* Cabeçalho da página adicionado */}
+      <ParallaxHeader
+        title={`Categoria: ${category.name}`}
+        description={t('blog.showingCategoryPosts')} // Crie esta chave de tradução ou substitua por um texto
+        image="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80"
+      />
+
       <div className="container mx-auto px-4 py-12">
         <Breadcrumbs items={breadcrumbItems} />
         <h1 className="text-3xl md:text-4xl font-bold mb-8">
-            {t('blog.category')}: <span className="text-blue-600">{category.name}</span>
+            {/* Texto de tradução corrigido */}
+            Categoria: <span className="text-blue-600">{category.name}</span>
         </h1>
         {posts.length === 0 ? (
           <p>Nenhum post encontrado nessa categoria.</p>
