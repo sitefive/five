@@ -7,6 +7,7 @@ import BlogHeader from '../components/organisms/BlogHeader';
 import BlogGrid from '../components/organisms/BlogGrid';
 import ParallaxHeader from '../components/ParallaxHeader';
 import Breadcrumbs from '../components/molecules/Breadcrumbs';
+import CategorySidebar from '../components/organisms/CategorySidebar'; // Importa a nova sidebar
 
 const Blog: React.FC = () => {
   const { t } = useTranslation();
@@ -31,7 +32,7 @@ const Blog: React.FC = () => {
           <link rel="canonical" href={canonicalUrl} />
         </Helmet>
 
-        <div className="pt-00">
+        <div>
           <ParallaxHeader
             title={t('blog.title')}
             description={t('blog.subtitle')}
@@ -40,9 +41,18 @@ const Blog: React.FC = () => {
 
           <div className="container mx-auto px-4 py-12">
             <Breadcrumbs items={breadcrumbItems} />
-            <BlogHeader />
-            <div className="mt-12">
-              <BlogGrid />
+            
+            {/* Novo layout de 2 colunas */}
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
+              <div className="lg:col-span-1">
+                <CategorySidebar />
+              </div>
+              <div className="lg:col-span-3">
+                <BlogHeader />
+                <div className="mt-8">
+                  <BlogGrid />
+                </div>
+              </div>
             </div>
           </div>
         </div>
