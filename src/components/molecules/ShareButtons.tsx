@@ -1,15 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Share2, Facebook, Twitter, Linkedin as LinkedIn, Link as LinkIcon } from 'lucide-react';
+import { Share2, Facebook, Twitter, Linkedin as LinkedIn, Link as LinkIcon, Instagram } from 'lucide-react'; // Ícone do Instagram adicionado
 import { useAnalytics } from '../../hooks/useAnalytics';
-import Button from '../atoms/Button'; // <<<<====== A CORREÇÃO FINAL E DEFINITIVA ESTÁ AQUI
+import toast from 'react-hot-toast';
+import Button from '../atoms/Button';
 
 interface ShareButtonsProps {
   url: string;
   title: string;
   description: string;
-  postId?: string; // Tornando opcional para segurança
+  postId?: string;
 }
 
 const ShareButtons: React.FC<ShareButtonsProps> = ({ url, title, description, postId }) => {
@@ -30,7 +31,7 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ url, title, description, po
         });
       } else if (platform === 'copy') {
         await navigator.clipboard.writeText(url);
-        // Adicionar um feedback visual para o usuário seria uma boa melhoria aqui
+        toast.success('Link copiado!');
       }
     } catch (error) {
       console.error('Error sharing:', error);
@@ -39,15 +40,17 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ url, title, description, po
 
   return (
     <div className="flex flex-wrap items-center gap-2 mt-6 pt-6 border-t">
-      <Button
-        variant="outline"
-        size="sm"
-        icon={<Share2 className="w-4 h-4" />}
-        onClick={() => handleShare('native')}
-        className="sm:hidden" // Este botão só aparece em dispositivos com capacidade de compartilhamento nativo
-      >
-        {t('blog.share')}
-      </Button>
+      {navigator.share && (
+          <Button
+            variant="outline"
+            size="sm"
+            icon={<Share2 className="w-4 h-4" />}
+            onClick={() => handleShare('native')}
+            className="sm:hidden"
+          >
+            {t('blog.share')}
+          </Button>
+      )}
 
       <div className="hidden sm:flex items-center gap-2">
         <p className="text-sm font-medium text-gray-600 mr-2">{t('blog.share')}:</p>
@@ -89,6 +92,21 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ url, title, description, po
         >
           <LinkedIn className="w-4 h-4" />
         </motion.a>
+
+        {/* ======================= BOTÃO DO INSTAGRAM ADICIONADO ======================= */}
+        <motion.a
+          href="https://www.instagram.com/SEU_PERFIL_AQUI" // <-- TROQUE AQUI
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => handleShare('instagram')}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200"
+          aria-label="Siga-nos no Instagram"
+        >
+          <Instagram className="w-4 h-4" />
+        </motion.a>
+        {/* =========================================================================== */}
 
         <motion.button
           onClick={() => handleShare('copy')}
