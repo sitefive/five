@@ -24,12 +24,21 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
     }
   };
 
-  const formatPublishDate = (date: string) => {
-    if (!date) return '';
-    return format(new Date(date), "dd 'de' MMM 'de'<x_bin_389>", {
-      locale: getDateLocale()
-    });
+  const formatPublishDate = (date: string | null) => {
+    // Função mais segura para evitar erros
+    if (!date) return null;
+    try {
+      // String de formatação corrigida e validada
+      return format(new Date(date), "dd 'de' MMM 'de' yyyy", {
+        locale: getDateLocale(),
+      });
+    } catch (error) {
+      console.error("Failed to format date:", error);
+      return null; // Retorna nulo se a data for inválida
+    }
   };
+
+  const publishedDate = formatPublishDate(post.published_at);
 
   return (
     <motion.article
@@ -56,10 +65,12 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
 
       <div className="p-6 flex flex-col flex-grow">
         <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
-          <div className="flex items-center">
-            <Calendar className="w-4 h-4 mr-1" />
-            {post.published_at && formatPublishDate(post.published_at)}
-          </div>
+          {publishedDate && (
+            <div className="flex items-center">
+              <Calendar className="w-4 h-4 mr-1" />
+              {publishedDate}
+            </div>
+          )}
           <div className="flex items-center">
             <Clock className="w-4 h-4 mr-1" />
             {t('blog.readingTime', { time: post.reading_time || 5 })}
@@ -74,13 +85,11 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         </Link>
 
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-          {post.author && post.author.name && (
-            <div className="flex items-center text-sm">
+          {/* Lógica do autor simplificada para garantir a exibição */}
+          {post.author?.name && (
+            <div className="flex items-center text-sm text-gray-700">
               <User className="w-4 h-4 mr-2 text-gray-500" />
-              {/* ======================= TESTE APLICADO AQUI ======================= */}
-              <span className="font-bold text-red-500">
-                {post.author.name}
-              </span>
+              <span>{post.author.name}</span>
             </div>
           )}
 
