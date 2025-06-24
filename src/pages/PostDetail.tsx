@@ -12,12 +12,6 @@ import Breadcrumbs from '../components/molecules/Breadcrumbs';
 import BlogPostSchema from '../components/seo/BlogPostSchema';
 import Button from '../components/atoms/Button';
 
-// Supondo que você tenha esses componentes ou queira reativá-los
-// import PostReactions from '../components/molecules/PostReactions';
-// import ReadingProgress from '../components/molecules/ReadingProgress';
-// import RelatedPosts from '../components/molecules/RelatedPosts';
-// import Comments from '../components/molecules/Comments';
-
 const PostDetail = () => {
   const { t, i18n } = useTranslation();
   const { slug, lang } = useParams<{ slug: string; lang: string }>();
@@ -37,7 +31,7 @@ const PostDetail = () => {
     if (!date) return null;
     try {
       return format(new Date(date), "dd 'de' MMM 'de' yyyy", {
-        locale: getDateLocale()
+        locale: getDateLocale(),
       });
     } catch {
       console.error("Failed to format date:", date);
@@ -52,10 +46,8 @@ const PostDetail = () => {
         setLoading(false);
         return;
       }
-
       setLoading(true);
       setError(null);
-
       try {
         const langSuffix = lang.split('-')[0];
         const { data: postData, error: postError } = await supabase
@@ -119,12 +111,8 @@ const PostDetail = () => {
     );
   }
 
-  // ======================= LÓGICA DA DATA CORRIGIDA AQUI =======================
-  // Prioriza a data de publicação, mas se não existir (for um rascunho), usa a data de criação.
   const displayDate = post.published_at || post.created_at;
   const formattedDate = formatDisplayDate(displayDate);
-  // ===========================================================================
-
 
   const baseUrl = window.location.origin;
   const canonicalUrl = `${baseUrl}/${lang}/blog/${post?.slug}`;
@@ -157,7 +145,7 @@ const PostDetail = () => {
           description={post.excerpt}
           image={post.cover_url}
           author={post.author}
-          publishedAt={post.published_at || post.created_at} // Usa a data correta no Schema também
+          publishedAt={post.published_at || post.created_at}
           url={canonicalUrl}
         />
       )}
@@ -180,14 +168,15 @@ const PostDetail = () => {
                     {post.author.name}
                   </div>
                 )}
-                {/* LÓGICA DA DATA CORRIGIDA AQUI */}
                 {formattedDate && (
                   <div className="flex items-center">
                     <Calendar className="w-4 h-4 mr-1.5" />
                     {formattedDate}
                   </div>
                 )}
-                {post.reading_time && (
+                
+                {/* ======================= CORREÇÃO FINAL APLICADA AQUI ======================= */}
+                {(post.reading_time > 0) && (
                     <div className="flex items-center">
                         <Clock className="w-4 h-4 mr-1.5" />
                         {t('blog.readingTime', { time: post.reading_time })}
