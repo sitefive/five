@@ -74,24 +74,15 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         </Link>
 
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-          {post.author && (
-            <div className="flex items-center group"> {/* Removido o Link aqui para simplificar */}
-              {post.author.avatar ? (
-                <img
-                  src={post.author.avatar}
-                  alt={post.author.name}
-                  className="w-8 h-8 rounded-full mr-2 object-cover"
-                />
-              ) : (
-                <div className="w-8 h-8 rounded-full mr-2 bg-gray-200 flex items-center justify-center">
-                    <User className="w-4 h-4 text-gray-500" />
-                </div>
-              )}
-              <span className="text-sm text-gray-700">
-                {post.author.name}
-              </span>
+          {/* =========== CORREÇÃO APLICADA AQUI =========== */}
+          {/* Mostra apenas o ícone e o nome, sem foto */}
+          {post.author && post.author.name && (
+            <div className="flex items-center text-sm text-gray-700">
+              <User className="w-4 h-4 mr-2 text-gray-500" />
+              <span>{post.author.name}</span>
             </div>
           )}
+          {/* ================================================ */}
 
           <div className="flex gap-2">
             {(post.tags || []).slice(0, 2).map((tag: string) => (
