@@ -83,16 +83,19 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         </Link>
 
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+          {/* ======================= ALTERAÇÃO FINAL ======================= */}
+          {/* O Link em volta do autor foi removido */}
           {post.author?.name && (
-            <Link to={`/${lang}/autor/${post.author.id}`} className="flex items-center group">
+            <div className="flex items-center">
               <div className="w-8 h-8 rounded-full mr-2 bg-gray-100 flex items-center justify-center">
                   <User className="w-4 h-4 text-gray-400" />
               </div>
-              <span className="text-sm text-gray-700 font-medium group-hover:text-blue-600">
+              <span className="text-sm text-gray-700 font-medium">
                 {post.author.name}
               </span>
-            </Link>
+            </div>
           )}
+          {/* ============================================================== */}
 
           <div className="flex gap-2">
             {(post.tags || []).slice(0, 2).map((tag: string) => (
