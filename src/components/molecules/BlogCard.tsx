@@ -84,13 +84,14 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
 
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
           {post.author?.name && (
-            <div className="flex items-center text-sm">
-              <User className="w-4 h-4 mr-2 text-gray-500" />
-              {/* ======================= TESTE APLICADO AQUI ======================= */}
-              <span style={{ color: 'red', fontWeight: 'bold', border: '1px solid blue' }}>
+            <Link to={`/${lang}/autor/${post.author.id}`} className="flex items-center group">
+              <div className="w-8 h-8 rounded-full mr-2 bg-gray-100 flex items-center justify-center">
+                  <User className="w-4 h-4 text-gray-400" />
+              </div>
+              <span className="text-sm text-gray-700 font-medium group-hover:text-blue-600">
                 {post.author.name}
               </span>
-            </div>
+            </Link>
           )}
 
           <div className="flex gap-2">
