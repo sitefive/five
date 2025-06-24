@@ -46,10 +46,15 @@ const PostDetail = () => {
         setLoading(false);
         return;
       }
+
       setLoading(true);
       setError(null);
+
       try {
         const langSuffix = lang.split('-')[0];
+
+        // ======================= LÓGICA DE BUSCA CORRIGIDA =======================
+        // Procura pelo slug em qualquer uma das colunas de idioma
         const { data: postData, error: postError } = await supabase
           .from('posts')
           .select(`
@@ -58,8 +63,9 @@ const PostDetail = () => {
             category:categories(*),
             post_tags:post_tags(tag:tags(*))
           `)
-          .eq(`slug_${langSuffix}`, slug)
+          .or(`slug_pt.eq.${slug},slug_en.eq.${slug},slug_es.eq.${slug}`)
           .single();
+        // =======================================================================
 
         if (postError || !postData) {
           throw postError || new Error(t('blog.postNotFound'));
@@ -67,19 +73,19 @@ const PostDetail = () => {
 
         const formattedPost = {
             ...postData,
-            title: postData[`title_${langSuffix}`] || '',
-            content: postData[`content_${langSuffix}`] || '',
-            excerpt: postData[`excerpt_${langSuffix}`] || '',
-            slug: postData[`slug_${langSuffix}`] || '',
-            tags: postData.post_tags?.map((pt: any) => pt.tag?.[`name_${langSuffix}`])?.filter(Boolean) || [],
+            title: postData[`title_${langSuffix}`] || postData.title_pt, // Fallback para pt
+            content: postData[`content_${langSuffix}`] || postData.content_pt,
+            excerpt: postData[`excerpt_${langSuffix}`] || postData.excerpt_pt,
+            slug: postData[`slug_${langSuffix}`] || postData.slug_pt,
+            tags: postData.post_tags?.map((pt: any) => pt.tag?.[`name_${langSuffix}`] || pt.tag?.name_pt)?.filter(Boolean) || [],
             author: postData.author ? {
                 ...postData.author,
-                name: postData.author[`name_${langSuffix}`]
+                name: postData.author[`name_${langSuffix}`] || postData.author.name_pt
             } : null,
             category: postData.category ? {
                 ...postData.category,
-                name: postData.category[`name_${langSuffix}`],
-                slug: postData.category[`slug_${langSuffix}`]
+                name: postData.category[`name_${langSuffix}`] || postData.category.name_pt,
+                slug: postData.category[`slug_${langSuffix}`] || postData.category.slug_pt
             } : null
         };
         setPost(formattedPost);
@@ -115,7 +121,7 @@ const PostDetail = () => {
   const formattedDate = formatDisplayDate(displayDate);
 
   const baseUrl = window.location.origin;
-  const canonicalUrl = `${baseUrl}/${lang}/blog/${post?.slug}`;
+  const canonicalUrl = `${baseUrl}/${lang}/blog/${post.slug}`;
 
   const breadcrumbItems = [
     { label: t('menu.blog'), href: `/${lang}/blog` },
@@ -123,7 +129,7 @@ const PostDetail = () => {
       label: post.category.name,
       href: `/${lang}/blog/categoria/${post.category.slug}`,
     },
-    { label: post.title || '', href: `/${lang}/blog/${post?.slug}` },
+    { label: post.title || '', href: `/${lang}/blog/${post.slug}` },
   ].filter(Boolean) as { label: string; href: string }[];
 
   return (
@@ -174,8 +180,6 @@ const PostDetail = () => {
                     {formattedDate}
                   </div>
                 )}
-                
-                {/* ======================= CORREÇÃO FINAL APLICADA AQUI ======================= */}
                 {(post.reading_time > 0) && (
                     <div className="flex items-center">
                         <Clock className="w-4 h-4 mr-1.5" />
