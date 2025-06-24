@@ -118,3 +118,19 @@ button:focus-visible {
   height: 24px;
   fill: white; /* Cor do ícone (branco) */
 }
+
+/* ======================= CÓDIGO ADICIONADO ======================= */
+/* Adiciona espaçamento vertical para parágrafos e títulos no conteúdo do post */
+.prose p {
+  margin-bottom: 1.25em;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  margin-bottom: 1em;
+  margin-top: 1.5em;
+}
