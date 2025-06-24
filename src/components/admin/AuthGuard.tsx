@@ -1,99 +1,79 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
-import toast from 'react-hot-toast'; // Importe o toast para mensagens
+import toast from 'react-hot-toast';
 
 interface AuthGuardProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [isAuthenticatedAdmin, setIsAuthenticatedAdmin] = useState(false); // Novo estado para controlar a permissão de admin
+  // Mudamos o nome do estado para refletir a lógica correta
+  const [isAuthorized, setIsAuthorized] = useState(false); 
 
   useEffect(() => {
-    const checkAuthAndRole = async () => {
-      try {
-        setLoading(true); // Reinicia o loading a cada execução
-        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    const checkAuthorization = async () => {
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
 
-        if (sessionError) {
-          console.error('Error fetching session:', sessionError);
-          toast.error('Erro ao verificar sessão.');
-          navigate('/admin/login', { replace: true });
-          return;
-        }
-
-        if (!session) {
-          // Sem sessão, redireciona para o login
-          navigate('/admin/login', { replace: true });
-          return;
-        }
-
-        // --- INÍCIO DA LÓGICA DE VERIFICAÇÃO DE ADMIN ---
-        const { data: adminData, error: adminError } = await supabase
-          .from('admin_users') // Sua tabela de administradores
-          .select('role')      // Seleciona a coluna 'role'
-          .eq('user_id', session.user.id) // Filtra pelo ID do usuário logado
-          .single(); // Espera uma única linha
-
-        if (adminError && adminError.code !== 'PGRST116') { // PGRST116 é "no rows returned"
-          // Se for um erro real na consulta (não apenas "não encontrou a linha")
-          console.error('Erro ao verificar role de admin:', adminError);
-          toast.error('Erro ao verificar suas permissões.');
-          navigate('/admin/login', { replace: true }); // Redireciona para o login em caso de erro grave
-          return;
-        }
-
-        if (adminData?.role === 'admin') {
-          // Usuário é admin! Permite o acesso.
-          setIsAuthenticatedAdmin(true);
-        } else {
-          // Usuário logado, mas NÃO é admin na tabela admin_users
-          console.warn('Usuário logado, mas não é admin:', session.user.email);
-          toast.error('Você não tem permissão de administrador.');
-          navigate('/admin/login', { replace: true }); // Redireciona para o login ou uma página de "acesso negado"
-        }
-        // --- FIM DA LÓGICA DE VERIFICAÇÃO DE ADMIN ---
-
-      } catch (error: any) {
-        console.error('Erro geral no AuthGuard:', error.message);
-        toast.error('Ocorreu um erro inesperado. Tente novamente.');
+      if (sessionError || !session) {
         navigate('/admin/login', { replace: true });
-      } finally {
-        setLoading(false);
+        return;
       }
+
+      // Verifica se o usuário logado existe na nossa tabela de usuários do painel
+      const { data: panelUser, error: panelUserError } = await supabase
+        .from('admin_users')
+        .select('user_id, role') // Pode selecionar a role para uso futuro
+        .eq('user_id', session.user.id)
+        .single();
+
+      if (panelUserError && panelUserError.code !== 'PGRST116') {
+        console.error('Erro ao verificar permissões:', panelUserError);
+        toast.error('Erro ao verificar suas permissões.');
+        navigate('/admin/login', { replace: true });
+        return;
+      }
+
+      // ======================= LÓGICA CORRIGIDA AQUI =======================
+      // Se encontrarmos o usuário na tabela (seja ele admin ou editor), ele está autorizado.
+      if (panelUser) {
+        setIsAuthorized(true);
+      } else {
+        // Se o usuário está autenticado mas não está na nossa tabela, ele não pertence ao painel.
+        console.warn('Usuário autenticado não encontrado na tabela admin_users:', session.user.email);
+        toast.error('Você não tem permissão para acessar este painel.');
+        navigate('/admin/login', { replace: true });
+      }
+      // =====================================================================
+
+      setLoading(false);
     };
 
-    checkAuthAndRole();
+    checkAuthorization();
 
-    // Listener para mudanças de estado de autenticação (sign out)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_OUT' || !session) {
+        setIsAuthorized(false);
         navigate('/admin/login', { replace: true });
-      } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-          // Quando o usuário faz login ou o token é atualizado, re-checa a role
-          checkAuthAndRole();
+      } else if (event === 'SIGNED_IN') {
+        // Quando o usuário faz login, re-checa a autorização
+        checkAuthorization();
       }
     });
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [navigate]); // Adicionei 'navigate' às dependências do useEffect
+  }, [navigate]);
 
   if (loading) {
     return <div className="flex items-center justify-center min-h-screen">Carregando permissões...</div>;
   }
 
-  // Se não for um admin autenticado, retorna null (já foi redirecionado)
-  if (!isAuthenticatedAdmin) {
-    return null;
-  }
-
-  // Se for admin, renderiza os filhos (o conteúdo da rota protegida)
-  return <>{children}</>;
+  // Se estiver autorizado, renderiza a página. Se não, retorna nulo (pois o redirecionamento já ocorreu).
+  return isAuthorized ? <>{children}</> : null;
 };
 
 export default AuthGuard;
