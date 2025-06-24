@@ -25,16 +25,14 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   };
 
   const formatPublishDate = (date: string | null) => {
-    // Função mais segura para evitar erros
     if (!date) return null;
     try {
-      // String de formatação corrigida e validada
       return format(new Date(date), "dd 'de' MMM 'de' yyyy", {
         locale: getDateLocale(),
       });
     } catch (error) {
       console.error("Failed to format date:", error);
-      return null; // Retorna nulo se a data for inválida
+      return null;
     }
   };
 
@@ -85,11 +83,13 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         </Link>
 
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-          {/* Lógica do autor simplificada para garantir a exibição */}
           {post.author?.name && (
-            <div className="flex items-center text-sm text-gray-700">
+            <div className="flex items-center text-sm">
               <User className="w-4 h-4 mr-2 text-gray-500" />
-              <span>{post.author.name}</span>
+              {/* ======================= TESTE APLICADO AQUI ======================= */}
+              <span style={{ color: 'red', fontWeight: 'bold', border: '1px solid blue' }}>
+                {post.author.name}
+              </span>
             </div>
           )}
 
