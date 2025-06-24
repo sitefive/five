@@ -26,7 +26,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
 
   const formatPublishDate = (date: string) => {
     if (!date) return '';
-    return format(new Date(date), "dd 'de' MMM 'de' yyyy", {
+    return format(new Date(date), "dd 'de' MMM 'de'<x_bin_389>", {
       locale: getDateLocale()
     });
   };
@@ -74,15 +74,15 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         </Link>
 
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-          {/* =========== CORREÇÃO APLICADA AQUI =========== */}
-          {/* Mostra apenas o ícone e o nome, sem foto */}
           {post.author && post.author.name && (
-            <div className="flex items-center text-sm text-gray-700">
+            <div className="flex items-center text-sm">
               <User className="w-4 h-4 mr-2 text-gray-500" />
-              <span>{post.author.name}</span>
+              {/* ======================= TESTE APLICADO AQUI ======================= */}
+              <span className="font-bold text-red-500">
+                {post.author.name}
+              </span>
             </div>
           )}
-          {/* ================================================ */}
 
           <div className="flex gap-2">
             {(post.tags || []).slice(0, 2).map((tag: string) => (
