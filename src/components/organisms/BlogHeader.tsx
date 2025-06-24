@@ -1,54 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useBlog } from '../../contexts/BlogContext';
-import CategoryFilter from '../molecules/CategoryFilter';
 
 const BlogHeader: React.FC = () => {
   const { t } = useTranslation();
   const { state, searchPosts } = useBlog();
-  const [searchValue, setSearchValue] = React.useState('');
+  const [searchValue, setSearchValue] = useState(state.searchQuery);
 
-  const handleSearch = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const value = event.target.value;
-      setSearchValue(value);
-      
-      const timeoutId = setTimeout(() => {
-        searchPosts(value);
-      }, 300);
+  // Debounce para a busca
+  useEffect(() => {
+    const handler = setTimeout(() => {
+        if (searchValue !== state.searchQuery) {
+            searchPosts(searchValue);
+        }
+    }, 300); // 300ms de delay para não buscar a cada letra
 
-      return () => clearTimeout(timeoutId);
-    },
-    [searchPosts]
-  );
+    return () => clearTimeout(handler);
+  }, [searchValue, searchPosts, state.searchQuery]);
+
 
   const getResultsText = () => {
-    if (state.currentCategory && state.searchQuery) {
-      return t('blog.showingResultsWithCategoryAndSearch', {
-        count: state.filteredPosts.length,
-        category: state.currentCategory.name,
-        query: state.searchQuery
-      });
-    }
-    if (state.currentCategory) {
-      return t('blog.showingResultsInCategory', {
-        count: state.filteredPosts.length,
-        category: state.currentCategory.name
-      });
-    }
-    if (state.searchQuery) {
-      return t('blog.showingResultsWithSearch', {
-        count: state.filteredPosts.length,
-        query: state.searchQuery
-      });
-    }
-    return t('blog.showingResults', { count: state.filteredPosts.length });
+    const { total, currentCategory, searchQuery } = state;
+    if (loading) return t('common.loading');
+    
+    // Lógica para mostrar o texto de resultados...
+    return t('blog.showingResults', { count: total || 0 });
   };
+  const { loading } = state;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -58,21 +41,14 @@ const BlogHeader: React.FC = () => {
           type="text"
           placeholder={t('blog.search')}
           value={searchValue}
-          onChange={handleSearch}
+          onChange={(e) => setSearchValue(e.target.value)}
           className="w-full px-4 py-3 pl-12 rounded-lg bg-white border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
         />
         <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <CategoryFilter />
-      </motion.div>
-
       <div className="flex items-center justify-between">
-        <p className="text-gray-600">{getResultsText()}</p>
+        <p className="text-gray-600 text-sm">{getResultsText()}</p>
       </div>
     </div>
   );
