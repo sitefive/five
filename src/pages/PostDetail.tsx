@@ -10,7 +10,7 @@ import ParallaxHeader from '../components/ParallaxHeader';
 import ShareButtons from '../components/molecules/ShareButtons';
 import Breadcrumbs from '../components/molecules/Breadcrumbs';
 import BlogPostSchema from '../components/seo/BlogPostSchema';
-import Button from '../components/atoms/Button'; // <<<<====== LINHA ADICIONADA AQUI
+import Button from '../components/atoms/Button';
 
 // Supondo que você tenha esses componentes ou queira reativá-los
 // import PostReactions from '../components/molecules/PostReactions';
@@ -33,14 +33,15 @@ const PostDetail = () => {
     }
   };
 
-  const formatPublishDate = (date: string | null) => {
-    if (!date) return '';
+  const formatDisplayDate = (date: string | null) => {
+    if (!date) return null;
     try {
-      return format(new Date(date), "dd 'de' MMM 'de'<x_bin_389>", {
+      return format(new Date(date), "dd 'de' MMM 'de' yyyy", {
         locale: getDateLocale()
       });
     } catch {
-      return 'Data inválida';
+      console.error("Failed to format date:", date);
+      return "Data inválida";
     }
   };
 
@@ -56,6 +57,7 @@ const PostDetail = () => {
       setError(null);
 
       try {
+        const langSuffix = lang.split('-')[0];
         const { data: postData, error: postError } = await supabase
           .from('posts')
           .select(`
@@ -64,14 +66,12 @@ const PostDetail = () => {
             category:categories(*),
             post_tags:post_tags(tag:tags(*))
           `)
-          .eq(`slug_${lang}`, slug)
+          .eq(`slug_${langSuffix}`, slug)
           .single();
 
         if (postError || !postData) {
           throw postError || new Error(t('blog.postNotFound'));
         }
-
-        const langSuffix = lang.split('-')[0];
 
         const formattedPost = {
             ...postData,
@@ -119,6 +119,13 @@ const PostDetail = () => {
     );
   }
 
+  // ======================= LÓGICA DA DATA CORRIGIDA AQUI =======================
+  // Prioriza a data de publicação, mas se não existir (for um rascunho), usa a data de criação.
+  const displayDate = post.published_at || post.created_at;
+  const formattedDate = formatDisplayDate(displayDate);
+  // ===========================================================================
+
+
   const baseUrl = window.location.origin;
   const canonicalUrl = `${baseUrl}/${lang}/blog/${post?.slug}`;
 
@@ -150,7 +157,7 @@ const PostDetail = () => {
           description={post.excerpt}
           image={post.cover_url}
           author={post.author}
-          publishedAt={post.published_at}
+          publishedAt={post.published_at || post.created_at} // Usa a data correta no Schema também
           url={canonicalUrl}
         />
       )}
@@ -173,10 +180,11 @@ const PostDetail = () => {
                     {post.author.name}
                   </div>
                 )}
-                {post.published_at && (
+                {/* LÓGICA DA DATA CORRIGIDA AQUI */}
+                {formattedDate && (
                   <div className="flex items-center">
                     <Calendar className="w-4 h-4 mr-1.5" />
-                    {formatPublishDate(post.published_at)}
+                    {formattedDate}
                   </div>
                 )}
                 {post.reading_time && (
@@ -193,6 +201,7 @@ const PostDetail = () => {
                   url={canonicalUrl}
                   title={post.title}
                   description={post.excerpt}
+                  postId={post.id}
                 />
             </article>
         </div>
