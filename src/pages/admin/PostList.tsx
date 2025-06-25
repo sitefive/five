@@ -8,14 +8,15 @@ import { Post } from '../../types/blog';
 
 const PostList = () => {
   const { t, i18n } = useTranslation('admin');
-  const [posts, setPosts] = useState<any[]>([]); // Usando any para acomodar os joins
+  const [posts, setPosts] = useState<any[]>([]); // Usando 'any' para acomodar os joins complexos
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const langSuffix = i18n.language.split('-')[0];
+  const langSuffix = i18n.language.split('-')[0] || 'pt';
 
   const fetchPosts = useCallback(async () => {
     setLoading(true);
     try {
+      // Query atualizada para buscar as tags associadas
       const { data, error } = await supabase
         .from('posts')
         .select(`
@@ -24,7 +25,9 @@ const PostList = () => {
           title_pt,
           author:authors(name),
           category:categories(name_pt),
-          post_tags:post_tags(tag:tags(id, name_pt))
+          post_tags:post_tags(
+            tag:tags(name_pt)
+          )
         `)
         .order('created_at', { ascending: false });
 
@@ -44,6 +47,9 @@ const PostList = () => {
   const handleDelete = async (id: string) => {
     if (!window.confirm(t('post.confirm_delete_post'))) return;
     try {
+      // Deletar primeiro as associações em post_tags
+      await supabase.from('post_tags').delete().eq('post_id', id);
+      // Depois deletar o post
       const { error } = await supabase.from('posts').delete().eq('id', id);
       if (error) throw error;
       toast.success(t('post.deleted_success'));
@@ -98,14 +104,10 @@ const PostList = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {filteredPosts.map((post) => (
               <tr key={post.id}>
-                <td className="px-6 py-4 max-w-xs">
-                  <Link to={`/admin/posts/${post.id}`} className="text-sm font-medium text-blue-600 hover:underline truncate block">
-                    {post.title_pt || t('common.no_title_fallback')}
-                  </Link>
-                </td>
+                <td className="px-6 py-4 max-w-xs"><Link to={`/admin/posts/${post.id}`} className="text-sm font-medium text-blue-600 hover:underline truncate block">{post.title_pt || t('common.no_title_fallback')}</Link></td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{post.author?.name || t('common.no_author_fallback')}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{post.category?.name_pt || t('common.no_category_fallback')}</td>
-                <td className="px-6 py-4 text-sm text-gray-500 max-w-xs">
+                <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
                   {post.post_tags?.map((pt: any) => pt.tag.name_pt).join(', ')}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
