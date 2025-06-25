@@ -68,7 +68,7 @@ const SubscriberList = () => {
       ])
     ].map(row => row.join(',')).join('\n');
 
-    const blob = new Blob([`\uFEFF${csvContent}`], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
     link.setAttribute('href', url);
@@ -95,13 +95,13 @@ const SubscriberList = () => {
         <div>
           <h1 className="text-2xl font-bold">Inscritos da Newsletter</h1>
           <p className="text-gray-600 mt-1">
-            Total: {filteredSubscribers.length} inscritos
+            Total: {subscribers.length} inscritos
           </p>
         </div>
         <div className="flex gap-3">
           <button
             onClick={handleExportCSV}
-            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center"
             disabled={subscribers.length === 0}
           >
             <Download className="w-5 h-5 mr-2" />
@@ -136,7 +136,7 @@ const SubscriberList = () => {
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 {searchTerm ? 'Nenhum inscrito encontrado' : 'Nenhum inscrito ainda'}
               </h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600">
                 {searchTerm 
                   ? 'Tente ajustar sua busca ou limpar o filtro.'
                   : 'Os inscritos da newsletter aparecerão aqui quando alguém se inscrever.'
@@ -186,6 +186,12 @@ const SubscriberList = () => {
               </tbody>
             </table>
           )}
+        </div>
+      )}
+
+      {!loading && filteredSubscribers.length > 0 && (
+        <div className="mt-4 text-sm text-gray-600 text-center">
+          Mostrando {filteredSubscribers.length} de {subscribers.length} inscritos
         </div>
       )}
     </div>
