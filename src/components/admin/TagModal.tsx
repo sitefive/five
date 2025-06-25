@@ -4,7 +4,6 @@ import slugify from "slugify";
 import { useTranslation } from "react-i18next";
 import { Tag } from "../../types/blog";
 
-// A interface para os dados do formulário agora é multilíngue
 interface TagFormData {
     name_pt: string; name_en: string; name_es: string;
     slug_pt: string; slug_en: string; slug_es: string;
@@ -31,7 +30,6 @@ const TagModal: React.FC<TagModalProps> = ({
 
   useEffect(() => {
     if (tag) {
-      // Preenche todos os campos multilíngues para edição
       setFormData({
         name_pt: tag.name_pt || '',
         name_en: tag.name_en || '',
@@ -41,7 +39,6 @@ const TagModal: React.FC<TagModalProps> = ({
         slug_es: tag.slug_es || ''
       });
     } else {
-      // Limpa todos os campos para uma nova tag
       setFormData({
         name_pt: '', name_en: '', name_es: '',
         slug_pt: '', slug_en: '', slug_es: ''
@@ -78,7 +75,6 @@ const TagModal: React.FC<TagModalProps> = ({
           </button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Loop para criar os campos para cada idioma */}
           {['pt', 'en', 'es'].map(lang => (
             <div key={lang}>
               <label className="block text-sm font-medium mb-1">
@@ -91,8 +87,6 @@ const TagModal: React.FC<TagModalProps> = ({
                 onChange={(e) => handleNameChange(e, lang)}
                 required={lang === 'pt'}
               />
-              {/* O campo slug é gerado automaticamente e não precisa ser exibido,
-                  mas se quisesse mostrar, seria como no CategoryModal */}
             </div>
           ))}
           <div className="flex justify-end space-x-2 pt-4">
