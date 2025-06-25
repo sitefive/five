@@ -6,8 +6,15 @@ import toast from 'react-hot-toast';
 import TagModal from '../../components/admin/TagModal';
 import { Tag } from '../../types/blog';
 
+interface RawTagFromDB {
+  id: string;
+  name_pt: string; name_en: string; name_es: string;
+  slug_pt: string; slug_en: string; slug_es: string;
+  post_tags: { count: number }[];
+}
+
 const TagList = () => {
-  const { t } = useTranslation('admin');
+  const { t, i18n } = useTranslation('admin');
   const [tags, setTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,24 +24,22 @@ const TagList = () => {
   const fetchTags = useCallback(async () => {
     setLoading(true);
     try {
-      // Query simplificada para buscar apenas as colunas que existem na tabela 'tags'
       const { data, error } = await supabase
         .from('tags')
-        .select(`
-          id,
-          name,
-          slug,
-          post_tags(count)
-        `)
-        .order('name', { ascending: true });
+        .select(`*, post_tags(count)`)
+        .order('name_pt', { ascending: true });
 
       if (error) throw error;
 
-      const formattedTags: Tag[] = (data || []).map(tag => ({
-        id: tag.id,
-        name: tag.name,
-        slug: tag.slug,
-        postCount: tag.post_tags?.[0]?.count || 0
+      const langSuffix = i18n.language.split('-')[0];
+      const formattedTags: Tag[] = (data || []).map((rawTag: any) => ({
+        id: rawTag.id,
+        name: rawTag[`name_${langSuffix}`] || rawTag.name_pt || '',
+        slug: rawTag[`slug_${langSuffix}`] || rawTag.slug_pt || '',
+        postCount: rawTag.post_tags?.[0]?.count || 0,
+        // Manter dados originais para edição
+        name_pt: rawTag.name_pt, name_en: rawTag.name_en, name_es: rawTag.name_es,
+        slug_pt: rawTag.slug_pt, slug_en: rawTag.slug_en, slug_es: rawTag.slug_es,
       }));
       setTags(formattedTags);
 
@@ -44,7 +49,7 @@ const TagList = () => {
     } finally {
       setLoading(false);
     }
-  }, [t]);
+  }, [i18n.language, t]);
 
   useEffect(() => {
     fetchTags();
@@ -73,7 +78,7 @@ const TagList = () => {
     setEditingTag(null);
   };
 
-  const handleModalSave = async (formData: { name: string; slug: string }) => {
+  const handleModalSave = async (formData: any) => {
     setLoading(true);
     try {
       let operationError = null;
