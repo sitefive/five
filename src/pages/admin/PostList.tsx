@@ -85,17 +85,15 @@ const PostList = () => {
       </div>
 
       <div className="bg-white rounded-lg shadow overflow-x-auto">
-        {/* Adicionado 'table-fixed' para melhor controle das colunas */}
-        <table className="min-w-full divide-y divide-gray-200 table-fixed">
+        <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              {/* Larguras proporcionais adicionadas */}
-              <th className="w-1/3 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.title_label')}</th>
-              <th className="w-1/6 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.author_label')}</th>
-              <th className="w-1/6 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.category_label')}</th>
-              <th className="w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tags</th>
-              <th className="w-24 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.status_label')}</th>
-              <th className="w-28 px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{t('common.actions_label')}</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.title_label')}</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.author_label')}</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.category_label')}</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tags</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.status_label')}</th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{t('common.actions_label')}</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -106,10 +104,10 @@ const PostList = () => {
                     {post.title_pt || t('common.no_title_fallback')}
                   </Link>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 truncate">{post.author?.[`name_${langSuffix}`] || post.author?.name_pt || t('common.no_author_fallback')}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 truncate">{post.category?.[`name_${langSuffix}`] || post.category?.name_pt || t('common.no_category_fallback')}</td>
-                <td className="px-6 py-4 text-sm text-gray-500 truncate">
-                  {post.post_tags?.map((pt: any) => pt.tag?.[`name_${langSuffix}`] || pt.tag?.name_pt).join(', ')}
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{post.author?.name || t('common.no_author_fallback')}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{post.category?.name_pt || t('common.no_category_fallback')}</td>
+                <td className="px-6 py-4 max-w-xs text-sm text-gray-500 truncate" title={post.post_tags?.map((pt: any) => pt.tag?.name_pt).join(', ')}>
+                  {post.post_tags?.map((pt: any) => pt.tag?.name_pt).join(', ')}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${post.published_at ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
