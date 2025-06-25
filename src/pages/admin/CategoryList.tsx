@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react'; // <<== CORREÇÃO APLICADA AQUI
 import { useTranslation } from 'react-i18next';
 import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
@@ -66,7 +66,7 @@ const CategoryList = () => {
       const { error } = await supabase.from('categories').delete().eq('id', id);
       if (error) throw error;
       toast.success(t('category.deleted_success'));
-      fetchCategories(); // Re-busca para atualizar a lista
+      fetchCategories();
     } catch (error: any) {
       console.error('Error deleting category:', error);
       toast.error(t('category.error_deleting_category', { message: error.message }));
@@ -79,8 +79,6 @@ const CategoryList = () => {
   };
 
   const handleModalSave = async (formData: any) => {
-    // Agora esta função é a única responsável por salvar.
-    // O formData vem diretamente do Modal.
     setLoading(true);
     try {
       let operationError = null;
@@ -111,6 +109,10 @@ const CategoryList = () => {
     category.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  if (loading) {
+    return <div className="text-center py-4">{t('common.loading')}</div>
+  }
+
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
@@ -135,37 +137,35 @@ const CategoryList = () => {
           <Search className="absolute left-3 top-2.5 text-gray-400 w-5 h-5" />
         </div>
       </div>
-      {loading ? (
-        <div className="text-center py-4">{t('common.loading')}</div>
-      ) : (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('common.name_label')}</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('common.slug_label')}</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('common.description_label')}</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{t('common.actions_label')}</th>
+      
+      <div className="bg-white rounded-lg shadow overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('common.name_label')}</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('common.slug_label')}</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('common.description_label')}</th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{t('common.actions_label')}</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {filteredCategories.map((category: Category) => (
+              <tr key={category.id}>
+                <td className="px-6 py-4"><div className="text-sm font-medium text-gray-900">{category.name || t('common.no_name_fallback')}</div></td>
+                <td className="px-6 py-4 text-sm text-gray-500">{category.slug}</td>
+                <td className="px-6 py-4 text-sm text-gray-500 max-w-sm truncate">{category.description}</td>
+                <td className="px-6 py-4 text-right text-sm font-medium">
+                  <div className="flex justify-end space-x-2">
+                    <button onClick={() => handleEdit(category)} className="text-blue-600 hover:text-blue-900"><Edit className="w-5 h-5" /></button>
+                    <button onClick={() => handleDelete(category.id)} className="text-red-600 hover:text-red-900"><Trash2 className="w-5 h-5" /></button>
+                  </div>
+                </td>
               </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {filteredCategories.map((category: Category) => (
-                <tr key={category.id}>
-                  <td className="px-6 py-4"><div className="text-sm font-medium text-gray-900">{category.name || t('common.no_name_fallback')}</div></td>
-                  <td className="px-6 py-4 text-sm text-gray-500">{category.slug}</td>
-                  <td className="px-6 py-4 text-sm text-gray-500 max-w-sm truncate">{category.description}</td>
-                  <td className="px-6 py-4 text-right text-sm font-medium">
-                    <div className="flex justify-end space-x-2">
-                      <button onClick={() => handleEdit(category)} className="text-blue-600 hover:text-blue-900"><Edit className="w-5 h-5" /></button>
-                      <button onClick={() => handleDelete(category.id)} className="text-red-600 hover:text-red-900"><Trash2 className="w-5 h-5" /></button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       <CategoryModal
         isOpen={isModalOpen}
         onClose={handleModalClose}
