@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Edit, Trash2, Plus, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
-import { Post } from '../../types/blog'; // Supondo que o tipo Post esteja definido corretamente
+import { Post } from '../../types/blog';
 
 const PostList = () => {
   const { t, i18n } = useTranslation('admin');
@@ -16,8 +16,6 @@ const PostList = () => {
   const fetchPosts = useCallback(async () => {
     setLoading(true);
     try {
-      // ========= QUERY CORRIGIDA AQUI =========
-      // author:authors(*) busca todas as colunas da tabela de autores
       const { data, error } = await supabase
         .from('posts')
         .select(`
@@ -86,30 +84,31 @@ const PostList = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-200">
+      <div className="bg-white rounded-lg shadow overflow-x-auto">
+        {/* Adicionado 'table-fixed' para melhor controle das colunas */}
+        <table className="min-w-full divide-y divide-gray-200 table-fixed">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.title_label')}</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.author_label')}</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.category_label')}</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tags</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.status_label')}</th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{t('common.actions_label')}</th>
+              {/* Larguras proporcionais adicionadas */}
+              <th className="w-1/3 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.title_label')}</th>
+              <th className="w-1/6 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.author_label')}</th>
+              <th className="w-1/6 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.category_label')}</th>
+              <th className="w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tags</th>
+              <th className="w-24 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('post.status_label')}</th>
+              <th className="w-28 px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{t('common.actions_label')}</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {filteredPosts.map((post) => (
               <tr key={post.id}>
                 <td className="px-6 py-4 max-w-xs">
-                  <Link to={`/admin/posts/${post.id}`} className="text-sm font-medium text-blue-600 hover:underline truncate block">
+                  <Link to={`/admin/posts/${post.id}`} className="text-sm font-medium text-blue-600 hover:underline truncate block" title={post.title_pt}>
                     {post.title_pt || t('common.no_title_fallback')}
                   </Link>
                 </td>
-                {/* Lógica de exibição do nome do autor corrigida */}
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{post.author?.[`name_${langSuffix}`] || post.author?.name_pt || t('common.no_author_fallback')}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{post.category?.[`name_${langSuffix}`] || post.category?.name_pt || t('common.no_category_fallback')}</td>
-                <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 truncate">{post.author?.[`name_${langSuffix}`] || post.author?.name_pt || t('common.no_author_fallback')}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 truncate">{post.category?.[`name_${langSuffix}`] || post.category?.name_pt || t('common.no_category_fallback')}</td>
+                <td className="px-6 py-4 text-sm text-gray-500 truncate">
                   {post.post_tags?.map((pt: any) => pt.tag?.[`name_${langSuffix}`] || pt.tag?.name_pt).join(', ')}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
