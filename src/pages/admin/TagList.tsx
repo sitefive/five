@@ -6,13 +6,6 @@ import toast from 'react-hot-toast';
 import TagModal from '../../components/admin/TagModal';
 import { Tag } from '../../types/blog';
 
-interface RawTagFromDB {
-  id: string;
-  name_pt: string; name_en: string; name_es: string;
-  slug_pt: string; slug_en: string; slug_es: string;
-  post_tags: { count: number }[];
-}
-
 const TagList = () => {
   const { t, i18n } = useTranslation('admin');
   const [tags, setTags] = useState<Tag[]>([]);
@@ -37,7 +30,6 @@ const TagList = () => {
         name: rawTag[`name_${langSuffix}`] || rawTag.name_pt || '',
         slug: rawTag[`slug_${langSuffix}`] || rawTag.slug_pt || '',
         postCount: rawTag.post_tags?.[0]?.count || 0,
-        // Manter dados originais para edição
         name_pt: rawTag.name_pt, name_en: rawTag.name_en, name_es: rawTag.name_es,
         slug_pt: rawTag.slug_pt, slug_en: rawTag.slug_en, slug_es: rawTag.slug_es,
       }));
