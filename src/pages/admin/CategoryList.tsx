@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // <-- OLHE ESTA LINHA COM ATENÇÃO: DEVE SER 'from' e não '=>'
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
@@ -9,15 +9,9 @@ import { Category } from '../../types/blog';
 // Interface auxiliar para os dados brutos que vêm do DB antes de formatar
 interface RawCategoryFromDB {
   id: string;
-  name_pt: string;
-  name_en: string;
-  name_es: string;
-  slug_pt: string;
-  slug_en: string;
-  slug_es: string;
-  description_pt: string;
-  description_en: string;
-  description_es: string;
+  name_pt: string; name_en: string; name_es: string;
+  slug_pt: string; slug_en: string; slug_es: string;
+  description_pt: string; description_en: string; description_es: string;
 }
 
 const CategoryList = () => {
@@ -27,19 +21,18 @@ const CategoryList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
-  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+  
+  // O idioma da UI agora é pego diretamente do hook i18n
+  const currentLanguage = i18n.language.split('-')[0];
 
   useEffect(() => {
     fetchCategories();
-  }, [currentLanguage]);
+  }, []); // O fetch inicial não precisa depender do idioma, pois já pegamos todas as colunas
 
   const fetchCategories = async () => {
     try {
       setLoading(true);
-      const langSuffix = currentLanguage.split('-')[0];
-
-      // --- INÍCIO DA CORREÇÃO DEFINITIVA DA QUERY (REMOVIDOS COMENTÁRIOS INTERNOS) ---
-      // Buscar todas as colunas de idioma
+      
       const { data, error } = await supabase
         .from('categories')
         .select(`
@@ -47,41 +40,30 @@ const CategoryList = () => {
           name_pt, name_en, name_es,
           slug_pt, slug_en, slug_es,
           description_pt, description_en, description_es
-        `); // COMENTÁRIOS REMOVIDOS AQUI!
+        `)
+        .order('name_pt', { ascending: true });
 
-      if (error) {
-        console.error('Error fetching categories - Supabase response:', error);
-        toast.error(`Erro ao carregar categorias: ${error.message || JSON.stringify(error) || 'Erro desconhecido.'}`);
-        throw error;
-      }
+      if (error) throw error;
 
-      // FORMATAR OS DADOS NO FRONTEND
-      const formattedCategories: Category[] = (data as RawCategoryFromDB[] || []).map(rawCategory => {
-        const categoryName = rawCategory[`name_${langSuffix}` as keyof RawCategoryFromDB] || rawCategory.name_pt || t('common.no_name_fallback');
-        const categorySlug = rawCategory[`slug_${langSuffix}` as keyof RawCategoryFromDB] || rawCategory.slug_pt || 'no-slug';
-        const categoryDescription = rawCategory[`description_${langSuffix}` as keyof RawCategoryFromDB] || rawCategory.description_pt || '';
-
+      // A formatação agora acontece aqui, usando o idioma da UI
+      const formattedCategories: Category[] = (data || []).map(rawCategory => {
+        const langSuffix = currentLanguage as keyof RawCategoryFromDB;
         return {
           id: rawCategory.id,
-          name: categoryName,
-          slug: categorySlug,
-          description: categoryDescription,
-          name_pt: rawCategory.name_pt,
-          name_en: rawCategory.name_en,
-          name_es: rawCategory.name_es,
-          slug_pt: rawCategory.slug_pt,
-          slug_en: rawCategory.slug_en,
-          slug_es: rawCategory.slug_es,
-          description_pt: rawCategory.description_pt,
-          description_en: rawCategory.description_en,
-          description_es: rawCategory.description_es
+          name: rawCategory[`name_${langSuffix}`] || rawCategory.name_pt || '',
+          slug: rawCategory[`slug_${langSuffix}`] || rawCategory.slug_pt || '',
+          description: rawCategory[`description_${langSuffix}`] || rawCategory.description_pt || '',
+          // Manter todos os dados originais para edição
+          name_pt: rawCategory.name_pt, name_en: rawCategory.name_en, name_es: rawCategory.name_es,
+          slug_pt: rawCategory.slug_pt, slug_en: rawCategory.slug_en, slug_es: rawCategory.slug_es,
+          description_pt: rawCategory.description_pt, description_en: rawCategory.description_en, description_es: rawCategory.description_es
         };
       });
       setCategories(formattedCategories);
 
     } catch (error: any) {
-      console.error('Error fetching categories - Catch block:', error);
-      toast.error(`Erro ao carregar categorias: ${error.message || JSON.stringify(error) || 'Erro desconhecido no catch.'}`);
+      console.error('Error fetching categories:', error);
+      toast.error(t('category.error_loading_categories', { message: error.message }));
     } finally {
       setLoading(false);
     }
@@ -94,24 +76,14 @@ const CategoryList = () => {
 
   const handleDelete = async (id: string) => {
     if (!window.confirm(t('category.confirm_delete_category'))) return;
-
     try {
-      const { error } = await supabase
-        .from('categories')
-        .delete()
-        .eq('id', id);
-
-      if (error) {
-        console.error('Error deleting category:', error);
-        toast.error(t('category.error_deleting_category', { message: error.message }));
-        throw error;
-      }
-
+      const { error } = await supabase.from('categories').delete().eq('id', id);
+      if (error) throw error;
       setCategories(categories.filter(cat => cat.id !== id));
       toast.success(t('category.deleted_success'));
     } catch (error: any) {
       console.error('Error deleting category:', error);
-      toast.error(t('common.error_deleting', { message: error.message || 'Verifique o console.' }));
+      toast.error(t('category.error_deleting_category', { message: error.message }));
     }
   };
 
@@ -120,39 +92,51 @@ const CategoryList = () => {
     setEditingCategory(null);
   };
 
-  const handleModalSave = async (categoryData: any) => { // categoryData tipado como any, você pode criar uma interface CategoryFormFields se precisar
+  // ========================== FUNÇÃO DE SALVAR CORRIGIDA ==========================
+  const handleModalSave = async (formData: any) => {
+    // A 'formData' vem do modal com uma estrutura como: { pt: { name: '...' }, en: { name: '...' } }
     try {
-      if (editingCategory) {
-        const { error } = await supabase
-          .from('categories')
-          .update(categoryData)
-          .eq('id', editingCategory.id);
+        // 1. Criamos um objeto "plano" e seguro para enviar ao Supabase
+        const dataToSave = {
+            name_pt: formData.pt?.name || '',
+            slug_pt: formData.pt?.slug || '',
+            description_pt: formData.pt?.description || '',
+            name_en: formData.en?.name || '',
+            slug_en: formData.en?.slug || '',
+            description_en: formData.en?.description || '',
+            name_es: formData.es?.name || '',
+            slug_es: formData.es?.slug || '',
+            description_es: formData.es?.description || '',
+        };
 
-        if (error) {
-          console.error('Error updating category:', error);
-          toast.error(t('category.error_updating_category', { message: error.message }));
-          throw error;
+        let operationError = null;
+
+        if (editingCategory) {
+            // 2. Modo de Edição
+            const { error } = await supabase
+                .from('categories')
+                .update(dataToSave)
+                .eq('id', editingCategory.id);
+            operationError = error;
+            if (!error) toast.success(t('category.updated_success'));
+        } else {
+            // 3. Modo de Criação
+            const { error } = await supabase.from('categories').insert([dataToSave]);
+            operationError = error;
+            if (!error) toast.success(t('category.created_success'));
         }
-        toast.success(t('category.updated_success'));
-      } else {
-        const { error } = await supabase.from('categories').insert([categoryData]);
 
-        if (error) {
-          console.error('Error creating category:', error);
-          toast.error(t('category.error_creating_category', { message: error.message }));
-          throw error;
-        }
-        toast.success(t('category.created_success'));
-      }
+        if (operationError) throw operationError;
 
-      handleModalClose();
-      fetchCategories();
-    }
-    catch (error: any) {
-      console.error('Error saving category:', error);
-      toast.error(t('common.error_saving', { message: error.message || 'Verifique o console.' }));
+        handleModalClose();
+        fetchCategories(); // Re-busca as categorias para atualizar a lista
+
+    } catch (error: any) {
+        console.error('Error saving category:', error);
+        toast.error(t('common.error_saving', { message: error.message }));
     }
   };
+  // ==============================================================================
 
   const filteredCategories = categories.filter(category =>
     category.name?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -171,8 +155,8 @@ const CategoryList = () => {
         </button>
       </div>
 
-      <div className="mb-6 flex gap-4">
-        <div className="flex-1 relative">
+      <div className="mb-6">
+        <div className="relative">
           <input
             type="text"
             placeholder={t('category.search_placeholder')}
@@ -182,16 +166,6 @@ const CategoryList = () => {
           />
           <Search className="absolute left-3 top-2.5 text-gray-400 w-5 h-5" />
         </div>
-
-        <select
-          value={currentLanguage}
-          onChange={(e) => setCurrentLanguage(e.target.value)}
-          className="border rounded-lg px-4 py-2"
-        >
-          <option value="pt">{t('common.portuguese')}</option>
-          <option value="en">{t('common.english')}</option>
-          <option value="es">{t('common.spanish')}</option>
-        </select>
       </div>
 
       {loading ? (
@@ -226,7 +200,7 @@ const CategoryList = () => {
                   <td className="px-6 py-4 text-sm text-gray-500">
                     {category.slug}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
+                  <td className="px-6 py-4 text-sm text-gray-500 max-w-sm truncate">
                     {category.description}
                   </td>
                   <td className="px-6 py-4 text-right text-sm font-medium">
