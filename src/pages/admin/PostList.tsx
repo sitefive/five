@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { Edit, Trash2, Plus, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
-import { Post } from '../../types/blog';
+import { Post } from '../../types/blog'; // Supondo que o tipo Post esteja definido corretamente
 
 const PostList = () => {
   const { t, i18n } = useTranslation('admin');
-  const [posts, setPosts] = useState<any[]>([]); // Usando 'any' para acomodar os joins complexos
+  const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const langSuffix = i18n.language.split('-')[0] || 'pt';
@@ -16,18 +16,17 @@ const PostList = () => {
   const fetchPosts = useCallback(async () => {
     setLoading(true);
     try {
-      // Query atualizada para buscar as tags associadas
+      // ========= QUERY CORRIGIDA AQUI =========
+      // author:authors(*) busca todas as colunas da tabela de autores
       const { data, error } = await supabase
         .from('posts')
         .select(`
           id,
           published_at,
           title_pt,
-          author:authors(name),
-          category:categories(name_pt),
-          post_tags:post_tags(
-            tag:tags(name_pt)
-          )
+          author:authors(*),
+          category:categories(*),
+          post_tags:post_tags(tag:tags(*))
         `)
         .order('created_at', { ascending: false });
 
@@ -47,9 +46,7 @@ const PostList = () => {
   const handleDelete = async (id: string) => {
     if (!window.confirm(t('post.confirm_delete_post'))) return;
     try {
-      // Deletar primeiro as associações em post_tags
       await supabase.from('post_tags').delete().eq('post_id', id);
-      // Depois deletar o post
       const { error } = await supabase.from('posts').delete().eq('id', id);
       if (error) throw error;
       toast.success(t('post.deleted_success'));
@@ -104,11 +101,16 @@ const PostList = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {filteredPosts.map((post) => (
               <tr key={post.id}>
-                <td className="px-6 py-4 max-w-xs"><Link to={`/admin/posts/${post.id}`} className="text-sm font-medium text-blue-600 hover:underline truncate block">{post.title_pt || t('common.no_title_fallback')}</Link></td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{post.author?.name || t('common.no_author_fallback')}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{post.category?.name_pt || t('common.no_category_fallback')}</td>
+                <td className="px-6 py-4 max-w-xs">
+                  <Link to={`/admin/posts/${post.id}`} className="text-sm font-medium text-blue-600 hover:underline truncate block">
+                    {post.title_pt || t('common.no_title_fallback')}
+                  </Link>
+                </td>
+                {/* Lógica de exibição do nome do autor corrigida */}
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{post.author?.[`name_${langSuffix}`] || post.author?.name_pt || t('common.no_author_fallback')}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{post.category?.[`name_${langSuffix}`] || post.category?.name_pt || t('common.no_category_fallback')}</td>
                 <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
-                  {post.post_tags?.map((pt: any) => pt.tag.name_pt).join(', ')}
+                  {post.post_tags?.map((pt: any) => pt.tag?.[`name_${langSuffix}`] || pt.tag?.name_pt).join(', ')}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${post.published_at ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
