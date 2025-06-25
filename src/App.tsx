@@ -21,6 +21,7 @@ import MediaLibrary from './components/admin/MediaLibrary';
 import Settings from './pages/admin/Settings';
 import UserList from './pages/admin/UserList';
 import PostPreview from './pages/admin/preview/PostPreview';
+import SubscriberList from './pages/admin/SubscriberList'; // 1. IMPORTAÇÃO ADICIONADA
 
 // Public Pages
 import Home from './pages/Home';
@@ -75,6 +76,7 @@ function App() {
               <Route path="media" element={<MediaLibrary />} />
               <Route path="settings" element={<Settings />} />
               <Route path="users" element={<UserList />} />
+              <Route path="subscribers" element={<SubscriberList />} /> {/* 2. ROTA ADICIONADA */}
             </Route>
 
             {/* Root redirect - ONLY for exact root path */}
@@ -123,11 +125,6 @@ function App() {
                 path={`${routeSlugs.services.es}/:slug`}
                 element={<ServiceDetail />}
               />
-
-              {/* Cases */}
-              <Route path={routeSlugs.cases.pt} element={<Cases />} />
-              <Route path={routeSlugs.cases.en} element={<Cases />} />
-              <Route path={routeSlugs.cases.es} element={<Cases />} />
 
               {/* Blog */}
               <Route path={routeSlugs.blog.pt} element={<Blog />} />
