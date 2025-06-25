@@ -4,9 +4,10 @@ import slugify from "slugify";
 import { useTranslation } from "react-i18next";
 import { Tag } from "../../types/blog";
 
+// A interface para os dados do formulário agora é multilíngue
 interface TagFormData {
-    name: string;
-    slug: string;
+    name_pt: string; name_en: string; name_es: string;
+    slug_pt: string; slug_en: string; slug_es: string;
 }
 
 interface TagModalProps {
@@ -23,23 +24,39 @@ const TagModal: React.FC<TagModalProps> = ({
   tag,
 }) => {
   const { t } = useTranslation('admin');
-  const [formData, setFormData] = useState<TagFormData>({ name: '', slug: '' });
+  const [formData, setFormData] = useState<TagFormData>({
+    name_pt: '', name_en: '', name_es: '',
+    slug_pt: '', slug_en: '', slug_es: ''
+  });
 
   useEffect(() => {
     if (tag) {
+      // Preenche todos os campos multilíngues para edição
       setFormData({
-        name: tag.name || '',
-        slug: tag.slug || ''
+        name_pt: tag.name_pt || '',
+        name_en: tag.name_en || '',
+        name_es: tag.name_es || '',
+        slug_pt: tag.slug_pt || '',
+        slug_en: tag.slug_en || '',
+        slug_es: tag.slug_es || ''
       });
     } else {
-      setFormData({ name: '', slug: '' });
+      // Limpa todos os campos para uma nova tag
+      setFormData({
+        name_pt: '', name_en: '', name_es: '',
+        slug_pt: '', slug_en: '', slug_es: ''
+      });
     }
   }, [tag, isOpen]);
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>, lang: string) => {
     const value = e.target.value;
     const newSlug = slugify(value, { lower: true, strict: true });
-    setFormData({ name: value, slug: newSlug });
+    setFormData(prev => ({
+      ...prev,
+      [`name_${lang}`]: value,
+      [`slug_${lang}`]: newSlug
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -61,29 +78,23 @@ const TagModal: React.FC<TagModalProps> = ({
           </button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              {t('common.name_label')}
-            </label>
-            <input
-              type="text"
-              className="w-full border rounded-lg px-3 py-2"
-              value={formData.name}
-              onChange={handleNameChange}
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              {t('common.slug_label')}
-            </label>
-            <input
-              type="text"
-              className="w-full border rounded-lg px-3 py-2 bg-gray-50"
-              value={formData.slug}
-              readOnly
-            />
-          </div>
+          {/* Loop para criar os campos para cada idioma */}
+          {['pt', 'en', 'es'].map(lang => (
+            <div key={lang}>
+              <label className="block text-sm font-medium mb-1">
+                {t('common.name_label')} ({lang.toUpperCase()})
+              </label>
+              <input
+                type="text"
+                className="w-full border rounded-lg px-3 py-2"
+                value={(formData as any)[`name_${lang}`]}
+                onChange={(e) => handleNameChange(e, lang)}
+                required={lang === 'pt'}
+              />
+              {/* O campo slug é gerado automaticamente e não precisa ser exibido,
+                  mas se quisesse mostrar, seria como no CategoryModal */}
+            </div>
+          ))}
           <div className="flex justify-end space-x-2 pt-4">
             <button
               type="button"
