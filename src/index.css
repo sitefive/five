@@ -39,12 +39,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ======================= CORREÇÃO FINAL GTM ======================= */
-/* Força a margem do body a ser zero para anular o bug do espaço em branco */
-body {
-    margin: 0 !important;
-}
-
 /* Better focus styles */
 :focus {
   outline: 2px solid #3b82f6;
@@ -88,16 +82,16 @@ button:focus-visible {
 
 /* Estilos para o botão do WhatsApp */
 .whatsapp-button {
-  background: linear-gradient(45deg, #25d366, #7ad0b7);
-  background-size: 200% 200%;
-  animation: gradienteBrilho 4s ease infinite;
-  border-radius: 50%;
-  padding: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(45deg, #25d366, #7ad0b7); /* Verde original do WhatsApp com uma variação mais clara */
+  background-size: 200% 200%; /* Tamanho do gradiente para o efeito de movimento */
+  animation: gradienteBrilho 4s ease infinite; /* Animação contínua */
+  border-radius: 50%; /* Tornar o botão redondo */
+  padding: 15px; /* Tamanho do botão */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra mais difusa e suave */
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease; /* Transição suave para o efeito de hover */
 }
 
 /* Animação de brilho contínuo */
@@ -115,14 +109,14 @@ button:focus-visible {
 
 /* Efeito de hover */
 .whatsapp-button:hover {
-  transform: scale(1.1);
+  transform: scale(1.1); /* Leve aumento quando o mouse passar */
 }
 
 /* Estilo para o ícone do WhatsApp */
 .whatsapp-ico {
   width: 24px;
   height: 24px;
-  fill: white;
+  fill: white; /* Cor do ícone (branco) */
 }
 
 /* ======================= CÓDIGO ADICIONADO ======================= */
@@ -139,11 +133,4 @@ button:focus-visible {
 .prose h6 {
   margin-bottom: 1em;
   margin-top: 1.5em;
-}
-
-/* ======================= CORREÇÃO IFRAME GTM ======================= */
-/* Força o iframe do Google Tag Manager a ser invisível (redundante mas seguro) */
-iframe[src*="googletagmanager.com"] {
-    display: none !important;
-    visibility: hidden !important;
 }
