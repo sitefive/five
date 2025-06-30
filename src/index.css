@@ -39,6 +39,12 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ======================= CORREÇÃO FINAL GTM ======================= */
+/* Força a margem do body a ser zero para anular o bug do espaço em branco */
+body {
+    margin: 0 !important;
+}
+
 /* Better focus styles */
 :focus {
   outline: 2px solid #3b82f6;
@@ -135,8 +141,8 @@ button:focus-visible {
   margin-top: 1.5em;
 }
 
-/* ======================= CORREÇÃO GTM ======================= */
-/* Força o iframe do Google Tag Manager a ser invisível e não ocupar espaço */
+/* ======================= CORREÇÃO IFRAME GTM ======================= */
+/* Força o iframe do Google Tag Manager a ser invisível (redundante mas seguro) */
 iframe[src*="googletagmanager.com"] {
     display: none !important;
     visibility: hidden !important;
