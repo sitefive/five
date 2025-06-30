@@ -94,7 +94,142 @@ button:focus-visible {
   transition: transform 0.3s ease; /* Transição suave para o efeito de hover */
 }
 
+/* Animação de brilho contínuo */@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out forwards;
+}
+
+.animate-slide-up-delay {
+  animation: slide-up 0.6s ease-out 0.2s forwards;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better focus styles */
+:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Improved button accessibility */
+button:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Mobile menu transition */
+@media (max-width: 768px) {
+  .mobile-menu-enter {
+    max-height: 0;
+    opacity: 0;
+  }
+  .mobile-menu-enter-active {
+    max-height: 500px;
+    opacity: 1;
+    transition: all 300ms ease-in-out;
+  }
+  .mobile-menu-exit {
+    max-height: 500px;
+    opacity: 1;
+  }
+  .mobile-menu-exit-active {
+    max-height: 0;
+    opacity: 0;
+    transition: all 300ms ease-in-out;
+  }
+}
+
+/* Ensure footer stays at bottom */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos para o botão do WhatsApp */
+.whatsapp-button {
+  background: linear-gradient(45deg, #25d366, #7ad0b7); /* Verde original do WhatsApp com uma variação mais clara */
+  background-size: 200% 200%; /* Tamanho do gradiente para o efeito de movimento */
+  animation: gradienteBrilho 4s ease infinite; /* Animação contínua */
+  border-radius: 50%; /* Tornar o botão redondo */
+  padding: 15px; /* Tamanho do botão */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra mais difusa e suave */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease; /* Transição suave para o efeito de hover */
+}
+
 /* Animação de brilho contínuo */
+@keyframes gradienteBrilho {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Efeito de hover */
+.whatsapp-button:hover {
+  transform: scale(1.1); /* Leve aumento quando o mouse passar */
+}
+
+/* Estilo para o ícone do WhatsApp */
+.whatsapp-ico {
+  width: 24px;
+  height: 24px;
+  fill: white; /* Cor do ícone (branco) */
+}
+
+/* ======================= CÓDIGO ADICIONADO ======================= */
+/* Adiciona espaçamento vertical para parágrafos e títulos no conteúdo do post */
+.prose p {
+  margin-bottom: 1.25em;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  margin-bottom: 1em;
+  margin-top: 1.5em;
+}
 @keyframes gradienteBrilho {
   0% {
     background-position: 0% 50%;
