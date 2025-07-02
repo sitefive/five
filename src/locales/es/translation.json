@@ -437,6 +437,7 @@
   },
   "common": {
     "home": "Inicio"
+    "loading": "Cargando..."
   },
   "footer": {
     "about": "Sobre Nosotros",
