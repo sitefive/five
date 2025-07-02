@@ -1,608 +1,609 @@
 {
-  "menu": {
-    "home": "Home",
-    "about": "Sobre",
-    "services": "Serviços",
-    "cases": "Cases",
-    "blog": "Blog",
-    "contact": "Contato",
-    "clientArea": "Área do Cliente",
-    "toggle": "Alternar menu"
-  },
-  "hero": {
-    "title": "Consultoria especializada em Sistemas de Recursos Humanos",
-    "subtitle": "Potencializando seu RH com Soluções de TI sob medida",
-    "cta": "Solicite uma Consultoria"
-  },
-  "services": {
-    "title": "Nossos Serviços",
-    "subtitle": "Soluções inteligentes para impulsionar seu negócio",
-    "consulting": {
-      "title": "Consultoria Especializada",
-      "description": "Estratégias para otimizar processos e sistemas de RH com alto desempenho",
-      "benefits": {
-        "title": "Benefícios",
-        "items": [
-          "Mapeamento completo dos processos",
-          "Soluções customizadas",
-          "Implantação orientada",
-          "Acompanhamento contínuo"
-        ]
-      },
-      "page": {
-        "title": "Consultoria Especialista",
-        "description": "Soluções personalizadas em sistemas de RH, com foco estratégico, alinhadas às necessidades do negócio e à maturidade da sua operação.",
-        "benefits": {
-          "title": "Benefícios",
-          "items": [
-            "Diagnóstico aprofundado do cenário atual",
-            "Soluções sob medida para sua realidade",
-            "Maior eficiência na gestão de pessoas",
-            "Redução de retrabalho e falhas operacionais",
-            "Equipe mais capacitada e engajada",
-            "Apoio estratégico à tomada de decisão"
-          ]
-        },
-        "methodology": {
-          "title": "Nossa Metodologia",
-          "phases": {
-            "diagnosis": {
-              "title": "Diagnóstico",
-              "steps": [
-                "Entendimento do negócio e desafios",
-                "Análise dos processos atuais",
-                "Identificação de pontos críticos",
-                "Avaliação da maturidade do sistema"
-              ]
-            },
-            "planning": {
-              "title": "Planejamento",
-              "steps": [
-                "Definição dos objetivos e metas",
-                "Elaboração do plano de ação",
-                "Alinhamento com as lideranças",
-                "Cronograma de entregas e recursos"
-              ]
-            },
-            "implementation": {
-              "title": "Implementação",
-              "steps": [
-                "Parametrizações no sistema",
-                "Apoio técnico e funcional",
-                "Validação junto aos usuários",
-                "Gestão da mudança"
-              ]
-            },
-            "monitoring": {
-              "title": "Acompanhamento",
-              "steps": [
-                "Avaliação dos resultados",
-                "Suporte pós-implantação",
-                "Recomendações de melhoria contínua",
-                "Relatórios executivos"
-              ]
-            }
-          }
-        }
-      }
-    },
-    "support": {
-      "title": "Suporte AMS",
-      "description": "Manutenção, suporte técnico e evolução dos sistemas de RH",
-      "benefits": {
-        "title": "Benefícios",
-        "items": [
-          "Atendimento ágil e especializado",
-          "Suporte 24/7",
-          "Prevenção de falhas",
-          "Resolução eficiente de incidentes"
-        ]
-      },
-      "page": {
-        "title": "Suporte AMS",
-        "description": "Atendimento técnico e funcional contínuo, garantindo o funcionamento ideal do seu sistema de RH com agilidade, flexibilidade e segurança.",
-        "benefits": {
-          "title": "Benefícios",
-          "items": [
-            "Suporte especializado sob demanda",
-            "Resolução rápida de incidentes",
-            "Atendimento por hora ou pacote mensal",
-            "Redução de tempo de inatividade",
-            "Equipe focada em atender seu modelo de negócio",
-            "Liberação do time interno para atividades estratégicas"
-          ]
-        },
-        "methodology": {
-          "title": "Nossa Metodologia",
-          "phases": {
-            "diagnosis": {
-              "title": "Diagnóstico",
-              "steps": [
-                "Levantamento das principais demandas",
-                "Análise de ocorrências recorrentes",
-                "Entendimento do escopo funcional",
-                "Identificação de pontos de atenção"
-              ]
-            },
-            "planning": {
-              "title": "Planejamento",
-              "steps": [
-                "Definição do modelo de atendimento",
-                "Criação de fluxos de suporte",
-                "Estabelecimento de SLA e prioridades",
-                "Planejamento de atendimentos proativos"
-              ]
-            },
-            "implementation": {
-              "title": "Implementação",
-              "steps": [
-                "Execução de atendimentos corretivos",
-                "Suporte a parametrizações e integrações",
-                "Registro e documentação das soluções",
-                "Comunicação contínua com o cliente"
-              ]
-            },
-            "improvement": {
-              "title": "Melhoria Contínua",
-              "steps": [
-                "Análise de indicadores de suporte",
-                "Ações preventivas e evolutivas",
-                "Propostas de melhoria sistêmica",
-                "Revisões periódicas de performance"
-              ]
-            }
-          }
-        }
-      }
-    },
-    "revitalization": {
-      "title": "Revitalização de Sistemas",
-      "description": "Atualização, modernização e aprimoramento de sistemas legados",
-      "benefits": {
-        "title": "Benefícios",
-        "items": [
-          "Infraestrutura tecnológica atualizada",
-          "Melhor desempenho e estabilidade",
-          "Otimização de custos operacionais",
-          "Mais segurança e confiabilidade"
-        ]
-      },
-      "page": {
-        "title": "Revitalização de Sistemas",
-        "description": "Recuperação e aprimoramento de implementações existentes, elevando a performance do sistema com uso inteligente dos recursos já contratados.",
-        "benefits": {
-          "title": "Benefícios",
-          "items": [
-            "Correção de falhas de implementação",
-            "Aumento da eficiência do sistema atual",
-            "Aproveitamento de funcionalidades esquecidas",
-            "Redução de uso de controles paralelos (planilhas)",
-            "Reengajamento dos usuários com o sistema",
-            "Economia ao evitar nova implantação"
-          ]
-        },
-        "methodology": {
-          "title": "Nossa Metodologia",
-          "phases": {
-            "diagnosis": {
-              "title": "Diagnóstico",
-              "steps": [
-                "Análise do cenário atual do sistema",
-                "Levantamento de falhas e limitações",
-                "Avaliação da aderência aos processos de negócio",
-                "Entrevistas com usuários-chave"
-              ]
-            },
-            "planning": {
-              "title": "Planejamento",
-              "steps": [
-                "Definição do escopo de revitalização",
-                "Proposta de ajustes e melhorias",
-                "Cronograma de reestruturação",
-                "Alinhamento com áreas impactadas"
-              ]
-            },
-            "implementation": {
-              "title": "Implementação",
-              "steps": [
-                "Ajustes e reconfigurações no sistema",
-                "Atualização de cadastros e fluxos",
-                "Validação de entregas com o cliente",
-                "Testes e homologações"
-              ]
-            },
-            "training": {
-              "title": "Capacitação e Sustentação",
-              "steps": [
-                "Treinamento das equipes",
-                "Criação de guias e manuais",
-                "Apoio pós-revitalização",
-                "Acompanhamento da adoção"
-              ]
-            }
-          }
-        }
-      }
-    },
-    "optimization": {
-      "title": "Otimização de Processos",
-      "description": "Aprimoramento de fluxos de trabalho, aumentando produtividade e eficiência",
-      "benefits": {
-        "title": "Benefícios",
-        "items": [
-          "Operações mais eficientes",
-          "Processos enxutos e ágeis",
-          "Diminuição de falhas e retrabalho",
-          "Ganhos significativos em produtividade"
-        ]
-      },
-      "page": {
-        "title": "Otimização de Processos",
-        "description": "Aprimoramento e automação de fluxos de trabalho para maior eficiência operacional, redução de custos e aumento da produtividade.",
-        "benefits": {
-          "title": "Benefícios",
-          "items": [
-            "Aumento da eficiência operacional",
-            "Redução de custos e desperdícios",
-            "Padronização de processos",
-            "Melhoria da qualidade",
-            "Aumento da produtividade",
-            "Maior satisfação dos clientes"
-          ]
-        },
-        "methodology": {
-          "title": "Nossa Metodologia",
-          "phases": {
-            "mapping": {
-              "title": "Mapeamento",
-              "steps": [
-                "Identificação de processos críticos",
-                "Documentação de fluxos atuais",
-                "Análise de gargalos",
-                "Levantamento de indicadores"
-              ]
-            },
-            "optimization": {
-              "title": "Otimização",
-              "steps": [
-                "Redesenho de processos",
-                "Eliminação de desperdícios",
-                "Automação de atividades",
-                "Definição de controles"
-              ]
-            },
-            "implementation": {
-              "title": "Implementação",
-              "steps": [
-                "Treinamento das equipes",
-                "Implantação de melhorias",
-                "Monitoramento de resultados",
-                "Melhoria contínua"
-              ]
-            },
-            "governance": {
-              "title": "Governança",
-              "steps": [
-                "Estabelecimento de indicadores-chave",
-                "Criação de rotinas de controle",
-                "Reuniões de acompanhamento",
-                "Plano de evolução dos processos"
-              ]
-            }
-          }
-        }
-      }
-    },
-    "methodology": {
-      "title": "Nossa Metodologia",
-      "phases": {
-        "diagnosis": {
-          "title": "Diagnóstico",
-          "steps": [
-            "Análise aprofundada dos processos atuais",
-            "Identificação de pontos críticos",
-            "Avaliação de sistemas e fluxos",
-            "Definição dos objetivos do projeto"
-          ]
-        },
-        "planning": {
-          "title": "Planejamento",
-          "steps": [
-            "Criação da estratégia de atuação",
-            "Desenvolvimento do plano de ação",
-            "Distribuição de responsabilidades",
-            "Elaboração de cronograma detalhado"
-          ]
-        },
-        "implementation": {
-          "title": "Implementação",
-          "steps": [
-            "Execução das soluções propostas",
-            "Monitoramento constante dos resultados",
-            "Ajustes e melhorias contínuas",
-            "Validação dos objetivos alcançados"
-          ]
-        }
-      }
-    },
-    "cta": "Fale com um especialista"
-  },
-  "about": {
-    "title": "Sobre Nós",
-    "description": "Transformamos desafios em oportunidades, impulsionando o crescimento sustentável dos nossos clientes.",
-    "focus": {
-      "title": "Foco no Cliente",
-      "description": "Entendemos as necessidades únicas de cada cliente para oferecer soluções personalizadas e assertivas."
-    },
-    "automation": {
-      "title": "Automação Inteligente",
-      "description": "Aplicamos tecnologia de ponta para automatizar processos e gerar mais eficiência operacional."
-    },
-    "consulting": {
-      "title": "Consultoria Estratégica",
-      "description": "Acompanhamos sua jornada com soluções que garantem resultados sólidos e duradouros."
-    }
-  },
-  "cases": {
-    "title": "Cases de Sucesso",
-    "description": "Veja como ajudamos empresas a transformarem seus processos",
-    "viewCase": "Ver case completo",
-    "trajectory": {
-      "title": "Nossa Trajetória",
-      "description1": "Antes mesmo da fundação da Five Consulting, nossa equipe já havia participado de projetos em",
-      "description2": "mais de 100 empresas ",
-      "description3": "de diversos portes e segmentos.",
-      "description4": "Essa jornada consolidou nossa experiência em implementação de sistemas de RH, suporte técnico, otimização de processos, treinamentos e consultoria estratégica.",
-      "description5": "Com essa bagagem, conseguimos entender rapidamente os desafios do seu negócio e entregar soluções sob medida com agilidade, profundidade técnica e foco em resultado.",
-      "stats": {
-        "companies": "Empresas atendidas",
-        "experience": "Anos de experiência em projetos de RH"
-      }
-    },
-    "sectors": {
-      "title": "Setores em que atuamos",
-      "description": "A experiência da nossa equipe se estende por projetos em empresas de variados setores da economia, incluindo:",
-      "list": {
-        "industry": "Indústria",
-        "retail": "Varejo",
-        "health": "Saúde",
-        "education": "Educação",
-        "pharmaceutical": "Farmacêutico",
-        "logistics": "Logística",
-        "finance": "Finanças",
-        "technology": "Tecnologia",
-        "automotive": "Automotivo",
-        "construction": "Construção Civil",
-        "fraud": "Prevenção a Fraudes",
-        "supermarket": "Supermercado"
-      }
-    },
-    "recent": {
-      "title": "Cases Recentes",
-      "clearsale": {
-        "company": "ClearSale",
-        "segment": "Prevenção a Fraudes",
-        "service": "Suporte AMS mensal",
-        "challenge": "Reduzir o backlog de chamados e melhorar o tempo de resposta nas demandas internas.",
-        "actions": [
-          "Atendimento contínuo via modelo AMS",
-          "Gestão estratégica dos chamados",
-          "Apoio técnico na estabilização do ambiente"
-        ],
-        "results": [
-          "Redução expressiva do backlog",
-          "Mais fluidez e eficiência no atendimento às áreas de negócio"
-        ]
-      },
-      "mitre": {
-        "company": "Mitre",
-        "segment": "Construção Civil",
-        "service": "Consultoria pontual",
-        "challenge": "Melhorar o processo de admissão e integração de novos colaboradores com foco em eficiência e digitalização.",
-        "actions": [
-          "Diagnóstico do fluxo de admissão",
-          "Otimização do processo com foco em experiência do colaborador",
-          "Criação de relatórios personalizados com foco em assinatura digital"
-        ],
-        "results": [
-          "Processo mais ágil e digital",
-          "Aumento no controle e conformidade com as etapas de admissão"
-        ]
-      },
-      "labels": {
-        "actions": "Atuação:",
-        "results": "Resultados:"
-      }
-    },
-    "cta": {
-      "title": "Vem ser o nosso próximo case de sucesso!",
-      "description": "Entre em contato conosco e descubra como podemos transformar seus processos de RH.",
-      "button": "Fale conosco"
-    }
-  },
-  "contact": {
-    "title": "Contato",
-    "description": "Fale com a nossa equipe",
-    "form": {
-      "title": "Fale Conosco",
-      "name": "Nome",
-      "email": "E-mail",
-      "phone": "Telefone",
-      "subject": "Assunto",
-      "message": "Mensagem",
-      "submit": "Enviar mensagem",
-      "success": "Mensagem enviada com sucesso!",
-      "error": "Erro ao enviar mensagem. Tente novamente."
-    }
-  },
-  "common": {
-    "home": "Início"
-  },
-  "footer": {
-    "about": "Sobre",
-    "aboutText": "Especialistas em transformar desafios em soluções inovadoras para empresas.",
-    "quickLinks": "Links Rápidos",
-    "contact": "Contato",
-    "newsletter": "Newsletter",
-    "newsletterText": "Cadastre-se para receber novidades e conteúdos exclusivos",
-    "rights": "© 2025 FIVE Consulting - CNPJ: 44.262.900/0001-82. Todos os direitos reservados.",
-    "privacyPolicy": "Política de Privacidade",
-    "termsOfUse": "Termos de Uso"
-  },
-  "newsletter": {
-    "placeholder": "Seu e-mail",
-    "subscribe": "Inscrever",
-    "success": "Inscrição realizada com sucesso!",
-    "error": "Erro ao realizar inscrição",
-    "emailRequired": "E-mail é obrigatório",
-    "unsubscribe": "Você pode cancelar sua inscrição a qualquer momento"
-  },
-  "cookies": {
-    "title": "Cookies",
-    "message": "Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa",
-    "privacyLink": "Política de Privacidade",
-    "accept": "Aceitar",
-    "customize": "Personalizar"
-  },
-  "whatsapp": {
-    "tooltip": "Fale conosco no WhatsApp",
-    "message": "Olá! Gostaria de saber mais sobre seus serviços."
-  },
-  "blog": {
-    "title": "Blog",
-    "subtitle": "Insights, tendências e soluções para impulsionar seu negócio",
-    "showingCategoryPosts": "Exibindo posts na categoria",
-    "search": "Pesquisar",
-    "categories": "Categorias",
-    "recentPosts": "Posts Recentes",
-    "featured": "Destaque",
-    "readingTime": "{{time}} min de leitura",
-    "allCategories": "Todas as categorias",
-    "loadMore": "Carregar mais",
-    "noResults": "Nenhum resultado encontrado",
-    "tryAdjustSearch": "Tente alterar sua busca ou filtros",
-    "showingResults": "Mostrando {{count}} resultados",
-    "showingResultsInCategory": "Mostrando {{count}} resultados em {{category}}",
-    "showingResultsWithSearch": "Mostrando {{count}} resultados para \"{{query}}\"",
-    "showingResultsWithCategoryAndSearch": "Mostrando {{count}} resultados em {{category}} para \"{{query}}\"",
-    "share": "Compartilhar",
-    "shareOnFacebook": "Compartilhar no Facebook",
-    "shareOnTwitter": "Compartilhar no Twitter",
-    "shareOnLinkedIn": "Compartilhar no LinkedIn",
-    "copyLink": "Copiar link",
-    "author": "Autor",
-    "postNotFound": "Post não encontrado",
-    "errorLoading": "Erro ao carregar conteúdo"
-  },
-  "privacy": {
-    "title": "Política de Privacidade",
-    "description": "Saiba como protegemos seus dados pessoais.",
-    "intro": "A FIVE Consulting valoriza sua privacidade. Esta Política de Privacidade descreve como coletamos, usamos e protegemos suas informações.",
-    "collection": {
-      "title": "1. Informações que coletamos",
-      "description": "Coletamos dados como nome, e-mail, telefone e informações profissionais que você fornece voluntariamente ao entrar em contato ou se inscrever em nossa newsletter."
-    },
-    "usage": {
-      "title": "2. Como utilizamos seus dados",
-      "description": "Utilizamos seus dados para prestar serviços, responder solicitações, enviar conteúdos relevantes, melhorar sua experiência e cumprir obrigações legais."
-    },
-    "sharing": {
-      "title": "3. Compartilhamento de dados",
-      "description": "Seus dados não são compartilhados com terceiros, exceto quando necessário para execução dos serviços ou por exigência legal."
-    },
-    "security": {
-      "title": "4. Segurança da informação",
-      "description": "Adotamos práticas rigorosas de segurança para proteger seus dados contra acessos não autorizados, perdas ou alterações."
-    },
-    "cookies": {
-      "title": "5. Cookies",
-      "description": "Usamos cookies para melhorar sua navegação, personalizar conteúdos e analisar o tráfego. Você pode gerenciar suas preferências no nosso banner de cookies."
-    },
-    "rights": {
-      "title": "6. Seus direitos",
-      "description": "De acordo com a LGPD, você pode acessar, corrigir ou solicitar a exclusão dos seus dados. Entre em contato pelo e-mail contato@fiveconsulting.com.br."
-    },
-    "changes": {
-      "title": "7. Alterações nesta política",
-      "description": "Podemos atualizar esta política periodicamente. A versão vigente estará sempre disponível nesta página."
-    },
-    "lastUpdate": "Última atualização: Maio de 2025"
-  },
-  "terms": {
-    "title": "Termos de Uso",
-    "description": "Confira os termos e condições de uso do nosso site e serviços.",
-    "intro": "Estes Termos de Uso regem o acesso e uso deste site e de nossos serviços. Ao utilizar qualquer funcionalidade, você concorda com estes termos.",
-    "usageLicense": {
-      "title": "1. Licença de Uso",
-      "description": "Você recebe uma licença limitada, não exclusiva e intransferível para utilizar nossos serviços conforme estes termos.",
-      "items": [
-        "Uso pessoal e não comercial",
-        "Proibido redistribuir o conteúdo",
-        "Proibido modificar o conteúdo",
-        "Vedado o uso para fins ilegais"
-      ],
-      "termination": "Reservamo-nos o direito de suspender ou encerrar seu acesso em caso de violação destes termos."
-    },
-    "disclaimer": {
-      "title": "2. Isenção de Responsabilidade",
-      "description": "Os serviços são oferecidos 'como estão', sem garantias explícitas ou implícitas.",
-      "items": [
-        "Não garantimos disponibilidade contínua",
-        "Isentos de responsabilidade por danos indiretos",
-        "Não garantimos total precisão do conteúdo",
-        "Podemos alterar os serviços a qualquer momento"
-      ],
-      "termination": "Não somos responsáveis por danos decorrentes do uso ou da incapacidade de usar nossos serviços."
-    },
-    "limitations": {
-      "title": "3. Limitações de Uso",
-      "description": "Ao utilizar nossos serviços, você se compromete a não:",
-      "items": [
-        "Violar qualquer lei ou regulamento",
-        "Infringir direitos de propriedade intelectual",
-        "Distribuir malware ou códigos maliciosos",
-        "Acessar áreas restritas sem autorização"
-      ],
-      "termination": "O descumprimento pode acarretar a suspensão imediata dos serviços e medidas legais cabíveis."
-    },
-    "accuracy": {
-      "title": "4. Precisão das Informações",
-      "description": "Buscamos manter as informações atualizadas e corretas.",
-      "items": [
-        "O conteúdo pode ser alterado sem aviso prévio",
-        "Realizamos verificações periódicas",
-        "Corrigimos eventuais erros rapidamente",
-        "Mantemos atualizações frequentes"
-      ],
-      "termination": "Não garantimos que todas as informações estejam livres de erros ou completamente atualizadas."
-    },
-    "links": {
-      "title": "5. Links Externos",
-      "description": "Nosso site pode conter links para sites de terceiros.",
-      "items": [
-        "Não temos controle sobre sites externos",
-        "Não nos responsabilizamos pelo conteúdo de terceiros",
-        "O acesso é de responsabilidade do usuário",
-        "Recomendamos a leitura dos termos dos sites externos"
-      ],
-      "termination": "Isentamo-nos de qualquer responsabilidade por danos causados por conteúdos ou serviços de terceiros."
-    },
-    "changes": {
-      "title": "6. Alterações nos Termos",
-      "description": "Estes Termos de Uso podem ser modificados a qualquer momento. As alterações entram em vigor imediatamente após serem publicadas nesta página. É sua responsabilidade revisá-los periodicamente.",
-      "termination": "O uso contínuo dos serviços após alterações indica sua aceitação dos termos atualizados."
-    },
-    "governingLaw": {
-      "title": "7. Lei Aplicável",
-      "description": "Estes termos são regidos pelas leis brasileiras.",
-      "items": [
-        "Competência dos tribunais brasileiros",
-        "Resolução de disputas no Brasil",
-        "Aplicação da legislação nacional",
-        "Foro exclusivo na comarca de São Paulo, SP"
-      ],
-      "termination": "Eventuais litígios serão resolvidos no foro da comarca de São Paulo, Brasil."
-    },
-    "lastUpdate": "Última atualização: Maio de 2025"
-  }
+  "menu": {
+    "home": "Home",
+    "about": "Sobre",
+    "services": "Serviços",
+    "cases": "Cases",
+    "blog": "Blog",
+    "contact": "Contato",
+    "clientArea": "Área do Cliente",
+    "toggle": "Alternar menu"
+  },
+  "hero": {
+    "title": "Consultoria especializada em Sistemas de Recursos Humanos",
+    "subtitle": "Potencializando seu RH com Soluções de TI sob medida",
+    "cta": "Solicite uma Consultoria"
+  },
+  "services": {
+    "title": "Nossos Serviços",
+    "subtitle": "Soluções inteligentes para impulsionar seu negócio",
+    "consulting": {
+      "title": "Consultoria Especializada",
+      "description": "Estratégias para otimizar processos e sistemas de RH com alto desempenho",
+      "benefits": {
+        "title": "Benefícios",
+        "items": [
+          "Mapeamento completo dos processos",
+          "Soluções customizadas",
+          "Implantação orientada",
+          "Acompanhamento contínuo"
+        ]
+      },
+      "page": {
+        "title": "Consultoria Especialista",
+        "description": "Soluções personalizadas em sistemas de RH, com foco estratégico, alinhadas às necessidades do negócio e à maturidade da sua operação.",
+        "benefits": {
+          "title": "Benefícios",
+          "items": [
+            "Diagnóstico aprofundado do cenário atual",
+            "Soluções sob medida para sua realidade",
+            "Maior eficiência na gestão de pessoas",
+            "Redução de retrabalho e falhas operacionais",
+            "Equipe mais capacitada e engajada",
+            "Apoio estratégico à tomada de decisão"
+          ]
+        },
+        "methodology": {
+          "title": "Nossa Metodologia",
+          "phases": {
+            "diagnosis": {
+              "title": "Diagnóstico",
+              "steps": [
+                "Entendimento do negócio e desafios",
+                "Análise dos processos atuais",
+                "Identificação de pontos críticos",
+                "Avaliação da maturidade do sistema"
+              ]
+            },
+            "planning": {
+              "title": "Planejamento",
+              "steps": [
+                "Definição dos objetivos e metas",
+                "Elaboração do plano de ação",
+                "Alinhamento com as lideranças",
+                "Cronograma de entregas e recursos"
+              ]
+            },
+            "implementation": {
+              "title": "Implementação",
+              "steps": [
+                "Parametrizações no sistema",
+                "Apoio técnico e funcional",
+                "Validação junto aos usuários",
+                "Gestão da mudança"
+              ]
+            },
+            "monitoring": {
+              "title": "Acompanhamento",
+              "steps": [
+                "Avaliação dos resultados",
+                "Suporte pós-implantação",
+                "Recomendações de melhoria contínua",
+                "Relatórios executivos"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "support": {
+      "title": "Suporte AMS",
+      "description": "Manutenção, suporte técnico e evolução dos sistemas de RH",
+      "benefits": {
+        "title": "Benefícios",
+        "items": [
+          "Atendimento ágil e especializado",
+          "Suporte 24/7",
+          "Prevenção de falhas",
+          "Resolução eficiente de incidentes"
+        ]
+      },
+      "page": {
+        "title": "Suporte AMS",
+        "description": "Atendimento técnico e funcional contínuo, garantindo o funcionamento ideal do seu sistema de RH com agilidade, flexibilidade e segurança.",
+        "benefits": {
+          "title": "Benefícios",
+          "items": [
+            "Suporte especializado sob demanda",
+            "Resolução rápida de incidentes",
+            "Atendimento por hora ou pacote mensal",
+            "Redução de tempo de inatividade",
+            "Equipe focada em atender seu modelo de negócio",
+            "Liberação do time interno para atividades estratégicas"
+          ]
+        },
+        "methodology": {
+          "title": "Nossa Metodologia",
+          "phases": {
+            "diagnosis": {
+              "title": "Diagnóstico",
+              "steps": [
+                "Levantamento das principais demandas",
+                "Análise de ocorrências recorrentes",
+                "Entendimento do escopo funcional",
+                "Identificação de pontos de atenção"
+              ]
+            },
+            "planning": {
+              "title": "Planejamento",
+              "steps": [
+                "Definição do modelo de atendimento",
+                "Criação de fluxos de suporte",
+                "Estabelecimento de SLA e prioridades",
+                "Planejamento de atendimentos proativos"
+              ]
+            },
+            "implementation": {
+              "title": "Implementação",
+              "steps": [
+                "Execução de atendimentos corretivos",
+                "Suporte a parametrizações e integrações",
+                "Registro e documentação das soluções",
+                "Comunicação contínua com o cliente"
+              ]
+            },
+            "improvement": {
+              "title": "Melhoria Contínua",
+              "steps": [
+                "Análise de indicadores de suporte",
+                "Ações preventivas e evolutivas",
+                "Propostas de melhoria sistêmica",
+                "Revisões periódicas de performance"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "revitalization": {
+      "title": "Revitalização de Sistemas",
+      "description": "Atualização, modernização e aprimoramento de sistemas legados",
+      "benefits": {
+        "title": "Benefícios",
+        "items": [
+          "Infraestrutura tecnológica atualizada",
+          "Melhor desempenho e estabilidade",
+          "Otimização de custos operacionais",
+          "Mais segurança e confiabilidade"
+        ]
+      },
+      "page": {
+        "title": "Revitalização de Sistemas",
+        "description": "Recuperação e aprimoramento de implementações existentes, elevando a performance do sistema com uso inteligente dos recursos já contratados.",
+        "benefits": {
+          "title": "Benefícios",
+          "items": [
+            "Correção de falhas de implementação",
+            "Aumento da eficiência do sistema atual",
+            "Aproveitamento de funcionalidades esquecidas",
+            "Redução de uso de controles paralelos (planilhas)",
+            "Reengajamento dos usuários com o sistema",
+            "Economia ao evitar nova implantação"
+          ]
+        },
+        "methodology": {
+          "title": "Nossa Metodologia",
+          "phases": {
+            "diagnosis": {
+              "title": "Diagnóstico",
+              "steps": [
+                "Análise do cenário atual do sistema",
+                "Levantamento de falhas e limitações",
+                "Avaliação da aderência aos processos de negócio",
+                "Entrevistas com usuários-chave"
+              ]
+            },
+            "planning": {
+              "title": "Planejamento",
+              "steps": [
+                "Definição do escopo de revitalização",
+                "Proposta de ajustes e melhorias",
+                "Cronograma de reestruturação",
+                "Alinhamento com áreas impactadas"
+              ]
+            },
+            "implementation": {
+              "title": "Implementação",
+              "steps": [
+                "Ajustes e reconfigurações no sistema",
+                "Atualização de cadastros e fluxos",
+                "Validação de entregas com o cliente",
+                "Testes e homologações"
+              ]
+            },
+            "training": {
+              "title": "Capacitação e Sustentação",
+              "steps": [
+                "Treinamento das equipes",
+                "Criação de guias e manuais",
+                "Apoio pós-revitalização",
+                "Acompanhamento da adoção"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "optimization": {
+      "title": "Otimização de Processos",
+      "description": "Aprimoramento de fluxos de trabalho, aumentando produtividade e eficiência",
+      "benefits": {
+        "title": "Benefícios",
+        "items": [
+          "Operações mais eficientes",
+          "Processos enxutos e ágeis",
+          "Diminuição de falhas e retrabalho",
+          "Ganhos significativos em produtividade"
+        ]
+      },
+      "page": {
+        "title": "Otimização de Processos",
+        "description": "Aprimoramento e automação de fluxos de trabalho para maior eficiência operacional, redução de custos e aumento da produtividade.",
+        "benefits": {
+          "title": "Benefícios",
+          "items": [
+            "Aumento da eficiência operacional",
+            "Redução de custos e desperdícios",
+            "Padronização de processos",
+            "Melhoria da qualidade",
+            "Aumento da produtividade",
+            "Maior satisfação dos clientes"
+          ]
+        },
+        "methodology": {
+          "title": "Nossa Metodologia",
+          "phases": {
+            "mapping": {
+              "title": "Mapeamento",
+              "steps": [
+                "Identificação de processos críticos",
+                "Documentação de fluxos atuais",
+                "Análise de gargalos",
+                "Levantamento de indicadores"
+              ]
+            },
+            "optimization": {
+              "title": "Otimização",
+              "steps": [
+                "Redesenho de processos",
+                "Eliminação de desperdícios",
+                "Automação de atividades",
+                "Definição de controles"
+              ]
+            },
+            "implementation": {
+              "title": "Implementação",
+              "steps": [
+                "Treinamento das equipes",
+                "Implantação de melhorias",
+                "Monitoramento de resultados",
+                "Melhoria contínua"
+              ]
+            },
+            "governance": {
+              "title": "Governança",
+              "steps": [
+                "Estabelecimento de indicadores-chave",
+                "Criação de rotinas de controle",
+                "Reuniões de acompanhamento",
+                "Plano de evolução dos processos"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "methodology": {
+      "title": "Nossa Metodologia",
+      "phases": {
+        "diagnosis": {
+          "title": "Diagnóstico",
+          "steps": [
+            "Análise aprofundada dos processos atuais",
+            "Identificação de pontos críticos",
+            "Avaliação de sistemas e fluxos",
+            "Definição dos objetivos do projeto"
+          ]
+        },
+        "planning": {
+          "title": "Planejamento",
+          "steps": [
+            "Criação da estratégia de atuação",
+            "Desenvolvimento do plano de ação",
+            "Distribuição de responsabilidades",
+            "Elaboração de cronograma detalhado"
+          ]
+        },
+        "implementation": {
+          "title": "Implementação",
+          "steps": [
+            "Execução das soluções propostas",
+            "Monitoramento constante dos resultados",
+            "Ajustes e melhorias contínuas",
+            "Validação dos objetivos alcançados"
+          ]
+        }
+      }
+    },
+    "cta": "Fale com um especialista"
+  },
+  "about": {
+    "title": "Sobre Nós",
+    "description": "Transformamos desafios em oportunidades, impulsionando o crescimento sustentável dos nossos clientes.",
+    "focus": {
+      "title": "Foco no Cliente",
+      "description": "Entendemos as necessidades únicas de cada cliente para oferecer soluções personalizadas e assertivas."
+    },
+    "automation": {
+      "title": "Automação Inteligente",
+      "description": "Aplicamos tecnologia de ponta para automatizar processos e gerar mais eficiência operacional."
+    },
+    "consulting": {
+      "title": "Consultoria Estratégica",
+      "description": "Acompanhamos sua jornada com soluções que garantem resultados sólidos e duradouros."
+    }
+  },
+  "cases": {
+    "title": "Cases de Sucesso",
+    "description": "Veja como ajudamos empresas a transformarem seus processos",
+    "viewCase": "Ver case completo",
+    "trajectory": {
+      "title": "Nossa Trajetória",
+      "description1": "Antes mesmo da fundação da Five Consulting, nossa equipe já havia participado de projetos em",
+      "description2": "mais de 100 empresas ",
+      "description3": "de diversos portes e segmentos.",
+      "description4": "Essa jornada consolidou nossa experiência em implementação de sistemas de RH, suporte técnico, otimização de processos, treinamentos e consultoria estratégica.",
+      "description5": "Com essa bagagem, conseguimos entender rapidamente os desafios do seu negócio e entregar soluções sob medida com agilidade, profundidade técnica e foco em resultado.",
+      "stats": {
+        "companies": "Empresas atendidas",
+        "experience": "Anos de experiência em projetos de RH"
+      }
+    },
+    "sectors": {
+      "title": "Setores em que atuamos",
+      "description": "A experiência da nossa equipe se estende por projetos em empresas de variados setores da economia, incluindo:",
+      "list": {
+        "industry": "Indústria",
+        "retail": "Varejo",
+        "health": "Saúde",
+        "education": "Educação",
+        "pharmaceutical": "Farmacêutico",
+        "logistics": "Logística",
+        "finance": "Finanças",
+        "technology": "Tecnologia",
+        "automotive": "Automotivo",
+        "construction": "Construção Civil",
+        "fraud": "Prevenção a Fraudes",
+        "supermarket": "Supermercado"
+      }
+    },
+    "recent": {
+      "title": "Cases Recentes",
+      "clearsale": {
+        "company": "ClearSale",
+        "segment": "Prevenção a Fraudes",
+        "service": "Suporte AMS mensal",
+        "challenge": "Reduzir o backlog de chamados e melhorar o tempo de resposta nas demandas internas.",
+        "actions": [
+          "Atendimento contínuo via modelo AMS",
+          "Gestão estratégica dos chamados",
+          "Apoio técnico na estabilização do ambiente"
+        ],
+        "results": [
+          "Redução expressiva do backlog",
+          "Mais fluidez e eficiência no atendimento às áreas de negócio"
+        ]
+      },
+      "mitre": {
+        "company": "Mitre",
+        "segment": "Construção Civil",
+        "service": "Consultoria pontual",
+        "challenge": "Melhorar o processo de admissão e integração de novos colaboradores com foco em eficiência e digitalização.",
+        "actions": [
+          "Diagnóstico do fluxo de admissão",
+          "Otimização do processo com foco em experiência do colaborador",
+          "Criação de relatórios personalizados com foco em assinatura digital"
+        ],
+        "results": [
+          "Processo mais ágil e digital",
+          "Aumento no controle e conformidade com as etapas de admissão"
+        ]
+      },
+      "labels": {
+        "actions": "Atuação:",
+        "results": "Resultados:"
+      }
+    },
+    "cta": {
+      "title": "Vem ser o nosso próximo case de sucesso!",
+      "description": "Entre em contato conosco e descubra como podemos transformar seus processos de RH.",
+      "button": "Fale conosco"
+    }
+  },
+  "contact": {
+    "title": "Contato",
+    "description": "Fale com a nossa equipe",
+    "form": {
+      "title": "Fale Conosco",
+      "name": "Nome",
+      "email": "E-mail",
+      "phone": "Telefone",
+      "subject": "Assunto",
+      "message": "Mensagem",
+      "submit": "Enviar mensagem",
+      "success": "Mensagem enviada com sucesso!",
+      "error": "Erro ao enviar mensagem. Tente novamente."
+    }
+  },
+  "common": {
+    "home": "Início",
+    "loading": "Carregando..."
+  },
+  "footer": {
+    "about": "Sobre",
+    "aboutText": "Especialistas em transformar desafios em soluções inovadoras para empresas.",
+    "quickLinks": "Links Rápidos",
+    "contact": "Contato",
+    "newsletter": "Newsletter",
+    "newsletterText": "Cadastre-se para receber novidades e conteúdos exclusivos",
+    "rights": "© 2025 FIVE Consulting - CNPJ: 44.262.900/0001-82. Todos os direitos reservados.",
+    "privacyPolicy": "Política de Privacidade",
+    "termsOfUse": "Termos de Uso"
+  },
+  "newsletter": {
+    "placeholder": "Seu e-mail",
+    "subscribe": "Inscrever",
+    "success": "Inscrição realizada com sucesso!",
+    "error": "Erro ao realizar inscrição",
+    "emailRequired": "E-mail é obrigatório",
+    "unsubscribe": "Você pode cancelar sua inscrição a qualquer momento"
+  },
+  "cookies": {
+    "title": "Cookies",
+    "message": "Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa",
+    "privacyLink": "Política de Privacidade",
+    "accept": "Aceitar",
+    "customize": "Personalizar"
+  },
+  "whatsapp": {
+    "tooltip": "Fale conosco no WhatsApp",
+    "message": "Olá! Gostaria de saber mais sobre seus serviços."
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Insights, tendências e soluções para impulsionar seu negócio",
+    "showingCategoryPosts": "Exibindo posts na categoria",
+    "search": "Pesquisar",
+    "categories": "Categorias",
+    "recentPosts": "Posts Recentes",
+    "featured": "Destaque",
+    "readingTime": "{{time}} min de leitura",
+    "allCategories": "Todas as categorias",
+    "loadMore": "Carregar mais",
+    "noResults": "Nenhum resultado encontrado",
+    "tryAdjustSearch": "Tente alterar sua busca ou filtros",
+    "showingResults": "Mostrando {{count}} resultados",
+    "showingResultsInCategory": "Mostrando {{count}} resultados em {{category}}",
+    "showingResultsWithSearch": "Mostrando {{count}} resultados para \"{{query}}\"",
+    "showingResultsWithCategoryAndSearch": "Mostrando {{count}} resultados em {{category}} para \"{{query}}\"",
+    "share": "Compartilhar",
+    "shareOnFacebook": "Compartilhar no Facebook",
+    "shareOnTwitter": "Compartilhar no Twitter",
+    "shareOnLinkedIn": "Compartilhar no LinkedIn",
+    "copyLink": "Copiar link",
+    "author": "Autor",
+    "postNotFound": "Post não encontrado",
+    "errorLoading": "Erro ao carregar conteúdo"
+  },
+  "privacy": {
+    "title": "Política de Privacidade",
+    "description": "Saiba como protegemos seus dados pessoais.",
+    "intro": "A FIVE Consulting valoriza sua privacidade. Esta Política de Privacidade descreve como coletamos, usamos e protegemos suas informações.",
+    "collection": {
+      "title": "1. Informações que coletamos",
+      "description": "Coletamos dados como nome, e-mail, telefone e informações profissionais que você fornece voluntariamente ao entrar em contato ou se inscrever em nossa newsletter."
+    },
+    "usage": {
+      "title": "2. Como utilizamos seus dados",
+      "description": "Utilizamos seus dados para prestar serviços, responder solicitações, enviar conteúdos relevantes, melhorar sua experiência e cumprir obrigações legais."
+    },
+    "sharing": {
+      "title": "3. Compartilhamento de dados",
+      "description": "Seus dados não são compartilhados com terceiros, exceto quando necessário para execução dos serviços ou por exigência legal."
+    },
+    "security": {
+      "title": "4. Segurança da informação",
+      "description": "Adotamos práticas rigorosas de segurança para proteger seus dados contra acessos não autorizados, perdas ou alterações."
+    },
+    "cookies": {
+      "title": "5. Cookies",
+      "description": "Usamos cookies para melhorar sua navegação, personalizar conteúdos e analisar o tráfego. Você pode gerenciar suas preferências no nosso banner de cookies."
+    },
+    "rights": {
+      "title": "6. Seus direitos",
+      "description": "De acordo com a LGPD, você pode acessar, corrigir ou solicitar a exclusão dos seus dados. Entre em contato pelo e-mail contato@fiveconsulting.com.br."
+    },
+    "changes": {
+      "title": "7. Alterações nesta política",
+      "description": "Podemos atualizar esta política periodicamente. A versão vigente estará sempre disponível nesta página."
+    },
+    "lastUpdate": "Última atualização: Maio de 2025"
+  },
+  "terms": {
+    "title": "Termos de Uso",
+    "description": "Confira os termos e condições de uso do nosso site e serviços.",
+    "intro": "Estes Termos de Uso regem o acesso e uso deste site e de nossos serviços. Ao utilizar qualquer funcionalidade, você concorda com estes termos.",
+    "usageLicense": {
+      "title": "1. Licença de Uso",
+      "description": "Você recebe uma licença limitada, não exclusiva e intransferível para utilizar nossos serviços conforme estes termos.",
+      "items": [
+        "Uso pessoal e não comercial",
+        "Proibido redistribuir o conteúdo",
+        "Proibido modificar o conteúdo",
+        "Vedado o uso para fins ilegais"
+      ],
+      "termination": "Reservamo-nos o direito de suspender ou encerrar seu acesso em caso de violação destes termos."
+    },
+    "disclaimer": {
+      "title": "2. Isenção de Responsabilidade",
+      "description": "Os serviços são oferecidos 'como estão', sem garantias explícitas ou implícitas.",
+      "items": [
+        "Não garantimos disponibilidade contínua",
+        "Isentos de responsabilidade por danos indiretos",
+        "Não garantimos total precisão do conteúdo",
+        "Podemos alterar os serviços a qualquer momento"
+      ],
+      "termination": "Não somos responsáveis por danos decorrentes do uso ou da incapacidade de usar nossos serviços."
+    },
+    "limitations": {
+      "title": "3. Limitações de Uso",
+      "description": "Ao utilizar nossos serviços, você se compromete a não:",
+      "items": [
+        "Violar qualquer lei ou regulamento",
+        "Infringir direitos de propriedade intelectual",
+        "Distribuir malware ou códigos maliciosos",
+        "Acessar áreas restritas sem autorização"
+      ],
+      "termination": "O descumprimento pode acarretar a suspensão imediata dos serviços e medidas legais cabíveis."
+    },
+    "accuracy": {
+      "title": "4. Precisão das Informações",
+      "description": "Buscamos manter as informações atualizadas e corretas.",
+      "items": [
+        "O conteúdo pode ser alterado sem aviso prévio",
+        "Realizamos verificações periódicas",
+        "Corrigimos eventuais erros rapidamente",
+        "Mantemos atualizações frequentes"
+      ],
+      "termination": "Não garantimos que todas as informações estejam livres de erros ou completamente atualizadas."
+    },
+    "links": {
+      "title": "5. Links Externos",
+      "description": "Nosso site pode conter links para sites de terceiros.",
+      "items": [
+        "Não temos controle sobre sites externos",
+        "Não nos responsabilizamos pelo conteúdo de terceiros",
+        "O acesso é de responsabilidade do usuário",
+        "Recomendamos a leitura dos termos dos sites externos"
+      ],
+      "termination": "Isentamo-nos de qualquer responsabilidade por danos causados por conteúdos ou serviços de terceiros."
+    },
+    "changes": {
+      "title": "6. Alterações nos Termos",
+      "description": "Estes Termos de Uso podem ser modificados a qualquer momento. As alterações entram em vigor imediatamente após serem publicadas nesta página. É sua responsabilidade revisá-los periodicamente.",
+      "termination": "O uso contínuo dos serviços após alterações indica sua aceitação dos termos atualizados."
+    },
+    "governingLaw": {
+      "title": "7. Lei Aplicável",
+      "description": "Estes termos são regidos pelas leis brasileiras.",
+      "items": [
+        "Competência dos tribunais brasileiros",
+        "Resolução de disputas no Brasil",
+        "Aplicação da legislação nacional",
+        "Foro exclusivo na comarca de São Paulo, SP"
+      ],
+      "termination": "Eventuais litígios serão resolvidos no foro da comarca de São Paulo, Brasil."
+    },
+    "lastUpdate": "Última atualização: Maio de 2025"
+  }
 }
