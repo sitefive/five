@@ -11,6 +11,7 @@ import ShareButtons from '../components/molecules/ShareButtons';
 import Breadcrumbs from '../components/molecules/Breadcrumbs';
 import BlogPostSchema from '../components/seo/BlogPostSchema';
 import Button from '../components/atoms/Button';
+import DOMPurify from 'dompurify';
 
 const PostDetail = () => {
   const { t, i18n } = useTranslation();
@@ -188,7 +189,7 @@ const PostDetail = () => {
                 )}
               </div>
               
-              <div className="mt-6 prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post.content || '' }} />
+              <div className="mt-6 prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content || '') }} />
               
               <ShareButtons
                   url={canonicalUrl}
