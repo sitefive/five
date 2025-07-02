@@ -5,168 +5,98 @@ import { supabase } from '../lib/supabase';
 
 const POSTS_PER_PAGE = 9;
 
-// ... (Interface e initialState não mudam)
+// A interface e o estado inicial não precisam de mudanças.
 interface BlogContextType {
-  state: BlogState;
-  dispatch: React.Dispatch<BlogAction>;
-  searchPosts: (query: string) => void;
-  filterByCategory: (category: Category | null) => void;
-  loadMorePosts: () => void;
+  state: BlogState;
+  dispatch: React.Dispatch<BlogAction>;
+  searchPosts: (query: string) => void;
+  filterByCategory: (category: Category | null) => void;
+  loadMorePosts: () => void;
 }
 
 const initialState: BlogState = {
-  posts: [],
-  filteredPosts: [],
-  categories: [],
-  searchQuery: '',
-  currentCategory: null,
-  page: 1,
-  loading: true,
-  error: null,
-  hasMore: true,
-  total: 0
+  posts: [],
+  filteredPosts: [],
+  categories: [],
+  searchQuery: '',
+  currentCategory: null,
+  page: 1,
+  loading: true,
+  error: null,
+  hasMore: true,
+  total: 0
 };
 
 
 const BlogContext = createContext<BlogContextType | undefined>(undefined);
 
-// O Reducer foi ajustado para lidar com o novo formato das categorias
 function blogReducer(state: BlogState, action: BlogAction): BlogState {
-    switch (action.type) {
-      case 'SET_LOADING':
-        return { ...state, loading: action.payload };
-      case 'SET_ERROR':
-        return { ...state, error: action.payload, loading: false };
-      case 'SET_INITIAL_DATA':
-        return {
-          ...state,
-          posts: action.payload.posts,
-          filteredPosts: action.payload.posts,
-          categories: action.payload.categories,
-          total: action.payload.total,
-          page: 1,
-          hasMore: action.payload.posts.length < (action.payload.total || 0),
-          loading: false,
-        };
-      case 'ADD_POSTS':
-        const newPosts = [...state.posts, ...action.payload];
-        return {
-            ...state,
-            posts: newPosts,
-            filteredPosts: newPosts,
-            page: state.page + 1,
-            hasMore: newPosts.length < state.total,
-            loading: false
-        };
-       case 'SET_CATEGORIES': // Ação separada para categorias
-        return { ...state, categories: action.payload };
-      case 'SET_FILTER':
-        return { ...state, page: 1, posts: [], filteredPosts: [], ...action.payload };
-      default:
-        return state;
-    }
+    switch (action.type) {
+      case 'SET_LOADING':
+        return { ...state, loading: action.payload };
+      case 'SET_ERROR':
+        return { ...state, error: action.payload, loading: false };
+      case 'SET_INITIAL_DATA':
+        return {
+          ...state,
+          posts: action.payload.posts,
+          filteredPosts: action.payload.posts, // Corrigido para garantir que o filtro inicial seja aplicado
+          total: action.payload.total,
+          page: 1,
+          hasMore: action.payload.posts.length < (action.payload.total || 0),
+          loading: false,
+        };
+      case 'ADD_POSTS':
+        // Previne posts duplicados ao carregar mais
+        const existingPostIds = new Set(state.posts.map(p => p.id));
+        const newUniquePosts = action.payload.filter(p => !existingPostIds.has(p.id));
+        const allPosts = [...state.posts, ...newUniquePosts];
+        return {
+            ...state,
+            posts: allPosts,
+            filteredPosts: allPosts, // Corrigido para garantir que o filtro seja aplicado
+            page: state.page + 1,
+            hasMore: allPosts.length < state.total,
+            loading: false
+        };
+       case 'SET_CATEGORIES':
+        return { ...state, categories: action.payload };
+      case 'SET_FILTER':
+        // Reseta os posts ao aplicar um novo filtro para forçar uma nova busca
+        return { ...state, page: 1, posts: [], filteredPosts: [], hasMore: true, ...action.payload };
+      default:
+        return state;
+    }
 }
 
 
 export function BlogProvider({ children }: { children: React.ReactNode }) {
-  const [state, dispatch] = useReducer(blogReducer, initialState);
-  const { i18n } = useTranslation();
-  const lang = i18n.language.split('-')[0];
+  const [state, dispatch] = useReducer(blogReducer, initialState);
+  const { i18n } = useTranslation();
+  const lang = i18n.language.split('-')[0];
 
-  const fetchPosts = useCallback(async (pageToFetch: number) => {
-    if (pageToFetch > 1 && (state.loading || !state.hasMore)) return;
-    dispatch({ type: 'SET_LOADING', payload: true });
+  const fetchPosts = useCallback(async (pageToFetch: number, currentCategory: Category | null, searchQuery: string) => {
+    dispatch({ type: 'SET_LOADING', payload: true });
 
-    const from = (pageToFetch - 1) * POSTS_PER_PAGE;
-    const to = from + POSTS_PER_PAGE - 1;
+    const from = (pageToFetch - 1) * POSTS_PER_PAGE;
+    const to = from + POSTS_PER_PAGE - 1;
 
-    try {
-        let postsQuery = supabase
-          .from('posts')
-          .select(`
-            id, title:title_${lang}, slug:slug_${lang}, excerpt:excerpt_${lang},
-            cover_url, published_at, reading_time, featured,
-            author:authors(id, name:name_${lang}, avatar),
-            category:categories(id, name:name_${lang}, slug:slug_${lang}),
-            post_tags:post_tags(tag:tags(id, name:name_${lang}))
-          `, { count: 'exact' })
-          .not('published_at', 'is', null)
-          .order('published_at', { ascending: false })
-          .range(from, to);
+    try {
+        let postsQuery = supabase
+          .from('posts')
+          .select(`
+            id, title:title_${lang}, slug:slug_${lang}, excerpt:excerpt_${lang},
+            cover_url, published_at, reading_time, featured,
+            author:authors(id, name:name_${lang}, avatar),
+            category:categories(id, name:name_${lang}, slug:slug_${lang}),
+            post_tags:post_tags(tag:tags(id, name:name_${lang}))
+          `, { count: 'exact' })
+          .not('published_at', 'is', null)
+          .order('published_at', { ascending: false })
+          .range(from, to);
 
-      if (state.currentCategory) {
-        postsQuery = postsQuery.eq('category_id', state.currentCategory.id);
-      }
-      if (state.searchQuery) {
-        const searchPattern = `%${state.searchQuery}%`;
-        postsQuery = postsQuery.or(`title_${lang}.ilike.${searchPattern},excerpt_${lang}.ilike.${searchPattern}`);
-      }
-      
-      const { data: postsData, error: postsError, count: postsCount } = await postsQuery;
-      if (postsError) throw postsError;
-
-      const formattedPosts = (postsData || []).map(post => ({ ...post, tags: post.post_tags ? post.post_tags.map((pt: any) => pt.tag.name) : [], }));
-
-      if (pageToFetch === 1) {
-        dispatch({ type: 'SET_INITIAL_DATA', payload: { posts: formattedPosts, categories: state.categories, total: postsCount || 0 }});
-      } else {
-        dispatch({ type: 'ADD_POSTS', payload: formattedPosts });
-      }
-
-    } catch (error: any) {
-      console.error("Erro ao buscar posts:", error);
-      dispatch({ type: 'SET_ERROR', payload: error.message });
-    }
-  }, [lang, state.currentCategory, state.searchQuery, state.loading, state.hasMore, state.page, state.categories]);
-  
-  // Efeito separado para buscar categorias, agora com contagem
-  useEffect(() => {
-    const fetchCategories = async () => {
-        const { data: categoriesData, error: categoriesError } = await supabase
-            .from('categories')
-            .select(`id, name:name_${lang}, slug:slug_${lang}, posts(count)`);
-        
-        if(categoriesError) {
-            console.error("Erro ao buscar categorias:", categoriesError);
-            return;
-        }
-
-        const formattedCategories = categoriesData.map(cat => ({
-            ...cat,
-            count: cat.posts[0]?.count || 0
-        }));
-        
-        dispatch({ type: 'SET_CATEGORIES', payload: formattedCategories });
-    };
-    fetchCategories();
-  }, [lang]);
-
-  // Efeito para buscar posts quando os filtros mudam
-  useEffect(() => {
-    fetchPosts(1);
-  }, [lang, state.searchQuery, state.currentCategory]);
-
-  const loadMorePosts = useCallback(() => {
-    fetchPosts(state.page + 1);
-  }, [fetchPosts, state.page]);
-  
-  const searchPosts = useCallback((query: string) => {
-    dispatch({ type: 'SET_FILTER', payload: { searchQuery: query } });
-  }, []);
-
-  const filterByCategory = useCallback((category: Category | null) => {
-    dispatch({ type: 'SET_FILTER', payload: { currentCategory: category, searchQuery: '' } });
-  }, []);
-
-  const value = { state, dispatch, searchPosts, filterByCategory, loadMorePosts };
-
-  return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;
-}
-
-export function useBlog() {
-  const context = useContext(BlogContext);
-  if (context === undefined) {
-    throw new Error('useBlog must be used within a BlogProvider');
-  }
-  return context;
-}
+      if (currentCategory) {
+        postsQuery = postsQuery.eq('category_id', currentCategory.id);
+      }
+      if (searchQuery) {
+        const
