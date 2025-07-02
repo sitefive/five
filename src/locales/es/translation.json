@@ -436,7 +436,7 @@
     }
   },
   "common": {
-    "home": "Inicio"
+    "home": "Inicio",
     "loading": "Cargando..."
   },
   "footer": {
@@ -531,7 +531,7 @@
     "lastUpdate": "Última actualización: {{date}}"
   },
   "terms": {
-    "title": "Términos de Uso",
+    "title": "Térmimos de Uso",
     "description": "Lee atentamente los términos y condiciones que rigen el uso de este sitio y nuestros servicios.",
     "intro": "Estos Términos de Uso regulan el uso de este sitio y los servicios ofrecidos. Al acceder o utilizar cualquier funcionalidad, aceptas plenamente estos términos.",
     "usageLicense": {
