@@ -1,123 +1,106 @@
 [build]
-  publish = "dist"
-  command = "npm run build"
+  publish = "dist"
+  command = "npm run build"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "20"
 
-# ======================= INÍCIO DAS NOVAS REGRAS =======================
-# Configurações para as Edge Functions
 [functions]
-  # Configuração do Rate Limiting para proteger contra abuso
-  [functions.rate_limit]
-    # Limita cada endereço de IP a 10 requisições por janela de tempo.
-    limit = 10
-    # A janela de tempo é de 1 minuto (60 segundos).
-    window = 60
-# ======================= FIM DAS NOVAS REGRAS =======================
-
-
-# CRITICAL: Admin routes - highest priority
-[[redirects]]
-  from = "/admin/login"
-  to = "/index.html"
-  status = 200
-  force = true
+  [functions.rate_limit]
+    limit = 10
+    window = 60
 
 [[redirects]]
-  from = "/admin/*"
-  to = "/index.html"
-  status = 200
-  force = true
-
-# Language routes - exact matches only
-[[redirects]]
-  from = "/pt/*"
-  to = "/index.html"
-  status = 200
+  from = "/admin/login"
+  to = "/index.html"
+  status = 200
+  force = true
 
 [[redirects]]
-  from = "/en/*"
-  to = "/index.html"
-  status = 200
+  from = "/admin/*"
+  to = "/index.html"
+  status = 200
+  force = true
 
 [[redirects]]
-  from = "/es/*"
-  to = "/index.html"
-  status = 200
+  from = "/pt/*"
+  to = "/index.html"
+  status = 200
 
-# Root redirect - ONLY for exact root
 [[redirects]]
-  from = "/"
-  to = "/pt"
-  status = 302
+  from = "/en/*"
+  to = "/index.html"
+  status = 200
 
-# Final fallback
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+  from = "/es/*"
+  to = "/index.html"
+  status = 200
 
-# Headers otimizados
+[[redirects]]
+  from = "/"
+  to = "/pt"
+  status = 302
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 [[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Cache-Control = "public, max-age=0, must-revalidate"
-    # --- HEADERS DE SEGURANÇA ADICIONADOS ---
-    # Força o uso de HTTPS por 1 ano
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Cache-Control = "public, max-age=0, must-revalidate"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    # Controla o acesso a funcionalidades do navegador
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"
+    Expires = "0"
 
 [[headers]]
-  for = "/admin/*"
-  [headers.values]
-    Cache-Control = "no-cache, no-store, must-revalidate"
-    Pragma = "no-cache"
-    Expires = "0"
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# As regras de cache para arquivos estáticos abaixo estão mantidas e corretas
-[[headers]]
-  for = "*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.png"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.jpg"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+  for = "*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.jpeg"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+  for = "*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.webp"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+  for = "*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "*.svg"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+  for = "*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
