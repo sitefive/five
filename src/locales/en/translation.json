@@ -435,9 +435,10 @@
       "error": "Error sending message. Please try again."
     }
   },
-  "common": {
-    "home": "Home"
-  },
+  "common": {
+    "home": "Home",
+    "loading": "Loading..."
+  },
   "footer": {
     "about": "About",
     "aboutText": "Specialists in transforming challenges into innovative solutions for companies.",
